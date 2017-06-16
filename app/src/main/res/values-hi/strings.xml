@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Pehla Kadam</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_navigation">Navigation</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">हैलो खाली टुकड़ा</string>
+    <string name="hint_name">नाम</string>
+    <string name="hint_mobile">मोबाइल</string>
+    <string name="hint_email">ईमेल</string>
+    <string name="location">स्थान</string>
+    <string name="submit">जमा करें</string>
+    <string name="select_images_gallery">Select From Gallery</string>
+    <string name="take_picture">Take a pic from Camera</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="developers">Developers</string>
+    <string name="about_developers">About Developers</string>
+    <string name="failure_message">Unable to connect to Server</string>
+    <string name="ok_text">Ok</string>
+    <string name="developed"><![CDATA[Powered by]]></string>
+    <string name="codenicely">Powered by CodeNicely</string>
+    <string name="description">Description</string>
+</resources>
