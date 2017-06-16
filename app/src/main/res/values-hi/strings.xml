@@ -10,6 +10,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">हैलो खाली टुकड़ा</string>
+    <string name="hint_post">आपके दिमाग मे क्या है?</string>
     <string name="hint_name">नाम</string>
     <string name="hint_mobile">मोबाइल</string>
     <string name="hint_email">ईमेल</string>
