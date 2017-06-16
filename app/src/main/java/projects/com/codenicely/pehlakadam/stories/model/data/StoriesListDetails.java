@@ -14,10 +14,12 @@ public class StoriesListDetails {
     private String image;
     private String title;
     private String description;
+    private int likes;
+    private int shares;
 
-    public StoriesListDetails(int user_id, String user_name,
-                              String user_image, String date, String time,
-                              String image, String title, String description) {
+    public StoriesListDetails(int user_id, String user_name, String user_image, String date,
+                              String time, String image, String title, String description,
+                              int likes, int shares) {
         this.user_id = user_id;
         this.user_name = user_name;
         this.user_image = user_image;
@@ -26,6 +28,8 @@ public class StoriesListDetails {
         this.image = image;
         this.title = title;
         this.description = description;
+        this.likes = likes;
+        this.shares = shares;
     }
 
     public int getUser_id() {
@@ -58,5 +62,13 @@ public class StoriesListDetails {
 
     public String getDescription() {
         return description;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public int getShares() {
+        return shares;
     }
 }

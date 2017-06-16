@@ -28,7 +28,7 @@ public class StoriesPresenterImpl implements StoriesPresenter {
                 if(storiesData.isSuccess())
                 {
                     storiesView.showProgressBar(false);
-                    storiesView.setData(storiesData);
+                    storiesView.setListData(storiesData);
 
                 }
                 else {

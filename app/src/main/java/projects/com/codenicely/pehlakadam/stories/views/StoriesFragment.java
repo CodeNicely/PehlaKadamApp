@@ -4,13 +4,26 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import projects.com.codenicely.pehlakadam.R;
+import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
+import projects.com.codenicely.pehlakadam.stories.model.RetrofitStoriesProvider;
 import projects.com.codenicely.pehlakadam.stories.model.data.StoriesData;
+import projects.com.codenicely.pehlakadam.stories.presenter.StoriesPresenter;
+import projects.com.codenicely.pehlakadam.stories.presenter.StoriesPresenterImpl;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +43,31 @@ public class StoriesFragment extends Fragment implements StoriesView {
     private String mParam1;
     private String mParam2;
 
+    private SharedPrefs sharedPrefs;
+    private StoriesPresenter storiesPresenter;
+    private RecyclerAdapter recyclerAdapter;
+
+    @BindView(R.id.card_post)
+    CardView cardView;
+
+    @BindView(R.id.profile_image)
+    ImageView profile_image;
+
+    @BindView(R.id.text_post)
+    TextView text_post;
+
+    @BindView(R.id.icon_camera)
+    ImageView icon_camera;
+
+    @BindView(R.id.button_post)
+    Button button_post;
+
+    @BindView(R.id.recycler_post)
+    RecyclerView recycler_post;
+
+    @BindView(R.id.progress_post)
+    ProgressBar progress_post;
+
     private OnFragmentInteractionListener mListener;
 
     public StoriesFragment() {
@@ -40,16 +78,14 @@ public class StoriesFragment extends Fragment implements StoriesView {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment StoriesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static StoriesFragment newInstance(String param1, String param2) {
+    public static StoriesFragment newInstance() {
         StoriesFragment fragment = new StoriesFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+//        args.putString(ARG_PARAM1, param1);
+//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -58,8 +94,8 @@ public class StoriesFragment extends Fragment implements StoriesView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -67,8 +103,51 @@ public class StoriesFragment extends Fragment implements StoriesView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_stories, container, false);
+        View view= inflater.inflate(R.layout.fragment_stories, container, false);
+        ButterKnife.bind(this,view);
+        initialize();
+
+        if (sharedPrefs.isLoggedIn()){
+            cardView.setEnabled(true);
+        }
+        else {
+            cardView.setEnabled(false);
+        }
+
+        storiesPresenter.requestStories(sharedPrefs.getAccessToken());
+
+        icon_camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //// TODO: 17/6/17 Camera Permission or Gallery Permission
+            }
+        });
+
+
+        button_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Todo : Add Post Module
+            }
+        });
+
+
+
+
+        return view;
     }
+
+    void initialize(){
+
+        sharedPrefs=new SharedPrefs(getContext());
+        storiesPresenter = new StoriesPresenterImpl(this,new RetrofitStoriesProvider());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerAdapter = new RecyclerAdapter(getContext(),this);
+        recycler_post.setLayoutManager(linearLayoutManager);
+        recycler_post.setHasFixedSize(true);
+        recycler_post.setAdapter(recyclerAdapter);
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -107,7 +186,7 @@ public class StoriesFragment extends Fragment implements StoriesView {
     }
 
     @Override
-    public void setData(StoriesData storiesData) {
+    public void setListData(StoriesData storiesData) {
 
     }
 

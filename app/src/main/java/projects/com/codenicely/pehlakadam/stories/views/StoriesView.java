@@ -9,7 +9,7 @@ import projects.com.codenicely.pehlakadam.stories.model.data.StoriesData;
 public interface StoriesView {
 
     void showProgressBar(boolean show);
-    void setData(StoriesData storiesData);
+    void setListData(StoriesData storiesData);
     void showMessage(String error);
 
 }

@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import projects.com.codenicely.pehlakadam.R;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
+import projects.com.codenicely.pehlakadam.stories.views.StoriesFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -94,9 +95,12 @@ public class HomeFragment extends Fragment {
         viewPagerAdapter = new ViewPagerAdapter(getFragmentManager());
         viewpager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewpager);
+        StoriesFragment storiesFragment = StoriesFragment.newInstance();
+        fragmentList.add(storiesFragment);
+        titleList.add("Stories");
 
-
-
+        viewPagerAdapter.setData(fragmentList,titleList);
+        viewPagerAdapter.notifyDataSetChanged();
         return view;
     }
 

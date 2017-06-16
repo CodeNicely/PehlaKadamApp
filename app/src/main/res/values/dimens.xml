@@ -20,7 +20,13 @@
     <dimen name="padding_small">2dp</dimen>
 
     <!--Profile Image-->
-    <dimen name="image_width">70dp</dimen>
-    <dimen name="image_height">70dp</dimen>
+    <dimen name="image_large">70dp</dimen>
+    <dimen name="image_medium">50dp</dimen>
+    <dimen name="image_small">30dp</dimen>
+
+    <!--Image-Min_height-->
+    <dimen name="layout_min_height">150dp</dimen>
+
+
 
 </resources>

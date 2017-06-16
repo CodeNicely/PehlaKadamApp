@@ -20,7 +20,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter{
         super(fm);
     }
 
-    private void setData(List<Fragment> fragmentList,List<String> fragmentTitleList){
+    void setData(List<Fragment> fragmentList,List<String> fragmentTitleList){
         this.fragmentList=fragmentList;
         this.fragmentTitleList=fragmentTitleList;
     }

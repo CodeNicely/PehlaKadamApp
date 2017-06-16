@@ -10,6 +10,7 @@ public class SharedPrefs {
 
     private static final String PREF_NAME = "welcome";
     private static final String PREF_NAME_LOGIN = "Login";
+    private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_FCM = "fcm";
@@ -92,6 +93,10 @@ public class SharedPrefs {
         editor.commit();
 
     }
+    public boolean isLoggedIn() {
+        return pref.getBoolean(KEY_IS_LOGGEDIN, false);
+    }
+
 
 
 
