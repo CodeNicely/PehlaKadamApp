@@ -16,10 +16,12 @@ public class StoriesListDetails {
     private String description;
     private int likes;
     private int shares;
+    private boolean shared;
+    private boolean liked;
 
     public StoriesListDetails(int user_id, String user_name, String user_image, String date,
                               String time, String image, String title, String description,
-                              int likes, int shares) {
+                              int likes, int shares,boolean shared,boolean liked) {
         this.user_id = user_id;
         this.user_name = user_name;
         this.user_image = user_image;
@@ -30,6 +32,16 @@ public class StoriesListDetails {
         this.description = description;
         this.likes = likes;
         this.shares = shares;
+        this.liked=liked;
+        this.shared=shared;
+    }
+
+    public boolean isShared() {
+        return shared;
+    }
+
+    public boolean isLiked() {
+        return liked;
     }
 
     public int getUser_id() {

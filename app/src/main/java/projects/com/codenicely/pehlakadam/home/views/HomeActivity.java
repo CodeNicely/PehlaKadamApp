@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import projects.com.codenicely.pehlakadam.R;
+import projects.com.codenicely.pehlakadam.stories.views.StoriesFragment;
 
 
 public class HomeActivity extends AppCompatActivity
@@ -34,7 +35,7 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        setFragment(new HomeFragment(),"");
+        setFragment(new HomeFragment(),"Pehla Kadam");
     }
 
     @Override

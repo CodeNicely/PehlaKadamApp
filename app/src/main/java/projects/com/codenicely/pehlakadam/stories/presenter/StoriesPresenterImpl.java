@@ -1,8 +1,10 @@
 package projects.com.codenicely.pehlakadam.stories.presenter;
 
 import projects.com.codenicely.pehlakadam.stories.StoriesCallBack;
+import projects.com.codenicely.pehlakadam.stories.StoriesLikeShareCallBack;
 import projects.com.codenicely.pehlakadam.stories.model.StoriesProvider;
 import projects.com.codenicely.pehlakadam.stories.model.data.StoriesData;
+import projects.com.codenicely.pehlakadam.stories.model.data.StoriesLikeShareData;
 import projects.com.codenicely.pehlakadam.stories.views.StoriesView;
 
 /**
@@ -46,5 +48,20 @@ public class StoriesPresenterImpl implements StoriesPresenter {
             }
         });
 
+    }
+
+    @Override
+    public void requestLikeShare(String access_token, int story_id, int button_id) {
+        storiesProvider.requestLikeShare(access_token, story_id, button_id, new StoriesLikeShareCallBack() {
+            @Override
+            public void onSuccess(StoriesLikeShareData storiesLikeShareData) {
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
 }

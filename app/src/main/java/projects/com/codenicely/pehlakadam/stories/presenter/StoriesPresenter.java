@@ -9,4 +9,5 @@ package projects.com.codenicely.pehlakadam.stories.presenter;
 public interface StoriesPresenter {
 
     void requestStories(String access_token);
+    void requestLikeShare(String access_token, int story_id, int button_id);
 }

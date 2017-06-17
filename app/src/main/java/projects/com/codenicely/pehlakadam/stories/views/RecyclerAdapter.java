@@ -2,6 +2,7 @@ package projects.com.codenicely.pehlakadam.stories.views;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,13 +53,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     }
 
     @Override
-    public void onBindViewHolder(RecyclerAdapter.MyViewHolder holder, int position) {
-        StoriesListDetails storiesListDetails = storiesListDetailses.get(position);
-
+    public void onBindViewHolder(final RecyclerAdapter.MyViewHolder holder, final int position) {
+        final StoriesListDetails storiesListDetails = storiesListDetailses.get(position);
+        holder.bar_card_post.setVisibility(View.GONE);
         if (storiesListDetails.getUser_image() != null) {
 
             holder.profileImage.setVisibility(View.VISIBLE);
-            imageLoader.loadImage(storiesListDetails.getImage(), holder.image_post, holder.bar_image_post);
+            imageLoader.loadImage(storiesListDetails.getImage(), holder.image_post, holder.bar_user_image);
         } else {
             holder.profileImage.setImageResource(R.drawable.ic_profile);
         }
@@ -75,18 +76,51 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         } else {
             holder.layout_image_post.setVisibility(View.GONE);
         }
-        holder.likes_post.setText(storiesListDetails.getLikes());
-        holder.shares_post.setText(storiesListDetails.getShares());
+        if(storiesListDetails.isLiked())
+        {
+            holder.button_like.setImageResource(R.drawable.ic_liked);
+        }
+        else{
+            holder.button_like.setImageResource(R.drawable.ic_like);
+        }
+
+        if(storiesListDetails.isShared())
+        {
+            holder.button_share.setImageResource(R.drawable.ic_shared);
+        }
+        else{
+            holder.button_share.setImageResource(R.drawable.ic_share);
+        }
+        Log.d("RecyclerAdapter",holder.likesPost.toString());
+        holder.likesPost.setText(storiesListDetails.getLikes()+" ");
+        holder.shares_post.setText(storiesListDetails.getShares()+" ");
         holder.button_like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Todo : Button Click
+
+                if(storiesListDetails.isLiked())
+                {
+                    holder.button_like.setImageResource(R.drawable.ic_like);
+                }
+                else{
+                    holder.button_like.setImageResource(R.drawable.ic_liked);
+                }
+                //// TODO: 17/6/17 Like Presenter Call
+                notifyItemChanged(position);
             }
         });
         holder.button_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Todo : Button Click
+                if(storiesListDetails.isShared())
+                {
+                    holder.button_share.setImageResource(R.drawable.ic_share);
+                }
+                else{
+                    holder.button_share.setImageResource(R.drawable.ic_shared);
+                }
+                //// TODO: 17/6/17 Share Presenter Call
+                notifyItemChanged(position);
             }
         });
 
@@ -102,6 +136,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
         @BindView(R.id.profile_image)
         ImageView profileImage;
+        @BindView(R.id.bar_user_image)
+        ProgressBar bar_user_image;
         @BindView(R.id.name_post)
         TextView user_name;
         @BindView(R.id.date_post)
@@ -115,13 +151,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         @BindView(R.id.bar_image_post)
         ProgressBar bar_image_post;
         @BindView(R.id.likes_post)
-        TextView likes_post;
+        TextView likesPost;
         @BindView(R.id.shares_post)
         TextView shares_post;
         @BindView(R.id.button_like)
-        Button button_like;
+        ImageView button_like;
         @BindView(R.id.button_share)
-        Button button_share;
+        ImageView button_share;
+
+        @BindView(R.id.bar_card_post)
+        ProgressBar bar_card_post;
 
 
         public MyViewHolder(View itemView) {

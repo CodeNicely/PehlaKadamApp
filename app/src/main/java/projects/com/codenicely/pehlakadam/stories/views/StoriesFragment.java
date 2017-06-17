@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import projects.com.codenicely.pehlakadam.R;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
+import projects.com.codenicely.pehlakadam.helper.image_loader.GlideImageLoader;
+import projects.com.codenicely.pehlakadam.helper.image_loader.ImageLoader;
+import projects.com.codenicely.pehlakadam.stories.model.MockStoriesProvider;
 import projects.com.codenicely.pehlakadam.stories.model.RetrofitStoriesProvider;
 import projects.com.codenicely.pehlakadam.stories.model.data.StoriesData;
 import projects.com.codenicely.pehlakadam.stories.presenter.StoriesPresenter;
@@ -46,12 +50,16 @@ public class StoriesFragment extends Fragment implements StoriesView {
     private SharedPrefs sharedPrefs;
     private StoriesPresenter storiesPresenter;
     private RecyclerAdapter recyclerAdapter;
+    private ImageLoader imageLoader;
 
     @BindView(R.id.card_post)
     CardView cardView;
 
     @BindView(R.id.profile_image)
     ImageView profile_image;
+
+    @BindView(R.id.bar_profile_image)
+    ProgressBar bar_profile_image;
 
     @BindView(R.id.text_post)
     TextView text_post;
@@ -111,45 +119,44 @@ public class StoriesFragment extends Fragment implements StoriesView {
             cardView.setEnabled(true);
         }
         else {
+            Log.d("StoriesFragment","Checking Login");
             cardView.setEnabled(false);
         }
 
         storiesPresenter.requestStories(sharedPrefs.getAccessToken());
-
+        imageLoader.loadImage(sharedPrefs.getProfileImage(), profile_image, bar_profile_image);
+        Log.d("StoriesFragment","Below ImageLoader");
         icon_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //// TODO: 17/6/17 Camera Permission or Gallery Permission
             }
         });
-
-
         button_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Todo : Add Post Module
             }
         });
-
-
-
-
         return view;
     }
 
     void initialize(){
 
         sharedPrefs=new SharedPrefs(getContext());
-        storiesPresenter = new StoriesPresenterImpl(this,new RetrofitStoriesProvider());
+//        storiesPresenter = new StoriesPresenterImpl(this,new RetrofitStoriesProvider());
+        storiesPresenter = new StoriesPresenterImpl(this,new MockStoriesProvider());
+        imageLoader =new GlideImageLoader(getContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerAdapter = new RecyclerAdapter(getContext(),this);
         recycler_post.setLayoutManager(linearLayoutManager);
         recycler_post.setHasFixedSize(true);
+        recyclerAdapter = new RecyclerAdapter(getContext(),this);
         recycler_post.setAdapter(recyclerAdapter);
     }
 
 
-    // TODO: Rename method, update argument and hook method into UI event
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -159,12 +166,6 @@ public class StoriesFragment extends Fragment implements StoriesView {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
     }
 
     @Override
@@ -177,17 +178,19 @@ public class StoriesFragment extends Fragment implements StoriesView {
     public void showProgressBar(boolean show) {
         if(show)
         {
-
+            progress_post.setVisibility(View.VISIBLE);
         }
         else
         {
-
+            Log.d("Stories","progressBar Gone");
+            progress_post.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void setListData(StoriesData storiesData) {
-
+        recyclerAdapter.setData(storiesData.getStories_list());
+        recyclerAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -206,7 +209,7 @@ public class StoriesFragment extends Fragment implements StoriesView {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         void onFragmentInteraction(Uri uri);
     }
 }

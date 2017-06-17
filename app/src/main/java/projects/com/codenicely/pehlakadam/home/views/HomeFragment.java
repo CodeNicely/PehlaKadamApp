@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,14 +46,13 @@ public class HomeFragment extends Fragment {
     private List<Fragment> fragmentList = new ArrayList<>();
 
     @BindView(R.id.tabLayout)
-    private TabLayout tabLayout;
+    TabLayout tabLayout;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
-    @BindView(R.id.home_viewpager)
-    private ViewPager viewpager;
+//    @BindView(R.id.home_viewpager)
+//    private ViewPager viewpager;
 
     private ViewPagerAdapter viewPagerAdapter;
-
 
     public HomeFragment() {
         // Required empty public constructor
@@ -75,7 +75,6 @@ public class HomeFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,25 +83,36 @@ public class HomeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this,view);
+        ViewPager viewpager=(ViewPager)view.findViewById(R.id.home_viewpager);
+        initialize();
         sharedPrefs=new SharedPrefs(getContext());
-        viewPagerAdapter = new ViewPagerAdapter(getFragmentManager());
-        viewpager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewpager);
+        viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
+        Log.d("HomeFragment","1");
+        Log.d("HomeFragment",viewPagerAdapter.toString());
+        Log.d("HomeFragment",viewpager.toString());
+        Log.d("HomeFragment",tabLayout.toString());
+
         StoriesFragment storiesFragment = StoriesFragment.newInstance();
         fragmentList.add(storiesFragment);
         titleList.add("Stories");
-
+        viewpager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewpager);
         viewPagerAdapter.setData(fragmentList,titleList);
         viewPagerAdapter.notifyDataSetChanged();
+
         return view;
     }
+
+    void initialize(){
+
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -114,12 +124,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
+
     }
 
     @Override
@@ -139,7 +144,6 @@ public class HomeFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

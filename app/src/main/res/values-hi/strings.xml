@@ -31,4 +31,5 @@
     <string name="developed"><![CDATA[Powered by]]></string>
     <string name="codenicely">Powered by CodeNicely</string>
     <string name="description">Description</string>
+    <string name="title_activity_welcome">WelcomeActivity</string>
 </resources>

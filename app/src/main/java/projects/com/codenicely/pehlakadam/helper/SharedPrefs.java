@@ -17,6 +17,7 @@ public class SharedPrefs {
     private static final String KEY_ACCESS_TOKEN = "access_token";
     private static final int KEY_VERSION = 1;
     private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
+    private static final String PROFILE_IMAGE = "profile_image";
 
     // LogCat tag
     private static String TAG = "Shared Preference";
@@ -35,11 +36,20 @@ public class SharedPrefs {
         editor = pref.edit();
     }
 
+    public static String getProfileImage() {
+        return PROFILE_IMAGE;
+    }
+
+    public void setProfileImage(String profile_image) {
+
+        editor.putString(PROFILE_IMAGE, profile_image);
+        editor.commit();
+
+    }
+
     public static int getKeyVersion() {
         return KEY_VERSION;
     }
-
-
 
     public String getUsername() {
         return pref.getString(KEY_USERNAME, "Not Available");

@@ -1,11 +1,15 @@
 package projects.com.codenicely.pehlakadam.stories.model;
 
+import android.graphics.Bitmap;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import projects.com.codenicely.pehlakadam.helper.Urls;
 import projects.com.codenicely.pehlakadam.stories.StoriesCallBack;
+import projects.com.codenicely.pehlakadam.stories.StoriesLikeShareCallBack;
 import projects.com.codenicely.pehlakadam.stories.api.StoriesRequestApi;
 import projects.com.codenicely.pehlakadam.stories.model.data.StoriesData;
+import projects.com.codenicely.pehlakadam.stories.model.data.StoriesLikeShareData;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,5 +61,37 @@ public class RetrofitStoriesProvider implements StoriesProvider{
                 storiesCallBack.onFailure("No Internet Connection");
             }
         });
+    }
+
+    @Override
+    public void requestLikeShare(String access_token, int story_id,
+                                 int button_id, final StoriesLikeShareCallBack storiesLikeShareCallBack) {
+        Call<StoriesLikeShareData> storiesLikeShareDataCall;
+        if(button_id==0)//LIKE BUTTON CLICK
+        {
+            storiesLikeShareDataCall=storiesRequestApi.requestLikeStory(access_token,story_id);
+        }
+        else//SHARE BUTTON CLICK
+        {
+            storiesLikeShareDataCall=storiesRequestApi.requestShareStory(access_token,story_id);
+        }
+
+        storiesLikeShareDataCall.enqueue(new Callback<StoriesLikeShareData>() {
+            @Override
+            public void onResponse(Call<StoriesLikeShareData> call, Response<StoriesLikeShareData> response) {
+                storiesLikeShareCallBack.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<StoriesLikeShareData> call, Throwable throwable) {
+                throwable.printStackTrace();
+                storiesLikeShareCallBack.onFailure("No Internet Connection");
+            }
+        });
+    }
+
+    @Override
+    public void addStories(String access_token, String title, String description, Bitmap image) {
+
     }
 }

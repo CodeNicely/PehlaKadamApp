@@ -7,6 +7,7 @@ public class Urls {
 	public static final String BASE_URL = "http://ecellapp.pythonanywhere.com/";
 	public static final String SUB_URL_WELCOME = "welcome";
 	public static final String REQUEST_STORIES = "stories/";
-
+	public static final String REQUEST_STORIES_LIKE= "like/";
+	public static final String REQUEST_STORIES_SHARE= "share/";
 
 }
