@@ -18,6 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import projects.com.codenicely.pehlakadam.R;
+import projects.com.codenicely.pehlakadam.gallery.view.GalleryFragment;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
 import projects.com.codenicely.pehlakadam.stories.views.StoriesFragment;
 
@@ -99,8 +100,14 @@ public class HomeFragment extends Fragment {
         Log.d("HomeFragment",tabLayout.toString());
 
         StoriesFragment storiesFragment = StoriesFragment.newInstance();
+        GalleryFragment galleryFragment=new GalleryFragment();
+
         fragmentList.add(storiesFragment);
+        fragmentList.add(galleryFragment);
+
         titleList.add("Stories");
+        titleList.add("Gallery");
+
         viewpager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewpager);
         viewPagerAdapter.setData(fragmentList,titleList);

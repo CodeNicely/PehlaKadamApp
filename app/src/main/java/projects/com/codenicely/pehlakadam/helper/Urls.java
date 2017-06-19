@@ -15,6 +15,8 @@ public class Urls {
 	//for login --->get and otp --->post
 	public static final String SUB_URL_LOGIN = "login/";
 	public static final String SUB_URL_ABOUT_US = "about_us/";
+	public static final String SUB_URL_GALLERY_API ="gallery_image/" ;
+
 
 }
 
