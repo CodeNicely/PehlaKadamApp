@@ -6,6 +6,7 @@ package projects.com.codenicely.pehlakadam.stories.model.data;
 
 public class StoriesListDetails {
 
+    private int story_id;
     private int user_id;
     private String user_name;
     private String user_image;
@@ -19,9 +20,10 @@ public class StoriesListDetails {
     private boolean shared;
     private boolean liked;
 
-    public StoriesListDetails(int user_id, String user_name, String user_image, String date,
+    public StoriesListDetails(int story_id,int user_id, String user_name, String user_image, String date,
                               String time, String image, String title, String description,
                               int likes, int shares,boolean shared,boolean liked) {
+        this.story_id=story_id;
         this.user_id = user_id;
         this.user_name = user_name;
         this.user_image = user_image;
@@ -34,6 +36,10 @@ public class StoriesListDetails {
         this.shares = shares;
         this.liked=liked;
         this.shared=shared;
+    }
+
+    public int getStory_id() {
+        return story_id;
     }
 
     public boolean isShared() {

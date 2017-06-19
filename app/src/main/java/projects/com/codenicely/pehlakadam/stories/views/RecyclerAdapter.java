@@ -1,6 +1,7 @@
 package projects.com.codenicely.pehlakadam.stories.views;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,9 +19,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import projects.com.codenicely.pehlakadam.R;
+import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
 import projects.com.codenicely.pehlakadam.helper.image_loader.GlideImageLoader;
 import projects.com.codenicely.pehlakadam.helper.image_loader.ImageLoader;
+import projects.com.codenicely.pehlakadam.stories.model.MockStoriesProvider;
+import projects.com.codenicely.pehlakadam.stories.model.RetrofitStoriesProvider;
 import projects.com.codenicely.pehlakadam.stories.model.data.StoriesListDetails;
+import projects.com.codenicely.pehlakadam.stories.presenter.StoriesPresenter;
+import projects.com.codenicely.pehlakadam.stories.presenter.StoriesPresenterImpl;
 
 /**
  * Created by aman on 16/6/17.
@@ -33,6 +39,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     private ImageLoader imageLoader;
     private List<StoriesListDetails> storiesListDetailses=new ArrayList<>();
     private StoriesFragment storiesFragment;
+    private SharedPrefs sharedPreferences;
+    private StoriesPresenter storiesPresenter;
+
 
 
     public RecyclerAdapter(Context context,  StoriesFragment storiesFragment) {
@@ -40,6 +49,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         this.storiesFragment = storiesFragment;
         this.layoutInflater = LayoutInflater.from(context);
         this.imageLoader =new GlideImageLoader(context);
+        this.sharedPreferences = new SharedPrefs(context);
+//        this.storiesPresenter= new StoriesPresenterImpl(storiesFragment,new RetrofitStoriesProvider());
+        this.storiesPresenter= new StoriesPresenterImpl(storiesFragment,new MockStoriesProvider());
+
     }
 
     void setData(List<StoriesListDetails> storiesListDetailses){
@@ -54,6 +67,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public void onBindViewHolder(final RecyclerAdapter.MyViewHolder holder, final int position) {
+
         final StoriesListDetails storiesListDetails = storiesListDetailses.get(position);
         holder.bar_card_post.setVisibility(View.GONE);
         if (storiesListDetails.getUser_image() != null) {
@@ -106,6 +120,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                     holder.button_like.setImageResource(R.drawable.ic_liked);
                 }
                 //// TODO: 17/6/17 Like Presenter Call
+                storiesPresenter.requestLikeShare(sharedPreferences.getAccessToken(),
+                        storiesListDetails.getStory_id(),0);
+
                 notifyItemChanged(position);
             }
         });
@@ -120,6 +137,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                     holder.button_share.setImageResource(R.drawable.ic_shared);
                 }
                 //// TODO: 17/6/17 Share Presenter Call
+                storiesPresenter.requestLikeShare(sharedPreferences.getAccessToken(),
+                        storiesListDetails.getStory_id(),1);
                 notifyItemChanged(position);
             }
         });

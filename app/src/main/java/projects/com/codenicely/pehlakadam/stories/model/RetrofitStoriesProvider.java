@@ -1,10 +1,17 @@
 package projects.com.codenicely.pehlakadam.stories.model;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 
+import java.io.File;
+import java.io.IOException;
+
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import projects.com.codenicely.pehlakadam.helper.Urls;
+import projects.com.codenicely.pehlakadam.helper.utils.FileUtils;
 import projects.com.codenicely.pehlakadam.stories.StoriesCallBack;
 import projects.com.codenicely.pehlakadam.stories.StoriesLikeShareCallBack;
 import projects.com.codenicely.pehlakadam.stories.api.StoriesRequestApi;
@@ -16,6 +23,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
 
 /**
  * Created by aman on 16/6/17.
@@ -91,7 +99,27 @@ public class RetrofitStoriesProvider implements StoriesProvider{
     }
 
     @Override
-    public void addStories(String access_token, String title, String description, Bitmap image) {
+    public Observable<StoriesLikeShareData> addStories(String access_token, String title,
+                                                       String description, Uri image)
+                                                        throws IOException {
 
+        RequestBody access_token1=RequestBody.create(
+                MediaType.parse("multipart/form-data"), access_token);
+        RequestBody title1=RequestBody.create(
+                MediaType.parse("multipart/form-data"), title);
+        RequestBody description1=RequestBody.create(
+                MediaType.parse("multipart/form-data"), description);
+        if (image!=null)
+        {
+//            File imageFile = FileUtils.BitmapToFileConverter(context,)
+
+        }
+
+
+
+
+        return null;
     }
+
+
 }
