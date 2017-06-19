@@ -156,8 +156,8 @@ public class StoriesFragment extends Fragment implements StoriesView {
         progressDialog.setIndeterminate(true);
         progressDialog.setCancelable(false);
         initialize();
-        hideKeyboard();
-        text_post.clearFocus();
+
+//        text_post.setFocusable(false);
 
         if (sharedPrefs.isLoggedIn()){
             cardView.setEnabled(true);
@@ -166,7 +166,12 @@ public class StoriesFragment extends Fragment implements StoriesView {
             Log.d("StoriesFragment","Checking Login");
             cardView.setEnabled(false);
         }
-
+//        text_post.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                text_post.setFocusable(true);
+//            }
+//        });
         storiesPresenter.requestStories(sharedPrefs.getAccessToken());
         imageLoader.loadImage(sharedPrefs.getProfileImage(), profile_image, bar_profile_image);
         Log.d("StoriesFragment","Below ImageLoader");
@@ -194,9 +199,11 @@ public class StoriesFragment extends Fragment implements StoriesView {
                 //Todo : Add Post Module
                 String desc =text_post.getText().toString();
                 Log.d("StoriesFragment",desc+" ");
+                hideKeyboard();
                 storiesPresenter.addStories(sharedPrefs.getAccessToken(),"Title",desc,imageUri);
             }
         });
+        hideKeyboard();
         return view;
     }
 
@@ -213,6 +220,7 @@ public class StoriesFragment extends Fragment implements StoriesView {
         recyclerAdapter = new RecyclerAdapter(getContext(),this);
         recycler_post.setAdapter(recyclerAdapter);
         Dexter.initialize(context);
+
     }
 
 

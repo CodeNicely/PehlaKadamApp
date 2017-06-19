@@ -45,10 +45,10 @@ public class HomeActivity extends AppCompatActivity
     private List<Fragment> fragmentList = new ArrayList<>();
     private ViewPagerAdapter viewPagerAdapter;
 
-    @BindView(R.id.tabLayout)
-    TabLayout tabLayout;
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
+//    @BindView(R.id.tabLayout)
+//    TabLayout tabLayout;
+//    @BindView(R.id.progressBar)
+//    ProgressBar progressBar;
 //    @BindView(R.id.appBarLayout)
 //    AppBarLayout appBarLayout;
 //    @BindView(R.id.viewPagerLayout)
@@ -149,7 +149,7 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_contact_us) {
 
             ContactUsFragment contactUsFragment = new ContactUsFragment();
-            addFragment(contactUsFragment,"Contact Us");
+            setFragment(contactUsFragment,"Contact Us");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

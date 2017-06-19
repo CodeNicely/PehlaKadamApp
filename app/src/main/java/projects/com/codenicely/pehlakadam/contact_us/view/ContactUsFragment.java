@@ -29,6 +29,7 @@ import projects.com.codenicely.pehlakadam.contact_us.presenter.ContactUsPresente
 import projects.com.codenicely.pehlakadam.contact_us.presenter.ContactUsPresenterImpl;
 import projects.com.codenicely.pehlakadam.helper.image_loader.GlideImageLoader;
 import projects.com.codenicely.pehlakadam.helper.image_loader.ImageLoader;
+import projects.com.codenicely.pehlakadam.home.views.HomeActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -136,7 +137,7 @@ public class ContactUsFragment extends Fragment implements ContactUsView {
         /*AdView adView = (AdView)view.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);*/
-
+        ((HomeActivity)getContext()).getSupportActionBar().hide();
         toolbar.setNavigationIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_arrow_back_white_24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,5 +242,11 @@ public class ContactUsFragment extends Fragment implements ContactUsView {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        
     }
 }
