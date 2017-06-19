@@ -53,7 +53,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         GalleryViewHolder galleryViewHolder=(GalleryViewHolder)holder;
 
-        imageLoader.loadImage(Urls.BASE_URL + "ImageReturn?ImageName=" + imageData.getImage_url(),galleryViewHolder.imageView,galleryViewHolder.progressBar);
+        imageLoader.loadImage(imageData.getImage_url(),galleryViewHolder.imageView,galleryViewHolder.progressBar);
         galleryViewHolder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
