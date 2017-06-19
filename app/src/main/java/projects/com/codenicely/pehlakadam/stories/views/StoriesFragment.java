@@ -157,6 +157,7 @@ public class StoriesFragment extends Fragment implements StoriesView {
         progressDialog.setCancelable(false);
         initialize();
         hideKeyboard();
+        text_post.clearFocus();
 
         if (sharedPrefs.isLoggedIn()){
             cardView.setEnabled(true);

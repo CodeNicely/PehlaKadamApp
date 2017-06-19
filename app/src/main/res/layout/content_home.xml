@@ -10,24 +10,26 @@
     tools:showIn="@layout/app_bar_home"
     tools:context="projects.com.codenicely.pehlakadam.home.views.HomeActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/appBarLayout">
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/appBarLayout"-->
+        <!--android:id="@+id/viewPagerLayout"-->
+        <!--&gt;-->
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/home_viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <!--<android.support.v4.view.ViewPager-->
+            <!--android:id="@+id/home_viewpager"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
 
-        </android.support.v4.view.ViewPager>
+        <!--</android.support.v4.view.ViewPager>-->
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="gone" />
-    </RelativeLayout>
+        <!--<ProgressBar-->
+            <!--android:id="@+id/progressBar"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:visibility="gone" />-->
+    <!--</RelativeLayout>-->
 
 </RelativeLayout>

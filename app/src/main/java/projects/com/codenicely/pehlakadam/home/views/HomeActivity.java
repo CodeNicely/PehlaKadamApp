@@ -2,6 +2,7 @@ package projects.com.codenicely.pehlakadam.home.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,7 +17,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,12 +49,21 @@ public class HomeActivity extends AppCompatActivity
     TabLayout tabLayout;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
+//    @BindView(R.id.appBarLayout)
+//    AppBarLayout appBarLayout;
+//    @BindView(R.id.viewPagerLayout)
+//    RelativeLayout relativeLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().show();
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -62,26 +74,28 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-//        setFragment(new HomeFragment(),"Pehla Kadam");
-        ButterKnife.bind(this);
-        ViewPager viewpager=(ViewPager)findViewById(R.id.home_viewpager);
-
-        sharedPrefs=new SharedPrefs(this);
-        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-
-        StoriesFragment storiesFragment = StoriesFragment.newInstance();
-        GalleryFragment galleryFragment=new GalleryFragment();
-
-        fragmentList.add(storiesFragment);
-        fragmentList.add(galleryFragment);
-
-        titleList.add("Stories");
-        titleList.add("Gallery");
-
-        viewpager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewpager);
-        viewPagerAdapter.setData(fragmentList,titleList);
-        viewPagerAdapter.notifyDataSetChanged();
+        setFragment(new HomeFragment(),"Pehla Kadam");
+//
+//        appBarLayout.setVisibility(View.VISIBLE);
+//        relativeLayout.setVisibility(View.VISIBLE);
+//        ViewPager viewpager=(ViewPager)findViewById(R.id.home_viewpager);
+//
+//        sharedPrefs=new SharedPrefs(this);
+//        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+//
+//        StoriesFragment storiesFragment = StoriesFragment.newInstance();
+//        GalleryFragment galleryFragment=new GalleryFragment();
+//
+//        fragmentList.add(storiesFragment);
+//        fragmentList.add(galleryFragment);
+//
+//        titleList.add("Stories");
+//        titleList.add("Gallery");
+//
+//        viewpager.setAdapter(viewPagerAdapter);
+//        tabLayout.setupWithViewPager(viewpager);
+//        viewPagerAdapter.setData(fragmentList,titleList);
+//        viewPagerAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -133,6 +147,7 @@ public class HomeActivity extends AppCompatActivity
             addFragment(aboutUsFragment,"About Us");
 
         } else if (id == R.id.nav_contact_us) {
+
             ContactUsFragment contactUsFragment = new ContactUsFragment();
             addFragment(contactUsFragment,"Contact Us");
         }
