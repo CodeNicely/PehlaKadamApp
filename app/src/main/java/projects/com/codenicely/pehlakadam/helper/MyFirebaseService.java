@@ -82,7 +82,7 @@ public class MyFirebaseService extends FirebaseMessagingService {
                 .setSound(defaultSoundUri)
                 .setPriority(10011)
 
-                .setSmallIcon(R.mipmap.pehla_kadam_logo);
+                .setSmallIcon(R.drawable.pk_icon10_text_green);
 
         Log.d("value of nid",String.valueOf(nid));
 
@@ -105,7 +105,7 @@ public class MyFirebaseService extends FirebaseMessagingService {
                 .setContentText(remoteMessage.getData().get("message"))
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
-                .setSound(defaultSoundUri).setSmallIcon(R.mipmap.pehla_kadam_logo);
+                .setSound(defaultSoundUri).setSmallIcon(R.drawable.pk_icon10_text_green);
 
         Log.d("value of nid",String.valueOf(nid));
 
