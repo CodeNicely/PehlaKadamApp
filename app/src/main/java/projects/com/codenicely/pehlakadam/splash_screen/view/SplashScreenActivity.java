@@ -61,7 +61,7 @@ public class SplashScreenActivity extends Activity implements SplashScreenView {
         imageLoader = new GlideImageLoader(this);
         Log.d("ID-----------",codenicely_logo.toString());
         Glide.with(this).load(R.drawable.codenicely_logo).into(codenicely_logo);
-        Glide.with(this).load(R.mipmap.pehla_kadam_logo).into(logo);
+        Glide.with(this).load(R.drawable.pk_icon10_text_green).into(logo);
 
         sharedPrefs = new SharedPrefs(this);
 //        splashScreenPresenter = new SplashScreenPresenterImpl(this,

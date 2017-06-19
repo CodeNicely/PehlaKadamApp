@@ -22,6 +22,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import projects.com.codenicely.pehlakadam.R;
+import projects.com.codenicely.pehlakadam.contact_us.model.MockProvider;
 import projects.com.codenicely.pehlakadam.contact_us.model.RetrofitContactUsProvider;
 import projects.com.codenicely.pehlakadam.contact_us.model.data.ContactUsData;
 import projects.com.codenicely.pehlakadam.contact_us.presenter.ContactUsPresenter;
@@ -145,7 +146,8 @@ public class ContactUsFragment extends Fragment implements ContactUsView {
         });
 
         snackView = getActivity().findViewById(R.id.home_layout);
-        contactUsPresenter = new ContactUsPresenterImpl(this, new RetrofitContactUsProvider());
+//        contactUsPresenter = new ContactUsPresenterImpl(this, new RetrofitContactUsProvider());
+        contactUsPresenter = new ContactUsPresenterImpl(this, new MockProvider());
         contactUsPresenter.requestContactUs();
 
         imageLoader = new GlideImageLoader(getContext());
