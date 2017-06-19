@@ -1,5 +1,6 @@
 package projects.com.codenicely.pehlakadam.stories.model;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 
@@ -7,11 +8,14 @@ import java.io.File;
 import java.io.IOException;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import projects.com.codenicely.pehlakadam.helper.Urls;
+import projects.com.codenicely.pehlakadam.helper.utils.BitmapUtils;
 import projects.com.codenicely.pehlakadam.helper.utils.FileUtils;
+import projects.com.codenicely.pehlakadam.helper.utils.UriUtils;
 import projects.com.codenicely.pehlakadam.stories.StoriesCallBack;
 import projects.com.codenicely.pehlakadam.stories.StoriesLikeShareCallBack;
 import projects.com.codenicely.pehlakadam.stories.api.StoriesRequestApi;
@@ -23,6 +27,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Multipart;
 import rx.Observable;
 
 /**
@@ -32,9 +37,11 @@ import rx.Observable;
 public class RetrofitStoriesProvider implements StoriesProvider{
 
     private StoriesRequestApi storiesRequestApi;
+    private Context context;
 
-    public RetrofitStoriesProvider() {
+    public RetrofitStoriesProvider(Context context) {
 
+        this.context=context;
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor)
@@ -111,12 +118,17 @@ public class RetrofitStoriesProvider implements StoriesProvider{
                 MediaType.parse("multipart/form-data"), description);
         if (image!=null)
         {
-//            File imageFile = FileUtils.BitmapToFileConverter(context,)
+            File imageFile = FileUtils.BitmapToFileConverter(context,
+                            BitmapUtils.filePathToBitmapConverter(
+                            UriUtils.uriToFilePathConverter(context,image)));
+            RequestBody fbody= RequestBody.create(MediaType.parse("multipart/form-data"),imageFile);
+
+            MultipartBody.Part image1=
+                            MultipartBody.Part.createFormData("image",imageFile.getName(),fbody);
+
+            return storiesRequestApi.addStories(access_token1,title1,description1,image1);
 
         }
-
-
-
 
         return null;
     }

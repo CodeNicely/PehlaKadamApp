@@ -27,7 +27,7 @@ public class WelcomePresenterImpl implements WelcomePresenter {
             public void onSuccess(WelcomeData welcomeData) {
                 if(welcomeData.isSuccess())
                 {
-                    welcomeView.setData(welcomeData.getWelcome_page(),welcomeData.getWardDetailsList());
+                    welcomeView.setData(welcomeData.getWelcome_page(),welcomeData.getWard_list());
                     welcomeView.showMessage("Success");
                     welcomeView.showProgressBar(false);
                 }

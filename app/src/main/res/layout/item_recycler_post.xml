@@ -92,13 +92,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/layout_image_post"
-                android:minHeight="@dimen/layout_min_height"
                 >
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/burger"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/hint_post"
                     android:layout_margin="@dimen/padding_medium"

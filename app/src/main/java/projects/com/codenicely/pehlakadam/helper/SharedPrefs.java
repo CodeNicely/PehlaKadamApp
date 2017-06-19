@@ -70,7 +70,7 @@ public class SharedPrefs {
 
     public String getAccessToken() {
 
-        return pref.getString(KEY_ACCESS_TOKEN, null);
+        return pref.getString(KEY_ACCESS_TOKEN, "1");
     }
 
     public void setAccessToken(String accessToken) {
