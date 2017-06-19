@@ -4,13 +4,21 @@
       <root url="jar://$USER_HOME$/.android/build-cache/b17013633f6794f77daa40ce1d00f1005ab1bb35/output/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
+<<<<<<< HEAD
       <root url="jar://$USER_HOME$/.android/build-cache/b17013633f6794f77daa40ce1d00f1005ab1bb35/output/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.android/build-cache/b17013633f6794f77daa40ce1d00f1005ab1bb35/output/res" />
+=======
+      <root url="jar://$USER_HOME$/.android/build-cache/9a48da2dbfe0d356a27eb5e1d6b01b44e35c7f43/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/9a48da2dbfe0d356a27eb5e1d6b01b44e35c7f43/output/res" />
+>>>>>>> 43d277876f0cd84eadeea81ce62fb18c34a292a9
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/Android/Sdk/extras/android/m2repository/com/android/support/support-fragment/25.3.1/support-fragment-25.3.1-sources.jar!/" />
+<<<<<<< HEAD
       <root url="jar://$USER_HOME$/Library/Android/sdk/extras/android/m2repository/com/android/support/support-fragment/25.3.1/support-fragment-25.3.1-sources.jar!/" />
+=======
+>>>>>>> 43d277876f0cd84eadeea81ce62fb18c34a292a9
     </SOURCES>
   </library>
 </component>
