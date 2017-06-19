@@ -90,6 +90,7 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this,view);
+        ((HomeActivity)getContext()).getSupportActionBar().show();
         ViewPager viewpager=(ViewPager)view.findViewById(R.id.home_viewpager);
         initialize();
         sharedPrefs=new SharedPrefs(getContext());

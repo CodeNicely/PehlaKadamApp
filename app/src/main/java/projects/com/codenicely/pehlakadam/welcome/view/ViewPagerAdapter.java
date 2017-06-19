@@ -1,6 +1,7 @@
 package projects.com.codenicely.pehlakadam.welcome.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import java.util.List;
 import projects.com.codenicely.pehlakadam.R;
 import projects.com.codenicely.pehlakadam.helper.image_loader.GlideImageLoader;
 import projects.com.codenicely.pehlakadam.helper.image_loader.ImageLoader;
+import projects.com.codenicely.pehlakadam.home.views.HomeActivity;
 import projects.com.codenicely.pehlakadam.welcome.data.WardDetails;
 import projects.com.codenicely.pehlakadam.welcome.data.WelcomePageDetails;
 
@@ -109,6 +111,9 @@ public class ViewPagerAdapter extends PagerAdapter {
 			editTextMobile = (EditText) view.findViewById(R.id.input_mobile);
 			spinnerWard = (Spinner) view.findViewById(R.id.spinner_ward);
 			loginButton = (Button) view.findViewById(R.id.login_button);
+			Button skip_button = (Button) view.findViewById(R.id.skip_button);
+
+
 
 			ward_array_adapter = new ArrayAdapter<>(context, R.layout.support_simple_spinner_dropdown_item);
 			ward_array_adapter.add(SELECT_WARD);
@@ -119,6 +124,14 @@ public class ViewPagerAdapter extends PagerAdapter {
 			}
 
 			spinnerWard.setAdapter(ward_array_adapter);
+			skip_button.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					Intent i = new Intent(context, HomeActivity.class);
+					((WelcomeActivity)context).startActivity(i);
+					((WelcomeActivity)context).finish();
+				}
+			});
 
 			loginButton.setOnClickListener(new View.OnClickListener() {
 				@Override
