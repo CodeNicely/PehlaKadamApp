@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/aman/.android/build-cache/020a12156054b8bdb02b87ea6ef727b45d642244/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="5a2386ad9bfff580b206a7fe305cdccd00798159">
+        <dex dex="/home/aman/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/classes_a547f56c568762215d91e5ff24bae8b7e48ddba0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/aman/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.1.6/2586312cd2b8a511e4c6236736f5a039fc0f2273/rxjava-1.1.6.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="2586312cd2b8a511e4c6236736f5a039fc0f2273">
+        <dex dex="/home/aman/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/rxjava-1.1.6_59ce0469ea0fa8f9069ebe38a105d3b6fe8eeef1.jar" />
+    </item>
+
+</items>

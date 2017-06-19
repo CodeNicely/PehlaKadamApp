@@ -59,13 +59,7 @@
                         />
 
                 </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/padding_small"
-                    android:layout_marginTop="@dimen/padding_large"
-                    android:layout_marginBottom="@dimen/padding_large"
-                    android:background="@color/Dark"
-                    />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -80,6 +74,16 @@
                         android:clickable="true"
                         android:id="@+id/icon_camera"
                         />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_gallery"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="@dimen/padding_large"
+                        android:layout_toRightOf="@+id/icon_camera"
+                        android:clickable="true"
+                        android:id="@+id/icon_gallery"
+                        />
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -92,6 +96,14 @@
                         />
 
                 </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:id="@+id/imageView"
+                    />
 
             </LinearLayout>
 
