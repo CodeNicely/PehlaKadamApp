@@ -2,12 +2,15 @@ package projects.com.codenicely.pehlakadam.welcome.view;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projects.com.codenicely.pehlakadam.R;
+import projects.com.codenicely.pehlakadam.helper.image_loader.GlideImageLoader;
+import projects.com.codenicely.pehlakadam.helper.image_loader.ImageLoader;
 import projects.com.codenicely.pehlakadam.welcome.data.WardDetails;
 import projects.com.codenicely.pehlakadam.welcome.data.WelcomePageDetails;
 
@@ -32,7 +37,9 @@ public class ViewPagerAdapter extends PagerAdapter {
 	private static final String SELECT_WARD = "Select Ward";
 	private Spinner spinnerWard;
 	private Context context;
-    private TextView question;
+    private TextView quote;
+	private ImageView imageView;
+	private ProgressBar progressBar;
 	private EditText editTextName,editTextMobile;
 	private String name,mobile,ward;
     private Button forward_button,loginButton;
@@ -40,6 +47,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 	private List<WardDetails> wardDetailsList = new ArrayList<>();
     private LayoutInflater layoutInflater;
 	int size;
+	ImageLoader imageLoader;
 	private ArrayAdapter<String> ward_array_adapter;
 	private WelcomeActivity welcomeActivity;
 
@@ -53,26 +61,28 @@ public class ViewPagerAdapter extends PagerAdapter {
         this.welcomePageDetailsList =pageDetailsList;
 		this.wardDetailsList=wardDetailsList;
 		size=welcomePageDetailsList.size()+1;
-		for (int i = 0; i < wardDetailsList.size(); i++) {
-			WardDetails wardDetails = wardDetailsList.get(i);
-			ward_array_adapter.add(wardDetails.getName());
-		}
+		Log.d("SIZE----",wardDetailsList.size()+"");
+
 
 	}
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         layoutInflater = LayoutInflater.from(context);
+
+
         if (position < welcomePageDetailsList.size() && welcomePageDetailsList.size()!=0) {
 
             View view = layoutInflater.inflate(R.layout.viewpager_item, container, false);
             container.addView(view);
             WelcomePageDetails welcomeDetails = welcomePageDetailsList.get(position);
-            forward_button = (Button) view.findViewById(R.id.welcome_button);
-            question = (TextView) view.findViewById(R.id.first_question);
+         	forward_button = (Button) view.findViewById(R.id.welcome_button);
+			quote = (TextView) view.findViewById(R.id.quote);
+         	imageView= (ImageView) view.findViewById(R.id.image_view);
+			progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
             YoYo.with(Techniques.ZoomInLeft)
                     .duration(1500)
-                    .playOn(question);
+                    .playOn(quote);
             if (position == welcomePageDetailsList.size() - 1)
                 forward_button.setVisibility(View.INVISIBLE);
             else
@@ -83,8 +93,12 @@ public class ViewPagerAdapter extends PagerAdapter {
                     ((WelcomeActivity) context).setHome();
                 }
             });
-            question.setText(welcomeDetails.getQuote());
-            return view;
+			imageLoader = new GlideImageLoader(context);
+			imageLoader.loadImage(welcomeDetails.getImage(),imageView,progressBar);
+
+			quote.setText(welcomeDetails.getQuote());
+
+			return view;
 
         }
 		else {
@@ -98,12 +112,20 @@ public class ViewPagerAdapter extends PagerAdapter {
 
 			ward_array_adapter = new ArrayAdapter<>(context, R.layout.support_simple_spinner_dropdown_item);
 			ward_array_adapter.add(SELECT_WARD);
+
+			for (int i = 0; i < wardDetailsList.size(); i++) {
+				WardDetails wardDetails = wardDetailsList.get(i);
+				ward_array_adapter.add(wardDetails.getName());
+			}
+
 			spinnerWard.setAdapter(ward_array_adapter);
 
 			loginButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 
+					name = editTextName.getText().toString();
+					mobile = editTextMobile.getText().toString();
 					ward = spinnerWard.getSelectedItem().toString();
 
 					if (name.equals("") || name.equals(null)) {
@@ -122,7 +144,6 @@ public class ViewPagerAdapter extends PagerAdapter {
 					}else {
 						welcomeActivity.requestLogin(name,mobile,ward);
 					}
-
 				}
 			});
 

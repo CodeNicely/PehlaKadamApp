@@ -4,6 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 /**
@@ -18,17 +21,18 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context=this;
+		FirebaseApp.initializeApp(context);
+
 //        FontsOverride.setDefaultFont(this, "DEFAULT", "fonts/comfortaa.ttf");
 //        FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/homemade.ttf");
 //        FontsOverride.setDefaultFont(this, "SERIF", "fonts/nunito.ttf");
 //        FontsOverride.setDefaultFont(this, "SANS_SERIF", "fonts/patrick_hand.ttf");
 
-//        fcm_token = FirebaseInstanceId.getInstance().getToken();
 
     }
 
     public static String getFcm_token() {
-
+        fcm_token = FirebaseInstanceId.getInstance().getToken();
         Log.d(TAG,"Fcm is "+fcm_token);
         return fcm_token;
     }

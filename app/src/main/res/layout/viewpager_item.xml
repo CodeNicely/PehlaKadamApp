@@ -15,9 +15,15 @@
         >
         <!--android:background="@drawable/circle"-->
         <ImageView
+            android:id="@+id/image_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
 
     </RelativeLayout>
 
@@ -29,7 +35,7 @@
         android:layout_margin="50dp"
         android:text="fdv"
         android:gravity="center"
-        android:id="@+id/first_question"
+        android:id="@+id/quote"
         />
 
     <Button
@@ -37,7 +43,7 @@
         android:layout_height="50dp"
         android:id="@+id/welcome_button"
         android:text="Start your journey here"
-        android:layout_below="@+id/first_question"
+        android:layout_below="@+id/quote"
         android:layout_centerInParent="true"
         />
 

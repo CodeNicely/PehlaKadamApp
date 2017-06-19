@@ -14,7 +14,7 @@ import retrofit2.http.POST;
 
 public interface VerifyOtpApi {
 	@FormUrlEncoded
-	@POST(Urls.SUB_URL_WELCOME)
+	@POST(Urls.SUB_URL_LOGIN)
 	Call<VerifyOtpResponse> requestOtpData(@Field("name") String name,@Field("mobile") String mobile,
 										   @Field("ward") String ward,@Field("otp") String otp);
 }
