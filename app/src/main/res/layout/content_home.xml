@@ -10,7 +10,6 @@
     tools:showIn="@layout/app_bar_home"
     tools:context="projects.com.codenicely.pehlakadam.home.views.HomeActivity">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
