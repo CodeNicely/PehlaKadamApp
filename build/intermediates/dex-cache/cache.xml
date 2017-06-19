@@ -2,31 +2,166 @@
 <items version="2" >
 
     <item
-        is-multidex="false"
-        jar="/home/ujjwal/.android/build-cache/5ef7f147cc3670bcddcce834b58d51ada7fc32c8/output/jars/classes.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="/Users/meghalagrawal/.android/build-cache/75c221c7b17328cc2948bdd24a182e9c20cb3d4f/output/jars/classes.jar"
+        jumboMode="true"
         optimize="true"
         revision="25.0.3"
-        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
-        <dex dex="/home/ujjwal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/classes_60aad90b3e6ac71a36a33eec5899477e83a12d02.jar" />
+        sha1="7e6a161b3796c15fe00755ce47e03067e568ecc4">
+        <dex dex="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_44c1e1b9cf77e23a4b7735bdc02dbebe28bc64c2/classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="/home/ujjwal/Android/Sdk/extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.2/constraint-layout-solver-1.0.2.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="/Users/meghalagrawal/.android/build-cache/fb771b9e44256f35b72f4a47db68ad529795013f/output/jars/classes.jar"
+        jumboMode="true"
         optimize="true"
         revision="25.0.3"
-        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
-        <dex dex="/home/ujjwal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/constraint-layout-solver-1.0.2_f971bd246a2bb1574ba8a14e86c0c5ed5968d3b3.jar" />
+        sha1="a61e7010aa7be5da53cd1bc5279630510c9a4912">
+        <dex dex="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_d6cfa23941206673f8fdb7890ffa19c8662fa0b6/classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="/home/ujjwal/.android/build-cache/a1d24c889841d33c8a96287ed987de07451eb6d6/output/jars/classes.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="/Users/meghalagrawal/.android/build-cache/b83f4a593b67a9eca80af10525e5c3812e3ae0c1/output/jars/classes.jar"
+        jumboMode="true"
         optimize="true"
         revision="25.0.3"
-        sha1="4b868b833b0887aa48c4e581558eef4f1196f6a2">
-        <dex dex="/home/ujjwal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/classes_6b2ed6b13897f4365657d128146c889d4d000092.jar" />
+        sha1="75575883f0348fc5d2be85f23bd10b050095cf17">
+        <dex dex="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_b9853f58e38668c469246c785741d15444f64223/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/meghalagrawal/.android/build-cache/70263e6616012b63bd020288a4dc2973ce227aec/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="1ac56e5801e986583cbe27f2cce57f626cc7ff93">
+        <dex dex="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_67f30663ea6ccb08dfc92802f6948cee9fab85a1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/meghalagrawal/.android/build-cache/a4a3c9e1aad0cdc7422555925610d59272437d5b/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="21c0f1b0de29bfe601028757c5cb125c343f5164">
+        <dex dex="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_5a4b14fcfcf70b9e9ff09a7c5353392b7f241123/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/meghalagrawal/.android/build-cache/efd9e77c9ed3518478cdc4ea563630a5beda42a0/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="bd75f9f0296fe220da6d0ad961831b04541c4452">
+        <dex dex="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_58a261499deee5f63b6b4583e3244c467ae9c936/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/meghalagrawal/.android/build-cache/5784ba00204deedac669b60556012233ca098cf7/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="ab3193b438e37f7b0a634cc2dfebbf92892ea90c">
+        <dex dex="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_0a0e77c8184437ab5c6058da98e9d46a19510721/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/meghalagrawal/.android/build-cache/f7ca8e42d9d401e60efca60477925dcab5d95e62/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="7be042dd2aa8157a2b63934902f472952d2ea1fe">
+        <dex dex="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_c0100c2ecbc460e602c33434c98daeb1d7863f78/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/meghalagrawal/.android/build-cache/b87aa8902387233cd8b5ab9b2c02c029a464271c/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="a43273baa0b17eb281b3a67250b071e80f463830">
+        <dex dex="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a0e3c28f6f32af4d73c2b6bb94eeb1c319337a70/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/meghalagrawal/.android/build-cache/94a37469d7d4ef1ebd361950f08972fa5e42cc64/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="a73b24a82e860ae409181afee75925a04a03aed3">
+        <dex dex="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_abb7318ac0ebc21356781dec1b3e188956a2606b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_258f26a347976d3e421613503fb289461f8f826c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="0a741b73a242572cb4c805f4959f64556176983e">
+        <dex dex="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_feb5f6c308fc4d54329caeb14b56011d94fcc6bf/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/meghalagrawal/.android/build-cache/68f1ef0c4848cb7341104d01a95c752d2483fcfe/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="199c0e5931f8ac3410c749734a02856f18bf1207">
+        <dex dex="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e778165bbd9e8a07a458c7d1d593257c9672f56f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/meghalagrawal/.android/build-cache/3bde49fb6b2605174b69d28269c4a92a7f6c6265/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="3d6951cb416ebf8c66a32b9480808ca247b68344">
+        <dex dex="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_881dc47a9e26efadb87e7887df8897b3c3db47de/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/meghalagrawal/.android/build-cache/ee0d4be45eee81d439c39c2042caa34735ab9afc/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="f7feec460edbd63420fc87843527e34e08aab33e">
+        <dex dex="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_0a4e69609a731eb8aeffe63d91b67f014f803ba4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/meghalagrawal/.android/build-cache/12800a2c697537704769fe21eae0bb610f053642/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="0d5cbbbfe040201c7569478b70a13b58fd11aab4">
+        <dex dex="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_460eedaf9e47dafab1f0882abbfc1e31e153c648/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/meghalagrawal/.android/build-cache/76e29c266db9457dd391d6abdf320d48f2f7c92c/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="ce9112e08a027c8620ae693983e38cdbb9f6371b">
+        <dex dex="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_273e5bdada6dd6f2526373d3ca1e9bbdb3fa16d0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/meghalagrawal/.gradle/caches/modules-2/files-2.1/com.alexvasilkov/gesture-views/2.1.1/f46205d5a153cca4f8bf3109baa105b3258f55d2/gesture-views-2.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="f46205d5a153cca4f8bf3109baa105b3258f55d2">
+        <dex dex="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/gesture-views-2.1.1_59e243931463b1478379619e58829b299284a976/classes.dex" />
     </item>
 
 </items>

@@ -1,5 +1,6 @@
 package projects.com.codenicely.pehlakadam.home.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -24,8 +25,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import projects.com.codenicely.pehlakadam.R;
 import projects.com.codenicely.pehlakadam.gallery.view.GalleryFragment;
+import projects.com.codenicely.pehlakadam.gallery_video.model.data.ContentDetails;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
+import projects.com.codenicely.pehlakadam.image_viewer.ImageViewerActivity;
 import projects.com.codenicely.pehlakadam.stories.views.StoriesFragment;
+import projects.com.codenicely.pehlakadam.video_player.VideoPlayer;
 
 
 public class HomeActivity extends AppCompatActivity
@@ -153,6 +157,26 @@ public class HomeActivity extends AppCompatActivity
             fragmentTransaction.commit();
             getSupportActionBar().setTitle(title);
         }
+    }
+
+    public void playVideo(String video_url) {
+        Log.d("res","2");
+        Intent vid=new Intent(HomeActivity.this, VideoPlayer.class);
+        vid.putExtra("url",video_url);
+        startActivity(vid);
+    }
+
+    public void showImage(List<ContentDetails> contentDetailses, int position) {
+        ArrayList<String> imageUrlList=new ArrayList<>();
+        for ( int i=0;i<contentDetailses.size();i++){
+            if(contentDetailses.get(i).getType()==1)
+                imageUrlList.add(contentDetailses.get(i).getImage_url());
+        }
+        Intent image_viewer=new Intent(HomeActivity.this, ImageViewerActivity.class);
+
+        image_viewer.putStringArrayListExtra("list", imageUrlList);
+        image_viewer.putExtra("position", position);
+        startActivity(image_viewer);
     }
 
 }
