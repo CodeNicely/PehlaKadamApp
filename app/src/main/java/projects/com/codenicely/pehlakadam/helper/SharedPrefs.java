@@ -9,11 +9,10 @@ import android.content.SharedPreferences;
 public class SharedPrefs {
 
     private static final String PREF_NAME = "welcome";
-    private static final String PREF_NAME_LOGIN = "Login";
     private static final String KEY_USERNAME = "username";
-    private static final String KEY_EMAIL = "email";
     private static final String KEY_FCM = "fcm";
     private static final String KEY_ACCESS_TOKEN = "access_token";
+    private static final String KEY_USER_LANGUAGE = "lang_type";
     private static final int KEY_VERSION = 1;
     private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
 
@@ -38,8 +37,6 @@ public class SharedPrefs {
         return KEY_VERSION;
     }
 
-
-
     public String getUsername() {
         return pref.getString(KEY_USERNAME, "Not Available");
     }
@@ -52,12 +49,6 @@ public class SharedPrefs {
 
     }
 
-    public void setEmailId(String emailId) {
-
-        editor.putString(KEY_EMAIL, emailId);
-        editor.commit();
-
-    }
 
 
     public String getAccessToken() {
@@ -70,9 +61,13 @@ public class SharedPrefs {
         editor.commit();
     }
 
-    public String getEmail() {
+    public int getUserLanguage() {
+        return pref.getInt(KEY_USER_LANGUAGE, 0);
+    }
 
-        return pref.getString(KEY_EMAIL, "Not Available");
+    public void setUserLanguage(int userLanguage) {
+        editor.putInt(KEY_USER_LANGUAGE, userLanguage);
+        editor.commit();
     }
 
     public boolean isFirstTimeLaunch() {
