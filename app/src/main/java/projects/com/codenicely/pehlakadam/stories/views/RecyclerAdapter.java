@@ -55,6 +55,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     }
 
+    public RecyclerAdapter(Context context, StoriesActivity storiesActivity) {
+        this.context = context;
+        this.layoutInflater = LayoutInflater.from(context);
+        this.imageLoader =new GlideImageLoader(context);
+        this.sharedPreferences = new SharedPrefs(context);
+        this.storiesPresenter= new StoriesPresenterImpl(storiesActivity,new MockStoriesProvider());
+    }
+
     void setData(List<StoriesListDetails> storiesListDetailses){
         this.storiesListDetailses=storiesListDetailses;
     }

@@ -1,24 +1,45 @@
 package projects.com.codenicely.pehlakadam.home.views;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import projects.com.codenicely.pehlakadam.R;
+import projects.com.codenicely.pehlakadam.gallery.view.GalleryFragment;
+import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
 import projects.com.codenicely.pehlakadam.stories.views.StoriesFragment;
 
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private SharedPrefs sharedPrefs;
+    private List<String> titleList = new ArrayList<>();
+    private List<Fragment> fragmentList = new ArrayList<>();
+    private ViewPagerAdapter viewPagerAdapter;
+
+    @BindView(R.id.tabLayout)
+    TabLayout tabLayout;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +56,26 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        setFragment(new HomeFragment(),"Pehla Kadam");
+//        setFragment(new HomeFragment(),"Pehla Kadam");
+        ButterKnife.bind(this);
+        ViewPager viewpager=(ViewPager)findViewById(R.id.home_viewpager);
+
+        sharedPrefs=new SharedPrefs(this);
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        StoriesFragment storiesFragment = StoriesFragment.newInstance();
+        GalleryFragment galleryFragment=new GalleryFragment();
+
+        fragmentList.add(storiesFragment);
+        fragmentList.add(galleryFragment);
+
+        titleList.add("Stories");
+        titleList.add("Gallery");
+
+        viewpager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewpager);
+        viewPagerAdapter.setData(fragmentList,titleList);
+        viewPagerAdapter.notifyDataSetChanged();
     }
 
     @Override

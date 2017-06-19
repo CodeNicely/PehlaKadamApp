@@ -2,41 +2,22 @@
 <items version="2" >
 
     <item
-<<<<<<< HEAD
         is-multidex="false"
-        jar="/home/aman/.android/build-cache/020a12156054b8bdb02b87ea6ef727b45d642244/output/jars/classes.jar"
+        jar="/home/aman/Android/Sdk/extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.2/constraint-layout-solver-1.0.2.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.3"
-        sha1="5a2386ad9bfff580b206a7fe305cdccd00798159">
-        <dex dex="/home/aman/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/classes_a547f56c568762215d91e5ff24bae8b7e48ddba0.jar" />
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="/home/aman/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/constraint-layout-solver-1.0.2_6b2dac0948af6472d782f924d210c709c84f3c00.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/home/aman/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.1.6/2586312cd2b8a511e4c6236736f5a039fc0f2273/rxjava-1.1.6.jar"
+        jar="/home/aman/.android/build-cache/3a02daf94d5c096600974ae2b2683ea74c29f3d2/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.3"
-        sha1="2586312cd2b8a511e4c6236736f5a039fc0f2273">
-        <dex dex="/home/aman/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/rxjava-1.1.6_59ce0469ea0fa8f9069ebe38a105d3b6fe8eeef1.jar" />
-=======
-        is-multidex="true"
-        jar="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_258f26a347976d3e421613503fb289461f8f826c/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="b3a1239a7b91e64cb89c356a0aede68f9868bd7a">
-        <dex dex="/Users/meghalagrawal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_feb5f6c308fc4d54329caeb14b56011d94fcc6bf/classes.dex" />
->>>>>>> bc2192cc6c60716ba381c649eb73d9496f6e701c
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="/home/aman/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/classes_4ccc42f39e4b964ec505d9ffdef2c308a2cc63b9.jar" />
     </item>
 
 </items>

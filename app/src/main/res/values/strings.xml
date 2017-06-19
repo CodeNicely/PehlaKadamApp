@@ -24,7 +24,7 @@
     <string name="select_images_gallery">Select From Gallery</string>
     <string name="take_picture">Take a pic from Camera</string>
     <string name="contact_us">Contact Us</string>
-    <string name="developers" >Developers</string>
+    <string name="developers">Developers</string>
     <string name="about_developers">About Developers</string>
     <string name="failure_message">Unable to connect to Server</string>
     <string name="ok_text">Ok</string>
@@ -41,4 +41,6 @@
     <string name="verify_otp">Verify Otp</string>
     <string name="login">Login</string>
     <string name="photos_not_available">Photos not available</string>
+    <string name="profile">Profile</string>
+
 </resources>
