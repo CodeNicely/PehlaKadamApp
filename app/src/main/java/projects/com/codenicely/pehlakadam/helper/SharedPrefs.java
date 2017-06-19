@@ -9,12 +9,17 @@ import android.content.SharedPreferences;
 public class SharedPrefs {
 
     private static final String PREF_NAME = "welcome";
+
+    private static final String PREF_NAME_LOGIN = "Login";
+    private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
+
     private static final String KEY_USERNAME = "username";
     private static final String KEY_FCM = "fcm";
     private static final String KEY_ACCESS_TOKEN = "access_token";
     private static final String KEY_USER_LANGUAGE = "lang_type";
     private static final int KEY_VERSION = 1;
     private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
+    private static final String PROFILE_IMAGE = "profile_image";
 
     // LogCat tag
     private static String TAG = "Shared Preference";
@@ -31,6 +36,18 @@ public class SharedPrefs {
         this._context = context;
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
+    }
+
+    public static String getProfileImage() {
+        return PROFILE_IMAGE;
+    }
+
+
+    public void setProfileImage(String profile_image) {
+
+        editor.putString(PROFILE_IMAGE, profile_image);
+        editor.commit();
+
     }
 
     public static int getKeyVersion() {
@@ -87,6 +104,10 @@ public class SharedPrefs {
         editor.commit();
 
     }
+    public boolean isLoggedIn() {
+        return pref.getBoolean(KEY_IS_LOGGEDIN, false);
+    }
+
 
 
 

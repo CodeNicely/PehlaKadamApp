@@ -10,6 +10,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">हैलो खाली टुकड़ा</string>
+    <string name="hint_post">आपके दिमाग मे क्या है?</string>
+    <string name="post">पद</string>
+    <string name="hint_date">Date</string>
+    <string name="hint_likes">Likes</string>
+    <string name="hint_shares">Shares</string>
+
     <string name="hint_name">नाम</string>
     <string name="hint_mobile">मोबाइल</string>
     <string name="hint_email">ईमेल</string>
@@ -25,4 +31,5 @@
     <string name="developed"><![CDATA[Powered by]]></string>
     <string name="codenicely">Powered by CodeNicely</string>
     <string name="description">Description</string>
+    <string name="title_activity_welcome">WelcomeActivity</string>
 </resources>
