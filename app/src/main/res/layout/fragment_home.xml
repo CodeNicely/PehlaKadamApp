@@ -1,14 +1,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="projects.com.codenicely.pehlakadam.home.views.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
@@ -16,46 +17,55 @@
             app:theme="@style/ThemeOverlay.AppCompat.Light">
 
 
-            <android.support.design.widget.CollapsingToolbarLayout
+            <!--<android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:contentScrim="?attr/colorPrimary"
-                app:titleEnabled="false"
-                app:layout_scrollFlags="exitUntilCollapsed">
+                app:layout_scrollFlags="exitUntilCollapsed">-->
 
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/tabLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="bottom"
-                    android:background="@color/colorAccent"
-                    app:tabMode="scrollable" />
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:navigationIcon="@drawable/ic_menu_white_36dp"
+                android:title="@string/app_name"
+                android:titleTextColor="@color/white"
+                app:navigationIcon="@drawable/ic_menu_white_36dp"
+                app:title="@string/app_name"
+                app:titleTextColor="@color/white" />
 
-            </android.support.design.widget.CollapsingToolbarLayout>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                app:tabMode="scrollable" />
+
+            <!--</android.support.design.widget.CollapsingToolbarLayout>-->
 
         </android.support.design.widget.AppBarLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/appBarLayout"
-            >
+            android:layout_below="@+id/appBarLayout">
 
             <android.support.v4.view.ViewPager
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/home_viewpager"
-                >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             </android.support.v4.view.ViewPager>
 
             <ProgressBar
+                android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:visibility="gone"
-                android:id="@+id/progressBar"
-                />
+                android:visibility="gone" />
         </RelativeLayout>
 
     </RelativeLayout>

@@ -40,4 +40,5 @@
     <string name="otp_screen_description">We have sent you a 4 digit Otp . \\n Please enter the otp in the Space given below to verify your mobile.</string>
     <string name="verify_otp">Verify Otp</string>
     <string name="login">Login</string>
+    <string name="photos_not_available">Photos not available</string>
 </resources>

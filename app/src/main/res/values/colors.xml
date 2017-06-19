@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#3FA34D</color>
-    <color name="colorPrimaryDark">#348640</color>
-    <color name="colorAccent">#B7FDFE</color>
+    <color name="colorPrimary">#14B9C1</color>
+    <color name="colorPrimaryDark">#11989E</color>
+    <color name="colorAccent">#264653</color>
+
+    <!--264653 This can be accent colors
+    4F6272
+    FC7A57
+    00A7E1
+
+    -->
 
     <color name="mediumDark">#5EF38C</color>
     <color name="Dark">#054A29</color>
     <color name="Light">#D7FDEC</color>
 
     <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
 
 </resources>
