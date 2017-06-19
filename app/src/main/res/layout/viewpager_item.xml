@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="#159786"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/relative"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+
+        >
+        <!--android:background="@drawable/circle"-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relative"
+        android:textSize="25dp"
+        android:layout_margin="50dp"
+        android:text="fdv"
+        android:gravity="center"
+        android:id="@+id/first_question"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/welcome_button"
+        android:text="Start your journey here"
+        android:layout_below="@+id/first_question"
+        android:layout_centerInParent="true"
+        />
+
+</RelativeLayout>

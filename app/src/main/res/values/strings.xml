@@ -5,4 +5,12 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="edittext_mobile">Mobile No</string>
+    <string name="edittext_name">Name</string>
+    <string name="login_button">Login</string>
+    <string name="skip_button">Skip</string>
+    <string name="otp">Enter Otp</string>
+    <string name="otp_screen_description">We have sent you a 4 digit Otp . \\n Please enter the otp in the Space given below to verify your mobile.</string>
+    <string name="verify_otp">Verify Otp</string>
+    <string name="login">Login</string>
 </resources>

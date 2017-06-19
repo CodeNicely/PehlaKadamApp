@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/ujjwal/.android/build-cache/31af9d28b1bffecba74276cbc0dbd1ca7205d7d4/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="75575883f0348fc5d2be85f23bd10b050095cf17">
+        <dex dex="/home/ujjwal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/classes_a0852ab3325ec9755d878bc8ca8ba316b84e84b2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ujjwal/.android/build-cache/44a6142c8b1bf4403acca1da210d7e6a964637ac/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="a61e7010aa7be5da53cd1bc5279630510c9a4912">
+        <dex dex="/home/ujjwal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/classes_fcccef529a9b71f52ef969d0306c06f7dfce0db2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ujjwal/.android/build-cache/4202c477781496a50726691fe46c598e43595add/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="1ac56e5801e986583cbe27f2cce57f626cc7ff93">
+        <dex dex="/home/ujjwal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/classes_4153b0f60c78b8745fd0f1ee2b06259ee5dec2e3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ujjwal/.android/build-cache/97cffb41d62aba9fae62b73bd0f3ed1f688f6cbe/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="ce9112e08a027c8620ae693983e38cdbb9f6371b">
+        <dex dex="/home/ujjwal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/classes_fc5f4be6c390b07998cdefdedf19a5c3bec2c0e9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ujjwal/.android/build-cache/e42a56e8d91fe0c29410d4eb11d0858061164ae6/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="3d6951cb416ebf8c66a32b9480808ca247b68344">
+        <dex dex="/home/ujjwal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/classes_1bff0b66701a3d9b84379222cf201c72aed6a78e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ujjwal/.android/build-cache/fa806c8c004cb5201e2f4ab9bb4d1617f08e3f5f/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="bd75f9f0296fe220da6d0ad961831b04541c4452">
+        <dex dex="/home/ujjwal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/classes_5c2a99ed72ad5f74cf784937f9c8fa4ceb180cb8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ujjwal/.android/build-cache/515fd12f24f7dfbdd930f357ac49989cbe4416c0/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="0d5cbbbfe040201c7569478b70a13b58fd11aab4">
+        <dex dex="/home/ujjwal/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/classes_c222e0f64591b78c8780b8b5ec4642e0293f8f65.jar" />
+    </item>
+
+</items>
