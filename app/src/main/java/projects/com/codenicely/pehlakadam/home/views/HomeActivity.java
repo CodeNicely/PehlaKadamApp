@@ -24,6 +24,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import projects.com.codenicely.pehlakadam.R;
+import projects.com.codenicely.pehlakadam.about_us.view.AboutUsFragment;
+import projects.com.codenicely.pehlakadam.contact_us.view.ContactUsFragment;
 import projects.com.codenicely.pehlakadam.gallery.view.GalleryFragment;
 import projects.com.codenicely.pehlakadam.gallery_video.model.data.ContentDetails;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
@@ -127,9 +129,12 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_join_us) {
 
         } else if (id == R.id.nav_about_us) {
+            AboutUsFragment aboutUsFragment = new AboutUsFragment();
+            addFragment(aboutUsFragment,"About Us");
 
         } else if (id == R.id.nav_contact_us) {
-
+            ContactUsFragment contactUsFragment = new ContactUsFragment();
+            addFragment(contactUsFragment,"Contact Us");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
