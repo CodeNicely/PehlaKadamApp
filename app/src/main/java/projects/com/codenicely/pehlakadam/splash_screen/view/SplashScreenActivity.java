@@ -22,12 +22,14 @@ import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import projects.com.codenicely.pehlakadam.Home.views.HomeActivity;
 import projects.com.codenicely.pehlakadam.R;
 import projects.com.codenicely.pehlakadam.helper.MyApplication;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
 import projects.com.codenicely.pehlakadam.helper.image_loader.GlideImageLoader;
 import projects.com.codenicely.pehlakadam.helper.image_loader.ImageLoader;
 import projects.com.codenicely.pehlakadam.splash_screen.data.SplashScreenData;
+import projects.com.codenicely.pehlakadam.splash_screen.models.MockSplashScreenProvider;
 import projects.com.codenicely.pehlakadam.splash_screen.models.RetrofitSplashScreenProvider;
 import projects.com.codenicely.pehlakadam.splash_screen.presenter.SplashScreenPresenter;
 import projects.com.codenicely.pehlakadam.splash_screen.presenter.SplashScreenPresenterImpl;
@@ -63,9 +65,11 @@ public class SplashScreenActivity extends Activity implements SplashScreenView {
         Glide.with(this).load(R.mipmap.pehla_kadam_logo).into(logo);
 
         sharedPrefs = new SharedPrefs(this);
-        splashScreenPresenter = new SplashScreenPresenterImpl(this,
-                new RetrofitSplashScreenProvider());
-        splashScreenPresenter.requestSplash(MyApplication.getFcm_token(),sharedPrefs.getAccessToken());
+//        splashScreenPresenter = new SplashScreenPresenterImpl(this,
+//                new RetrofitSplashScreenProvider());
+		splashScreenPresenter = new SplashScreenPresenterImpl(this,new MockSplashScreenProvider());
+
+		splashScreenPresenter.requestSplash(MyApplication.getFcm_token(),sharedPrefs.getAccessToken());
     }
 
 
@@ -85,13 +89,14 @@ public class SplashScreenActivity extends Activity implements SplashScreenView {
     @Override
     public void onVersionReceived(SplashScreenData splashScreenData) throws PackageManager.NameNotFoundException {
 
-        if (getPackageManager().getPackageInfo(getPackageName(), 0).versionCode < splashScreenData.getVersion() && splashScreenData.getCompulsory_update() != 1) {
+        if (getPackageManager().getPackageInfo(getPackageName(), 0).versionCode < splashScreenData.getVersion() && splashScreenData.isCompulsory_update() != true) {
 
 
             final AlertDialog ad = new AlertDialog.Builder(this)
                     .create();
             ad.setCancelable(false);
             ad.setTitle("App Update Available");
+			Log.d("SPLASH1---","No");
             ad.setMessage("Please update the app for better experience");
             ad.setButton(DialogInterface.BUTTON_POSITIVE, "Update", new DialogInterface.OnClickListener() {
                 @Override
@@ -125,7 +130,8 @@ public class SplashScreenActivity extends Activity implements SplashScreenView {
             ad.show();
 
 
-        } else if (getPackageManager().getPackageInfo(getPackageName(), 0).versionCode < splashScreenData.getVersion() && splashScreenData.getCompulsory_update() == 1) {
+        } else if (getPackageManager().getPackageInfo(getPackageName(), 0).versionCode < splashScreenData.getVersion() && splashScreenData.isCompulsory_update() == true) {
+			Log.d("SPLASH2---","No");
 
             final AlertDialog ad = new AlertDialog.Builder(this)
 
@@ -151,24 +157,58 @@ public class SplashScreenActivity extends Activity implements SplashScreenView {
 
 
         } else {
-            handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
 
-                    if (!sharedPrefs.isFirstTimeLaunch()) {
-//                        startActivity(new Intent(SplashScreenActivity.this, HomePage.class));
-//                        finish();
-                    } else {
-                        startActivity(new Intent(SplashScreenActivity.this, WelcomeActivity.class));
-                        finish();
-                    }
 
-                }
-            }, 300);
+
+			if (!sharedPrefs.isFirstTimeLaunch()) {
+
+				Log.d("FIRST_TIME---","No");
+				startActivity(new Intent(SplashScreenActivity.this, HomeActivity.class));
+				finish();
+
+			} else {
+
+				handler = new Handler();
+				handler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+					}
+				}, 3000);
+				startActivity(new Intent(SplashScreenActivity.this, WelcomeActivity.class));
+				finish();
+//				Log.d("FIRST_TIME---","........");
+//				final AlertDialog ad = new AlertDialog.Builder(getApplicationContext()).create();
+//				ad.setCancelable(false);
+//				ad.setTitle("Select Your Language");
+//				ad.setMessage("Please select your language to enjoy our services");
+//				ad.setButton(DialogInterface.BUTTON_POSITIVE, "English", new DialogInterface.OnClickListener() {
+//					@Override
+//					public void onClick(DialogInterface dialog, int which) {
+//						ad.cancel();
+//						sharedPrefs.setUserLanguage(0);
+//
+//						finish();
+//						startActivity(new Intent(SplashScreenActivity.this, WelcomeActivity.class));
+//						finish();
+//					}
+//				});
+//				ad.setButton(DialogInterface.BUTTON_NEGATIVE, "Hindi", new DialogInterface.OnClickListener() {
+//					@Override
+//					public void onClick(DialogInterface dialog, int which) {
+//						ad.cancel();
+//						sharedPrefs.setUserLanguage(1);
+//
+//						finish();
+//						startActivity(new Intent(SplashScreenActivity.this, WelcomeActivity.class));
+//						finish();
+//					}
+//				});
+//
+//				ad.show();
+
+
+			}
         }
-
-
     }
 
     @Override

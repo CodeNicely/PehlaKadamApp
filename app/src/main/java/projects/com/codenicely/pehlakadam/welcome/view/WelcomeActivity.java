@@ -18,6 +18,7 @@ import projects.com.codenicely.pehlakadam.verify_otp.view.VerifyOtpImpl;
 import projects.com.codenicely.pehlakadam.welcome.data.WardDetails;
 import projects.com.codenicely.pehlakadam.welcome.data.WelcomePageDetails;
 import projects.com.codenicely.pehlakadam.welcome.model.MockWelcomeProvider;
+import projects.com.codenicely.pehlakadam.welcome.model.RetrofitWelcomeProvider;
 import projects.com.codenicely.pehlakadam.welcome.presenter.WelcomePresenter;
 import projects.com.codenicely.pehlakadam.welcome.presenter.WelcomePresenterImpl;
 
@@ -47,7 +48,8 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeView {
 //        dotsLayout=(LinearLayout)findViewById(R.id.layoutDots);
         viewPagerAdapter = new ViewPagerAdapter(this,this);
         viewPager=(ViewPager)findViewById(R.id.first_viewPager);
-        welcomePresenter= new WelcomePresenterImpl(this, new MockWelcomeProvider());
+//        welcomePresenter= new WelcomePresenterImpl(this, new MockWelcomeProvider());
+        welcomePresenter= new WelcomePresenterImpl(this, new RetrofitWelcomeProvider());
 
         welcomePresenter.requestWelcomeData(sharedPrefs.getUserLanguage());
         viewPagerAdapter = new ViewPagerAdapter(this,this);
@@ -56,7 +58,7 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeView {
         ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                addBottomDots(position);
+//                addBottomDots(position);
             }
 
             @Override
@@ -80,6 +82,7 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeView {
             }
         });
         swipeTimer = new Timer();
+
 //        swipeTimer.schedule(new TimerTask() {
 //
 //            @Override
@@ -136,22 +139,6 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeView {
         welcomePresenter.requestLogin(name,mobile,ward);
     }
 
-    private void addBottomDots(int currentPage) {
-        dots = new TextView[4];
-//        int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
-//        int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
-//        dotsLayout.removeAllViews();
-//        for (int i = 0; i < dots.length; i++) {
-//            dots[i] = new TextView(this);
-//            dots[i].setText(Html.fromHtml("&#8226;"));
-//            dots[i].setTextSize(35);
-//            dots[i].setTextColor(colorsInactive[currentPage]);
-//            //    dots[i].setTextColor(Color.WHITE);
-//            dotsLayout.addView(dots[i]);
-//        }
-//        if (dots.length > 0)
-//            dots[currentPage].setTextColor(colorsActive[currentPage]);
-    }
 
     public void setHome() {
 //        Intent in=new Intent(WelcomeActivity.this, Home.class);

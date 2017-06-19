@@ -177,7 +177,7 @@ public class AboutUsFragment extends Fragment implements AboutUsView {
         imageLoader.loadImage(aboutUsData.getImage(), imageView, imageProgressBar);
 //        description.setText(aboutUsData.getDescription());
 //        title.setText(aboutUsData.getTitle());
-		aboutUsAdapter.setAboutUsDetailsList(aboutUsData.getAboutUsDetailsList());
+		aboutUsAdapter.setAboutUsDetailsList(aboutUsData.getAbout_us_list());
 		aboutUsAdapter.notifyDataSetChanged();
 		imageView.setVisibility(View.VISIBLE);
         description.setVisibility(View.VISIBLE);

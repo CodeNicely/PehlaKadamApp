@@ -1,5 +1,6 @@
 package projects.com.codenicely.pehlakadam.verify_otp.view;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import projects.com.codenicely.pehlakadam.Home.views.HomeActivity;
 import projects.com.codenicely.pehlakadam.R;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
 import projects.com.codenicely.pehlakadam.verify_otp.model.RetrofitOtpProvider;
@@ -96,11 +98,10 @@ public class VerifyOtpImpl extends AppCompatActivity implements VerifyOtpView{
 		Log.d("res", token);
 		sharedPrefs.setAccessToken(token);
 		sharedPrefs.setFirstTimeLaunch(false);
+		Intent a = new Intent(VerifyOtpImpl.this, HomeActivity.class);
+		startActivity(a);
+		finish();
 
-//		Log.d("res", "done");
-//		Intent a = new Intent(OtpViewImpl.this, HomePage.class);
-//		startActivity(a);
-//		finish();
 //		loginScreenActivity.loginScreenActivity.finish();
 //		welcomeScreenActivity.welcomeScreenActivity.finish();
 	}
