@@ -18,15 +18,14 @@ import projects.com.codenicely.pehlakadam.splash_screen.view.SplashScreenView;
 public class SplashScreenPresenterImpl implements SplashScreenPresenter{
 
     private static final String LOG_TAG = "SplashScreenActivity";
-    private SplashScreenProvider splashScreenProvider;
     private SplashScreenView splashScreenView;
 
-    public SplashScreenPresenterImpl(SplashScreenActivity splashScreenView,
-                                     RetrofitSplashScreenProvider retrofitSplashScreenProvider) {
-        this.splashScreenView = splashScreenView;
-        this.splashScreenProvider = retrofitSplashScreenProvider;
-    }
+    private SplashScreenProvider splashScreenProvider;
 
+    public SplashScreenPresenterImpl(SplashScreenView splashScreenView, SplashScreenProvider splashScreenProvider) {
+        this.splashScreenView = splashScreenView;
+        this.splashScreenProvider = splashScreenProvider;
+    }
 
     @Override
     public void requestSplash(String fcm,String access_token) {

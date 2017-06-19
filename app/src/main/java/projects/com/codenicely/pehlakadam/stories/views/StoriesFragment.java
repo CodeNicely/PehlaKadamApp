@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -155,6 +156,7 @@ public class StoriesFragment extends Fragment implements StoriesView {
         progressDialog.setIndeterminate(true);
         progressDialog.setCancelable(false);
         initialize();
+        hideKeyboard();
 
         if (sharedPrefs.isLoggedIn()){
             cardView.setEnabled(true);
@@ -387,7 +389,13 @@ public class StoriesFragment extends Fragment implements StoriesView {
         }
     }
 
-
+    private void hideKeyboard() {
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

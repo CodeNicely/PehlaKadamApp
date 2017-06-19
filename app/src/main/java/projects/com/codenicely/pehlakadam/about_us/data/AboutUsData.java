@@ -12,17 +12,17 @@ public class AboutUsData {
     private boolean success;
     private String message;
     private String image;
-    private List<AboutUsDetails> aboutUsDetailsList;
+    private List<AboutUsDetails> about_us_list;
 
-	public AboutUsData(boolean success, String message, String image, List<AboutUsDetails> aboutUsDetailsList) {
+	public AboutUsData(boolean success, String message, String image, List<AboutUsDetails> about_us_list) {
 		this.success = success;
 		this.message = message;
 		this.image = image;
-		this.aboutUsDetailsList = aboutUsDetailsList;
+		this.about_us_list = about_us_list;
 	}
 
-	public List<AboutUsDetails> getAboutUsDetailsList() {
-		return aboutUsDetailsList;
+	public List<AboutUsDetails> getAbout_us_list() {
+		return about_us_list;
 	}
 
 	public boolean isSuccess() {

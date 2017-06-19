@@ -8,5 +8,6 @@ public class Keys {
     public static final String KEY_IMAGE_LIST = "image_list";
     public static final String KEY_POSITION_IMAGE = "position";
     public static String KEY_CATEGORY_ID="category_id";
+    public static String KEY_FCM_ACTIVITY="FcmActivity";
 
 }
