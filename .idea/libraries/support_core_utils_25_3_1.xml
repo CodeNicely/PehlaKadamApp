@@ -4,21 +4,12 @@
       <root url="jar://$USER_HOME$/.android/build-cache/2d54420112f02431ba32d91662922c42602ecbd5/output/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-<<<<<<< HEAD
       <root url="file://$USER_HOME$/.android/build-cache/2d54420112f02431ba32d91662922c42602ecbd5/output/res" />
       <root url="jar://$USER_HOME$/.android/build-cache/2d54420112f02431ba32d91662922c42602ecbd5/output/jars/classes.jar!/" />
-=======
-      <root url="file://$USER_HOME$/.android/build-cache/f825a6526f5742d335c69113923ef7118a576fe3/output/res" />
-      <root url="jar://$USER_HOME$/.android/build-cache/f825a6526f5742d335c69113923ef7118a576fe3/output/jars/classes.jar!/" />
->>>>>>> 43d277876f0cd84eadeea81ce62fb18c34a292a9
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/Android/Sdk/extras/android/m2repository/com/android/support/support-core-utils/25.3.1/support-core-utils-25.3.1-sources.jar!/" />
-<<<<<<< HEAD
-      <root url="jar://$USER_HOME$/Library/Android/sdk/extras/android/m2repository/com/android/support/support-core-utils/25.3.1/support-core-utils-25.3.1-sources.jar!/" />
-=======
->>>>>>> 43d277876f0cd84eadeea81ce62fb18c34a292a9
     </SOURCES>
   </library>
 </component>

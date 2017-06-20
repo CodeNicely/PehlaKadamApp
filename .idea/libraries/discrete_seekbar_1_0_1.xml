@@ -1,18 +1,12 @@
 <component name="libraryTable">
   <library name="discrete-seekbar-1.0.1">
     <CLASSES>
-<<<<<<< HEAD
       <root url="jar://$USER_HOME$/.android/build-cache/cf3966bc329cb27527bc34b76bab0a8120aefcaf/output/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.android/build-cache/cf3966bc329cb27527bc34b76bab0a8120aefcaf/output/res" />
-=======
-      <root url="file://$USER_HOME$/.android/build-cache/8ec7201b689d90617893c62e425bacd0ca703d01/output/res" />
-      <root url="jar://$USER_HOME$/.android/build-cache/8ec7201b689d90617893c62e425bacd0ca703d01/output/jars/classes.jar!/" />
->>>>>>> 43d277876f0cd84eadeea81ce62fb18c34a292a9
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/caches/modules-2/files-2.1/org.adw.library/discrete-seekbar/1.0.1/5f1321108d9934ddde101a41dd485a479f730674/discrete-seekbar-1.0.1-sources.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.adw.library/discrete-seekbar/1.0.1/5f1321108d9934ddde101a41dd485a479f730674/discrete-seekbar-1.0.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

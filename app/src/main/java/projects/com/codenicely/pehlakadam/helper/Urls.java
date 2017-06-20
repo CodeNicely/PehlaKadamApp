@@ -16,15 +16,7 @@ public class Urls {
 	public static final String SUB_URL_LOGIN = "login/";
 	public static final String SUB_URL_ABOUT_US = "about_us/";
 	public static final String SUB_URL_GALLERY_API ="gallery_image/" ;
-<<<<<<< HEAD
-
-	public static final String SUB_URL_GALLERY_VIDEO = "gallery_video/";
-	public static final String SUB_NOTIFICATION_IMAGES = "fcm/";
-=======
-
-
 	public static final String SUB_URL_GALLERY_VIDEO = "gallery_video/";
 	public static final String SUB_NOTIFICATION_IMAGES = "fcm/";
 	public static final String SUB_URL_CONTACT_US = "conatct_us/";
->>>>>>> 43d277876f0cd84eadeea81ce62fb18c34a292a9
 }
