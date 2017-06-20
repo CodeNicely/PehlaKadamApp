@@ -85,6 +85,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         }
 
         holder.user_name.setText(storiesListDetails.getUser_name());
+        holder.title_post.setText(storiesListDetails.getTitle());
         String instance=storiesListDetails.getDate().toString() +" at "+
                         storiesListDetails.getTime().toString();
         holder.date_post.setText(instance);
@@ -171,6 +172,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         ImageView profileImage;
         @BindView(R.id.bar_user_image)
         ProgressBar bar_user_image;
+        @BindView(R.id.title_post)
+        TextView title_post;
         @BindView(R.id.name_post)
         TextView user_name;
         @BindView(R.id.date_post)

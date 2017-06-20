@@ -130,22 +130,24 @@ public class StoriesPresenterImpl implements StoriesPresenter {
     }
 
     @Override
-    public void addStories(String access_token, String title, String description, Uri imageUri) {
+    public void addStories(final String access_token, String title, String description, Uri imageUri) {
         storiesView.showDialogLoader(true);
+        storiesView.disableButton(true);
         try {
             storiesLikeShareDataObservable = storiesProvider.addStories(access_token,title,
                                                                         description,imageUri);
-            Log.i("StoriesPresenter", "Value of Observable" + storiesLikeShareDataObservable.toString());
             subscription = storiesLikeShareDataObservable.subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<StoriesImageData>() {
                         @Override
                         public void onCompleted() {
                             storiesView.showProgressBar(false);
+                            storiesView.disableButton(false);
                         }
 
                         @Override
                         public void onError(Throwable e) {
                             storiesView.showProgressBar(false);
+                            storiesView.disableButton(false);
                             storiesView.showMessage(MyApplication.getContext().getResources()
                                     .getString(R.string.failure_message));
                             e.printStackTrace();
@@ -154,18 +156,24 @@ public class StoriesPresenterImpl implements StoriesPresenter {
                         @Override
                         public void onNext(StoriesImageData storiesImageData) {
                             if (storiesImageData.isSuccess()){
-
+                                requestStories(access_token);
                             }else {
 
                             }
                             storiesView.showDialogLoader(false);
                             storiesView.showMessage(storiesImageData.getMessage());
                             storiesView.showProgressBar(false);
+                            storiesView.disableButton(false);
                         }
+
                     });
 
         }catch (IOException e) {
             e.printStackTrace();
+            storiesView.showDialogLoader(false);
+            storiesView.showMessage("Try Again");
+            storiesView.showProgressBar(false);
+            storiesView.disableButton(false);
         }
     }
 }

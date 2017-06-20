@@ -44,6 +44,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import projects.com.codenicely.pehlakadam.R;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
+import projects.com.codenicely.pehlakadam.helper.Toaster;
 import projects.com.codenicely.pehlakadam.helper.image_loader.GlideImageLoader;
 import projects.com.codenicely.pehlakadam.helper.image_loader.ImageLoader;
 import projects.com.codenicely.pehlakadam.stories.model.MockStoriesProvider;
@@ -52,6 +53,7 @@ import projects.com.codenicely.pehlakadam.stories.model.data.StoriesData;
 import projects.com.codenicely.pehlakadam.stories.model.data.StoriesLikeShareData;
 import projects.com.codenicely.pehlakadam.stories.presenter.StoriesPresenter;
 import projects.com.codenicely.pehlakadam.stories.presenter.StoriesPresenterImpl;
+import projects.com.codenicely.pehlakadam.welcome.view.WelcomeActivity;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -85,6 +87,7 @@ public class StoriesFragment extends Fragment implements StoriesView {
     private static final int CAMERA_REQUEST_ID = 100;
     private final int GALLERY_REQUEST_ID = 1;
     private File image = null;
+    private Toaster toaster;
 
     @BindView(R.id.card_post)
     CardView cardView;
@@ -130,8 +133,6 @@ public class StoriesFragment extends Fragment implements StoriesView {
     public static StoriesFragment newInstance() {
         StoriesFragment fragment = new StoriesFragment();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -140,8 +141,6 @@ public class StoriesFragment extends Fragment implements StoriesView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -163,7 +162,6 @@ public class StoriesFragment extends Fragment implements StoriesView {
             cardView.setEnabled(true);
         }
         else {
-
             cardView.setEnabled(false);
         }
         storiesPresenter.requestStories(sharedPrefs.getAccessToken());
@@ -192,10 +190,17 @@ public class StoriesFragment extends Fragment implements StoriesView {
         button_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Todo : Add Post Module
-                String desc =text_post.getText().toString();
-                hideKeyboard();
-                storiesPresenter.addStories(sharedPrefs.getAccessToken(),"Title",desc,imageUri);
+                if (sharedPrefs.isLoggedIn())
+                {
+                    String desc =text_post.getText().toString();
+                    hideKeyboard();
+                    storiesPresenter.addStories(sharedPrefs.getAccessToken(),"Title",desc,imageUri);
+                }else{
+                    toaster.showMessage("Please Login!!!");
+//                    Intent i =new Intent(getActivity(), WelcomeActivity.class);
+//                    startActivity(i);
+//                    getActivity().finish();
+                }
             }
         });
         hideKeyboard();
@@ -204,8 +209,8 @@ public class StoriesFragment extends Fragment implements StoriesView {
 
     void initialize(){
         sharedPrefs=new SharedPrefs(context);
-//        storiesPresenter = new StoriesPresenterImpl(this,new RetrofitStoriesProvider(context));
-        storiesPresenter = new StoriesPresenterImpl(this,new MockStoriesProvider());
+        storiesPresenter = new StoriesPresenterImpl(this,new RetrofitStoriesProvider(context));
+//        storiesPresenter = new StoriesPresenterImpl(this,new MockStoriesProvider());
         imageLoader =new GlideImageLoader(context);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         recyclerAdapter = new RecyclerAdapter(context,this);
@@ -214,6 +219,7 @@ public class StoriesFragment extends Fragment implements StoriesView {
         recyclerAdapter = new RecyclerAdapter(context,this);
         recycler_post.setAdapter(recyclerAdapter);
         Dexter.initialize(context);
+        toaster= new Toaster(context);
 
     }
 
@@ -257,6 +263,19 @@ public class StoriesFragment extends Fragment implements StoriesView {
     @Override
     public void showMessage(String error) {
         Toast.makeText(context,error,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void disableButton(boolean show) {
+        if(show)
+        {
+            button_post.setEnabled(false);
+        }
+        else
+        {
+            button_post.setEnabled(true);
+        }
+
     }
 
     @Override

@@ -120,10 +120,16 @@ public class HomeActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        if (id == R.id.nav_home) {
+            Intent i = new Intent(this,HomeActivity.class);
+            startActivity(i);
+            finish();
 
-        if (id == R.id.nav_profile) {
-            // Handle the camera action
+        } else if (id == R.id.nav_profile) {
+
+
         } else if (id == R.id.nav_feedback) {
+
 
         } else if (id == R.id.nav_join_us) {
             showDialogBox();

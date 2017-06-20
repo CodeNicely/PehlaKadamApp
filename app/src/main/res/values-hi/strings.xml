@@ -47,4 +47,6 @@
     <string name="login_button">लॉग इन करें</string>
     <string name="login">लॉग इन करें</string>
     <string name="edittext_name">नाम</string>
+    <string name="title">Title</string>
+    <string name="home">Home</string>
 </resources>

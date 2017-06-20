@@ -12,6 +12,7 @@ public interface StoriesView {
     void showProgressBar(boolean show);
     void setListData(StoriesData storiesData);
     void showMessage(String error);
+    void disableButton(boolean enable);
     void showDialogLoader(boolean show);
     boolean checkPermissionForCamera();
 

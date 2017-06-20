@@ -49,19 +49,50 @@
                     android:paddingTop="@dimen/padding_large"
                     android:orientation="vertical"
                     >
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="@string/hint_name"
-                        android:gravity="top"
-                        android:textAlignment="gravity"
-                        android:layout_marginTop="@dimen/padding_small"
-                        android:textSize="@dimen/text_size_medium"
-                        android:textColor="@color/Dark"
-                        android:fontFamily="sans-serif-condensed"
-                        android:textStyle="bold"
-                        android:id="@+id/name_post"
-                        />
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title"
+                            android:gravity="top"
+                            android:layout_marginTop="@dimen/padding_small"
+                            android:textSize="@dimen/text_size_medium"
+                            android:textColor="@color/Dark"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textStyle="bold"
+                            android:id="@+id/title_post"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/padding_small"
+                            android:fontFamily="sans-serif-condensed"
+                            android:gravity="top"
+                            android:paddingLeft="@dimen/padding_large"
+                            android:text="by"
+                            android:textColor="@color/cardview_shadow_start_color"
+                            android:textSize="@dimen/textSizeSmall"
+                            android:textStyle="italic" />
+
+                        <TextView
+                            android:id="@+id/name_post"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/padding_small"
+                            android:fontFamily="sans-serif-condensed"
+                            android:gravity="top"
+                            android:paddingLeft="@dimen/padding_small"
+                            android:text="@string/hint_name"
+                            android:textColor="@color/cardview_shadow_start_color"
+                            android:textSize="@dimen/textSizeSmall"
+                            android:textStyle="italic" />
+                    </LinearLayout>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

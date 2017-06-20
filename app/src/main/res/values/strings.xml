@@ -48,5 +48,7 @@
     <string name="Upcoming">Upcoming</string>
     <string name="past">Past</string>
     <string name="venue">Venue</string>
+    <string name="title">Title</string>
+    <string name="home">Home</string>
 
 </resources>
