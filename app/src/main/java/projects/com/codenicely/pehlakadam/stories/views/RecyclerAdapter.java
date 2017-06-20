@@ -24,6 +24,7 @@ import projects.com.codenicely.pehlakadam.helper.image_loader.GlideImageLoader;
 import projects.com.codenicely.pehlakadam.helper.image_loader.ImageLoader;
 import projects.com.codenicely.pehlakadam.stories.model.MockStoriesProvider;
 import projects.com.codenicely.pehlakadam.stories.model.RetrofitStoriesProvider;
+import projects.com.codenicely.pehlakadam.stories.model.data.StoriesLikeShareData;
 import projects.com.codenicely.pehlakadam.stories.model.data.StoriesListDetails;
 import projects.com.codenicely.pehlakadam.stories.presenter.StoriesPresenter;
 import projects.com.codenicely.pehlakadam.stories.presenter.StoriesPresenterImpl;
@@ -41,6 +42,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     private StoriesFragment storiesFragment;
     private SharedPrefs sharedPreferences;
     private StoriesPresenter storiesPresenter;
+    private StoriesLikeShareData storiesLikeShareData;
 
 
 
@@ -55,12 +57,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     }
 
-    public RecyclerAdapter(Context context, StoriesActivity storiesActivity) {
-        this.context = context;
-        this.layoutInflater = LayoutInflater.from(context);
-        this.imageLoader =new GlideImageLoader(context);
-        this.sharedPreferences = new SharedPrefs(context);
-        this.storiesPresenter= new StoriesPresenterImpl(storiesActivity,new MockStoriesProvider());
+    void updateData(StoriesLikeShareData storiesLikeShareData){
+        this.storiesLikeShareData = storiesLikeShareData;
     }
 
     void setData(List<StoriesListDetails> storiesListDetailses){
@@ -87,6 +85,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         }
 
         holder.user_name.setText(storiesListDetails.getUser_name());
+        holder.title_post.setText(storiesListDetails.getTitle());
         String instance=storiesListDetails.getDate().toString() +" at "+
                         storiesListDetails.getTime().toString();
         holder.date_post.setText(instance);
@@ -113,7 +112,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         else{
             holder.button_share.setImageResource(R.drawable.ic_share);
         }
-        Log.d("RecyclerAdapter",holder.likesPost.toString());
+
         holder.likesPost.setText(storiesListDetails.getLikes()+" ");
         holder.shares_post.setText(storiesListDetails.getShares()+" ");
         holder.button_like.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +128,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                 }
                 //// TODO: 17/6/17 Like Presenter Call
                 storiesPresenter.requestLikeShare(sharedPreferences.getAccessToken(),
-                        storiesListDetails.getStory_id(),0);
+                        storiesListDetails.getStory_id(),position,0);
+                if (storiesLikeShareData != null){
+                    storiesListDetailses.get(position).setLiked(storiesLikeShareData.isLiked());
+                    storiesListDetailses.get(position).setLikes(storiesLikeShareData.getLikes());
+                }
 
                 notifyItemChanged(position);
             }
@@ -146,7 +149,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                 }
                 //// TODO: 17/6/17 Share Presenter Call
                 storiesPresenter.requestLikeShare(sharedPreferences.getAccessToken(),
-                        storiesListDetails.getStory_id(),1);
+                        storiesListDetails.getStory_id(),position,1);
+                if (storiesLikeShareData != null){
+                    storiesListDetailses.get(position).setShared(storiesLikeShareData.isShared());
+                    storiesListDetailses.get(position).setShares(storiesLikeShareData.getShares());
+                }
                 notifyItemChanged(position);
             }
         });
@@ -165,6 +172,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         ImageView profileImage;
         @BindView(R.id.bar_user_image)
         ProgressBar bar_user_image;
+        @BindView(R.id.title_post)
+        TextView title_post;
         @BindView(R.id.name_post)
         TextView user_name;
         @BindView(R.id.date_post)

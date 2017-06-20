@@ -1,19 +1,17 @@
 package projects.com.codenicely.pehlakadam.stories.model;
 
 
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Handler;
-import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import projects.com.codenicely.pehlakadam.R;
 import projects.com.codenicely.pehlakadam.stories.StoriesCallBack;
 import projects.com.codenicely.pehlakadam.stories.StoriesLikeShareCallBack;
 import projects.com.codenicely.pehlakadam.stories.model.data.StoriesData;
+import projects.com.codenicely.pehlakadam.stories.model.data.StoriesImageData;
 import projects.com.codenicely.pehlakadam.stories.model.data.StoriesLikeShareData;
 import projects.com.codenicely.pehlakadam.stories.model.data.StoriesListDetails;
 import rx.Observable;
@@ -47,13 +45,13 @@ public class MockStoriesProvider implements StoriesProvider {
     }
 
     @Override
-    public Observable<StoriesLikeShareData> addStories(String access_token, String title, String description, Uri image) throws IOException {
+    public Observable<StoriesImageData> addStories(String access_token, String title, String description, Uri image) throws IOException {
         return null;
     }
 
 
-    private StoriesLikeShareData sendMockStories() {
-        return new StoriesLikeShareData(true,"Story Added");
+    private StoriesImageData sendMockStories() {
+        return new StoriesImageData(true,"Story Added");
     }
 
 
@@ -76,6 +74,6 @@ public class MockStoriesProvider implements StoriesProvider {
     public StoriesLikeShareData getMockStoriesLikeShare() {
 
 
-        return new StoriesLikeShareData(true,"Success");
+        return new StoriesLikeShareData(true,"Success",1,2,2,true,false);
     }
 }

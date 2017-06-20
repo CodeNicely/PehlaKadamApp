@@ -1,5 +1,6 @@
 package projects.com.codenicely.pehlakadam.stories;
 
+import projects.com.codenicely.pehlakadam.stories.model.data.StoriesImageData;
 import projects.com.codenicely.pehlakadam.stories.model.data.StoriesLikeShareData;
 
 /**

@@ -19,5 +19,9 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="black_100_percent">#000000</color>
+    <color name="alabaster">#ECEBE4</color>
+    <color name="blue_lagoon">#A9E5E8</color>
+
+    ECEBE4
 
 </resources>

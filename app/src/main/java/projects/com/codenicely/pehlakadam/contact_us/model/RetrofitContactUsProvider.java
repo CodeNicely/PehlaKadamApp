@@ -43,10 +43,10 @@ public class RetrofitContactUsProvider implements ContactUsProvider {
     }
 
     @Override
-    public void requestContactUs(final ContactUsCallback contactUsCallback) {
+    public void requestContactUs(int lang_type,final ContactUsCallback contactUsCallback) {
 
 
-        contactUsDataCall = contactUsApi.requestContactUs();
+        contactUsDataCall = contactUsApi.requestContactUs(lang_type);
         contactUsDataCall.enqueue(new Callback<ContactUsData>() {
             @Override
             public void onResponse(Call<ContactUsData> call, Response<ContactUsData> response) {
