@@ -48,6 +48,7 @@ import projects.com.codenicely.pehlakadam.helper.image_loader.ImageLoader;
 import projects.com.codenicely.pehlakadam.stories.model.MockStoriesProvider;
 import projects.com.codenicely.pehlakadam.stories.model.RetrofitStoriesProvider;
 import projects.com.codenicely.pehlakadam.stories.model.data.StoriesData;
+import projects.com.codenicely.pehlakadam.stories.model.data.StoriesLikeShareData;
 import projects.com.codenicely.pehlakadam.stories.presenter.StoriesPresenter;
 import projects.com.codenicely.pehlakadam.stories.presenter.StoriesPresenterImpl;
 
@@ -150,7 +151,7 @@ public class StoriesFragment extends Fragment implements StoriesView {
         View view= inflater.inflate(R.layout.fragment_stories, container, false);
         ButterKnife.bind(this,view);
         context = getContext();
-        progressDialog = new ProgressDialog(getContext());
+        progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Please wait . . .");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setIndeterminate(true);
@@ -209,15 +210,15 @@ public class StoriesFragment extends Fragment implements StoriesView {
 
     void initialize(){
 
-        sharedPrefs=new SharedPrefs(getContext());
-//        storiesPresenter = new StoriesPresenterImpl(this,new RetrofitStoriesProvider());
+        sharedPrefs=new SharedPrefs(context);
+//        storiesPresenter = new StoriesPresenterImpl(this,new RetrofitStoriesProvider(context));
         storiesPresenter = new StoriesPresenterImpl(this,new MockStoriesProvider());
-        imageLoader =new GlideImageLoader(getContext());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerAdapter = new RecyclerAdapter(getContext(),this);
+        imageLoader =new GlideImageLoader(context);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        recyclerAdapter = new RecyclerAdapter(context,this);
         recycler_post.setLayoutManager(linearLayoutManager);
         recycler_post.setHasFixedSize(true);
-        recyclerAdapter = new RecyclerAdapter(getContext(),this);
+        recyclerAdapter = new RecyclerAdapter(context,this);
         recycler_post.setAdapter(recyclerAdapter);
         Dexter.initialize(context);
 
@@ -263,7 +264,7 @@ public class StoriesFragment extends Fragment implements StoriesView {
 
     @Override
     public void showMessage(String error) {
-        Toast.makeText(getContext(),error,Toast.LENGTH_SHORT).show();
+        Toast.makeText(context,error,Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -364,6 +365,11 @@ public class StoriesFragment extends Fragment implements StoriesView {
         image = new File(filePath);
         Log.i("StoriesFragment", "fileFromPath method : " + image.getPath());
 
+    }
+
+    @Override
+    public void updateItemData(StoriesLikeShareData storiesLikeShareData) {
+        recyclerAdapter.updateData(storiesLikeShareData);
     }
 
 

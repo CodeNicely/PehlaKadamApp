@@ -1,7 +1,6 @@
 package projects.com.codenicely.pehlakadam.stories.model;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.net.Uri;
 
 import java.io.File;
@@ -20,6 +19,7 @@ import projects.com.codenicely.pehlakadam.stories.StoriesCallBack;
 import projects.com.codenicely.pehlakadam.stories.StoriesLikeShareCallBack;
 import projects.com.codenicely.pehlakadam.stories.api.StoriesRequestApi;
 import projects.com.codenicely.pehlakadam.stories.model.data.StoriesData;
+import projects.com.codenicely.pehlakadam.stories.model.data.StoriesImageData;
 import projects.com.codenicely.pehlakadam.stories.model.data.StoriesLikeShareData;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,7 +27,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Multipart;
 import rx.Observable;
 
 /**
@@ -106,8 +105,8 @@ public class RetrofitStoriesProvider implements StoriesProvider{
     }
 
     @Override
-    public Observable<StoriesLikeShareData> addStories(String access_token, String title,
-                                                       String description, Uri image)
+    public Observable<StoriesImageData> addStories(String access_token, String title,
+                                                   String description, Uri image)
                                                         throws IOException {
 
         RequestBody access_token1=RequestBody.create(

@@ -38,6 +38,22 @@ public class StoriesListDetails {
         this.shared=shared;
     }
 
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public void setShares(int shares) {
+        this.shares = shares;
+    }
+
+    public void setShared(boolean shared) {
+        this.shared = shared;
+    }
+
+    public void setLiked(boolean liked) {
+        this.liked = liked;
+    }
+
     public int getStory_id() {
         return story_id;
     }

@@ -6,7 +6,7 @@ package projects.com.codenicely.pehlakadam.contact_us.presenter;
 
 public interface ContactUsPresenter {
 
-    void requestContactUs();
+    void requestContactUs(int lang_type);
 
     void onDestroy();
 

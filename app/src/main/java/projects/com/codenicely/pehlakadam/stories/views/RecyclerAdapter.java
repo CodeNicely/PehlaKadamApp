@@ -24,6 +24,7 @@ import projects.com.codenicely.pehlakadam.helper.image_loader.GlideImageLoader;
 import projects.com.codenicely.pehlakadam.helper.image_loader.ImageLoader;
 import projects.com.codenicely.pehlakadam.stories.model.MockStoriesProvider;
 import projects.com.codenicely.pehlakadam.stories.model.RetrofitStoriesProvider;
+import projects.com.codenicely.pehlakadam.stories.model.data.StoriesLikeShareData;
 import projects.com.codenicely.pehlakadam.stories.model.data.StoriesListDetails;
 import projects.com.codenicely.pehlakadam.stories.presenter.StoriesPresenter;
 import projects.com.codenicely.pehlakadam.stories.presenter.StoriesPresenterImpl;
@@ -41,6 +42,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     private StoriesFragment storiesFragment;
     private SharedPrefs sharedPreferences;
     private StoriesPresenter storiesPresenter;
+    private StoriesLikeShareData storiesLikeShareData;
 
 
 
@@ -55,12 +57,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     }
 
-    public RecyclerAdapter(Context context, StoriesActivity storiesActivity) {
-        this.context = context;
-        this.layoutInflater = LayoutInflater.from(context);
-        this.imageLoader =new GlideImageLoader(context);
-        this.sharedPreferences = new SharedPrefs(context);
-        this.storiesPresenter= new StoriesPresenterImpl(storiesActivity,new MockStoriesProvider());
+    void updateData(StoriesLikeShareData storiesLikeShareData){
+        this.storiesLikeShareData = storiesLikeShareData;
     }
 
     void setData(List<StoriesListDetails> storiesListDetailses){
@@ -129,7 +127,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                 }
                 //// TODO: 17/6/17 Like Presenter Call
                 storiesPresenter.requestLikeShare(sharedPreferences.getAccessToken(),
-                        storiesListDetails.getStory_id(),0);
+                        storiesListDetails.getStory_id(),position,0);
+                if (storiesLikeShareData != null){
+                    storiesListDetailses.get(position).setLiked(storiesLikeShareData.isLiked());
+                    storiesListDetailses.get(position).setLikes(storiesLikeShareData.getLikes());
+                }
 
                 notifyItemChanged(position);
             }
@@ -146,7 +148,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                 }
                 //// TODO: 17/6/17 Share Presenter Call
                 storiesPresenter.requestLikeShare(sharedPreferences.getAccessToken(),
-                        storiesListDetails.getStory_id(),1);
+                        storiesListDetails.getStory_id(),position,1);
+                if (storiesLikeShareData != null){
+                    storiesListDetailses.get(position).setShared(storiesLikeShareData.isShared());
+                    storiesListDetailses.get(position).setShares(storiesLikeShareData.getShares());
+                }
                 notifyItemChanged(position);
             }
         });

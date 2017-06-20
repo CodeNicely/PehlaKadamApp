@@ -6,6 +6,7 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import projects.com.codenicely.pehlakadam.R;
 import projects.com.codenicely.pehlakadam.helper.MyApplication;
@@ -13,6 +14,7 @@ import projects.com.codenicely.pehlakadam.stories.StoriesCallBack;
 import projects.com.codenicely.pehlakadam.stories.StoriesLikeShareCallBack;
 import projects.com.codenicely.pehlakadam.stories.model.StoriesProvider;
 import projects.com.codenicely.pehlakadam.stories.model.data.StoriesData;
+import projects.com.codenicely.pehlakadam.stories.model.data.StoriesImageData;
 import projects.com.codenicely.pehlakadam.stories.model.data.StoriesLikeShareData;
 import projects.com.codenicely.pehlakadam.stories.views.StoriesView;
 import rx.Observable;
@@ -31,7 +33,7 @@ public class StoriesPresenterImpl implements StoriesPresenter {
 
     private StoriesView storiesView;
     private StoriesProvider storiesProvider;
-    private Observable<StoriesLikeShareData> storiesLikeShareDataObservable;
+    private Observable<StoriesImageData> storiesLikeShareDataObservable;
     private Subscription subscription;
 
     public StoriesPresenterImpl(StoriesView storiesView, StoriesProvider storiesProvider) {
@@ -69,10 +71,18 @@ public class StoriesPresenterImpl implements StoriesPresenter {
     }
 
     @Override
-    public void requestLikeShare(String access_token, int story_id, int button_id) {
+    public void requestLikeShare(String access_token, int story_id,int position,int button_id) {
+
         storiesProvider.requestLikeShare(access_token, story_id, button_id, new StoriesLikeShareCallBack() {
             @Override
             public void onSuccess(StoriesLikeShareData storiesLikeShareData) {
+                if(storiesLikeShareData.isSuccess())
+                {
+                    storiesView.updateItemData(storiesLikeShareData);
+                }
+                else {
+
+                }
 
             }
 
@@ -127,7 +137,7 @@ public class StoriesPresenterImpl implements StoriesPresenter {
                                                                         description,imageUri);
             Log.i("StoriesPresenter", "Value of Observable" + storiesLikeShareDataObservable.toString());
             subscription = storiesLikeShareDataObservable.subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<StoriesLikeShareData>() {
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<StoriesImageData>() {
                         @Override
                         public void onCompleted() {
                             storiesView.showProgressBar(false);
@@ -142,14 +152,14 @@ public class StoriesPresenterImpl implements StoriesPresenter {
                         }
 
                         @Override
-                        public void onNext(StoriesLikeShareData storiesLikeShareData) {
-                            if (storiesLikeShareData.isSuccess()){
+                        public void onNext(StoriesImageData storiesImageData) {
+                            if (storiesImageData.isSuccess()){
 
                             }else {
 
                             }
                             storiesView.showDialogLoader(false);
-                            storiesView.showMessage(storiesLikeShareData.getMessage());
+                            storiesView.showMessage(storiesImageData.getMessage());
                             storiesView.showProgressBar(false);
                         }
                     });
