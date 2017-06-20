@@ -10,7 +10,6 @@
     <JAVADOC />
     <SOURCES>
       <root url="jar://$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/caches/modules-2/files-2.1/me.zhanghai.android.materialprogressbar/library/1.1.6/1ffa10dd0da4c7c996580ab9dead169338b6e3c1/library-1.1.6-sources.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.zhanghai.android.materialprogressbar/library/1.1.6/1ffa10dd0da4c7c996580ab9dead169338b6e3c1/library-1.1.6-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

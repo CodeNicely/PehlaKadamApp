@@ -16,7 +16,7 @@ public class MockAboutUsProvider implements AboutUsProvider {
 		List<AboutUsDetails> aboutUsDetailsList = new ArrayList<>();
 
 		for (int i=0;i<5;i++){
-			AboutUsDetails aboutUsDetails = new AboutUsDetails("Title "+i,"Description "+i);
+			AboutUsDetails aboutUsDetails = new AboutUsDetails("Title "+i,"Description "+i,"image");
 			aboutUsDetailsList.add(aboutUsDetails);
 		}
 		aboutUsCallBack

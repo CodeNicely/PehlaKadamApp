@@ -10,14 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import java.util.List;
 import java.util.Timer;
 
 import projects.com.codenicely.pehlakadam.R;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
-import projects.com.codenicely.pehlakadam.language.LanguageFragment;
 import projects.com.codenicely.pehlakadam.verify_otp.view.VerifyOtpImpl;
 import projects.com.codenicely.pehlakadam.welcome.data.WardDetails;
 import projects.com.codenicely.pehlakadam.welcome.data.WelcomePageDetails;
@@ -25,7 +23,7 @@ import projects.com.codenicely.pehlakadam.welcome.model.RetrofitWelcomeProvider;
 import projects.com.codenicely.pehlakadam.welcome.presenter.WelcomePresenter;
 import projects.com.codenicely.pehlakadam.welcome.presenter.WelcomePresenterImpl;
 
-public class WelcomeActivity extends AppCompatActivity implements WelcomeView,LanguageFragment.OnFragmentInteractionListener {
+public class WelcomeActivity extends AppCompatActivity implements WelcomeView{
 
     private ViewPager viewPager;
     private SharedPrefs sharedPrefs;
@@ -44,15 +42,8 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeView,La
         if(!sharedPrefs.isFirstTimeLaunch()){
 			setHome();
 		}
-		FragmentManager fragmentManager = getSupportFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.replace(R.id.welcome_layout, new LanguageFragment());
-		fragmentTransaction.addToBackStack(null);
-		fragmentTransaction.commit();
-
 
 		progressBar = (ProgressBar)findViewById(R.id.first_progressBar);
-
         viewPagerAdapter = new ViewPagerAdapter(this,this);
         viewPager=(ViewPager)findViewById(R.id.first_viewPager);
 //        welcomePresenter= new WelcomePresenterImpl(this, new MockWelcomeProvider());
@@ -153,8 +144,4 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeView,La
 //        finish();
     }
 
-	@Override
-	public void onFragmentInteraction(Uri uri) {
-
-	}
 }

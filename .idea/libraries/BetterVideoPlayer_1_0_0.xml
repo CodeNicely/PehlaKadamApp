@@ -10,7 +10,6 @@
     <JAVADOC />
     <SOURCES>
       <root url="jar://$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/caches/modules-2/files-2.1/com.github.halilozercan/BetterVideoPlayer/1.0.0/ced0c98ca7823cd1896b4f5d2345b0ebc1ce63ea/BetterVideoPlayer-1.0.0-sources.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.halilozercan/BetterVideoPlayer/1.0.0/ced0c98ca7823cd1896b4f5d2345b0ebc1ce63ea/BetterVideoPlayer-1.0.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

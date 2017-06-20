@@ -41,6 +41,7 @@ public class AboutUsAdapter extends RecyclerView.Adapter{
 		AboutUsDetails aboutUsDetails= aboutUsDetailsList.get(position);
 		MyViewHolder myViewHolder = (MyViewHolder) holder;
 		myViewHolder.title.setText(aboutUsDetails.getTitle());
+
 		myViewHolder.description.setText(aboutUsDetails.getDescription());
 
 	}

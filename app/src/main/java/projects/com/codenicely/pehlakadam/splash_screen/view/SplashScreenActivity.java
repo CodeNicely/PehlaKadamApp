@@ -8,10 +8,14 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ContextThemeWrapper;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,6 +23,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +35,7 @@ import projects.com.codenicely.pehlakadam.helper.image_loader.GlideImageLoader;
 import projects.com.codenicely.pehlakadam.helper.image_loader.ImageLoader;
 import projects.com.codenicely.pehlakadam.home.views.HomeActivity;
 import projects.com.codenicely.pehlakadam.splash_screen.data.SplashScreenData;
-import projects.com.codenicely.pehlakadam.splash_screen.models.MockSplashScreenProvider;
+import projects.com.codenicely.pehlakadam.splash_screen.models.RetrofitSplashScreenProvider;
 import projects.com.codenicely.pehlakadam.splash_screen.presenter.SplashScreenPresenter;
 import projects.com.codenicely.pehlakadam.splash_screen.presenter.SplashScreenPresenterImpl;
 import projects.com.codenicely.pehlakadam.welcome.view.WelcomeActivity;
@@ -50,7 +56,7 @@ public class SplashScreenActivity extends Activity implements SplashScreenView {
     private SharedPrefs sharedPrefs;
     private SplashScreenPresenter splashScreenPresenter;
     private Handler handler;
-
+	private Locale myLocale;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,9 +70,9 @@ public class SplashScreenActivity extends Activity implements SplashScreenView {
         Glide.with(this).load(R.drawable.pk_icon10_text_green).into(logo);
 
         sharedPrefs = new SharedPrefs(this);
-//        splashScreenPresenter = new SplashScreenPresenterImpl(this,
-//                new RetrofitSplashScreenProvider());
-		splashScreenPresenter = new SplashScreenPresenterImpl(this,new MockSplashScreenProvider());
+        splashScreenPresenter = new SplashScreenPresenterImpl(this,
+                new RetrofitSplashScreenProvider());
+	//	splashScreenPresenter = new SplashScreenPresenterImpl(this,new MockSplashScreenProvider());
 
 		splashScreenPresenter.requestSplash(MyApplication.getFcm_token(),sharedPrefs.getAccessToken());
     }
@@ -173,42 +179,50 @@ public class SplashScreenActivity extends Activity implements SplashScreenView {
 					public void run() {
 					}
 				}, 3000);
-				startActivity(new Intent(SplashScreenActivity.this, WelcomeActivity.class));
-				finish();
-//				Log.d("FIRST_TIME---","........");
-//				final AlertDialog ad = new AlertDialog.Builder(getApplicationContext()).create();
-//				ad.setCancelable(false);
-//				ad.setTitle("Select Your Language");
-//				ad.setMessage("Please select your language to enjoy our services");
-//				ad.setButton(DialogInterface.BUTTON_POSITIVE, "English", new DialogInterface.OnClickListener() {
-//					@Override
-//					public void onClick(DialogInterface dialog, int which) {
-//						ad.cancel();
-//						sharedPrefs.setUserLanguage(0);
-//
-//						finish();
-//						startActivity(new Intent(SplashScreenActivity.this, WelcomeActivity.class));
-//						finish();
-//					}
-//				});
-//				ad.setButton(DialogInterface.BUTTON_NEGATIVE, "Hindi", new DialogInterface.OnClickListener() {
-//					@Override
-//					public void onClick(DialogInterface dialog, int which) {
-//						ad.cancel();
-//						sharedPrefs.setUserLanguage(1);
-//
-//						finish();
-//						startActivity(new Intent(SplashScreenActivity.this, WelcomeActivity.class));
-//						finish();
-//					}
-//				});
-//
-//				ad.show();
+//				startActivity(new Intent(SplashScreenActivity.this, WelcomeActivity.class));
+//				finish();
+				Log.d("FIRST_TIME---","........");
+				final AlertDialog ad = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.myDialog)).create();
+				ad.setCancelable(false);
+				ad.setTitle("Select Your Language");
+				ad.setMessage("Please select your language to enjoy our services");
+				ad.setButton(DialogInterface.BUTTON_POSITIVE, "English", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						ad.cancel();
+						sharedPrefs.setUserLanguage(0);
+						setLocale("en");
+						finish();
+						startActivity(new Intent(SplashScreenActivity.this, WelcomeActivity.class));
+						finish();
+					}
+				});
+				ad.setButton(DialogInterface.BUTTON_NEGATIVE, "Hindi", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						ad.cancel();
+						sharedPrefs.setUserLanguage(1);
+						setLocale("hi");
+						finish();
+						startActivity(new Intent(SplashScreenActivity.this, WelcomeActivity.class));
+						finish();
+					}
+				});
+
+				ad.show();
 
 
 			}
         }
     }
+	public void setLocale(String lang) {
+		myLocale = new Locale(lang);
+		Resources res = getResources();
+		DisplayMetrics dm = res.getDisplayMetrics();
+		Configuration conf = res.getConfiguration();
+		conf.locale = myLocale;
+		res.updateConfiguration(conf, dm);
+	}
 
     @Override
     public void onFailed() {
