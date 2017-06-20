@@ -18,6 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import projects.com.codenicely.pehlakadam.R;
+import projects.com.codenicely.pehlakadam.dustbin.view.DustbinFragment;
 import projects.com.codenicely.pehlakadam.gallery.view.GalleryFragment;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
 import projects.com.codenicely.pehlakadam.stories.views.StoriesFragment;
@@ -67,6 +68,7 @@ public class HomeFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment HomeFragment.
      */
+
     // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
@@ -76,6 +78,7 @@ public class HomeFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,21 +96,27 @@ public class HomeFragment extends Fragment {
         ((HomeActivity)getContext()).getSupportActionBar().show();
         ViewPager viewpager=(ViewPager)view.findViewById(R.id.home_viewpager);
         initialize();
+
         sharedPrefs=new SharedPrefs(getContext());
         viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
         Log.d("HomeFragment","1");
         Log.d("HomeFragment",viewPagerAdapter.toString());
         Log.d("HomeFragment",viewpager.toString());
         Log.d("HomeFragment",tabLayout.toString());
+        fragmentList.clear();
+        titleList.clear();
 
-        StoriesFragment storiesFragment = StoriesFragment.newInstance();
+        StoriesFragment storiesFragment = new StoriesFragment();
         GalleryFragment galleryFragment=new GalleryFragment();
+		DustbinFragment dustbinFragment = new DustbinFragment();
 
         fragmentList.add(storiesFragment);
         fragmentList.add(galleryFragment);
+		fragmentList.add(dustbinFragment);
 
         titleList.add("Stories");
         titleList.add("Gallery");
+		titleList.add("Dustbins");
 
         viewpager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewpager);

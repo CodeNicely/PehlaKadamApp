@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -177,8 +178,6 @@ public class StoriesFragment extends Fragment implements StoriesView {
         icon_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //// TODO: 17/6/17 Permission or Camera
-                Log.d("StoriesFragment","Camera");
                 storiesPresenter.openCamera();
             }
         });
@@ -186,8 +185,6 @@ public class StoriesFragment extends Fragment implements StoriesView {
         icon_gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //// TODO: 17/6/17 Permission or Gallery
-                Log.d("StoriesFragment","Gallery");
                 storiesPresenter.openGallery();
             }
         });
@@ -197,7 +194,6 @@ public class StoriesFragment extends Fragment implements StoriesView {
             public void onClick(View view) {
                 //Todo : Add Post Module
                 String desc =text_post.getText().toString();
-                Log.d("StoriesFragment",desc+" ");
                 hideKeyboard();
                 storiesPresenter.addStories(sharedPrefs.getAccessToken(),"Title",desc,imageUri);
             }
@@ -207,7 +203,6 @@ public class StoriesFragment extends Fragment implements StoriesView {
     }
 
     void initialize(){
-
         sharedPrefs=new SharedPrefs(context);
 //        storiesPresenter = new StoriesPresenterImpl(this,new RetrofitStoriesProvider(context));
         storiesPresenter = new StoriesPresenterImpl(this,new MockStoriesProvider());
@@ -249,7 +244,6 @@ public class StoriesFragment extends Fragment implements StoriesView {
         }
         else
         {
-            Log.d("Stories","progressBar Gone");
             progress_post.setVisibility(View.GONE);
         }
     }
@@ -340,10 +334,7 @@ public class StoriesFragment extends Fragment implements StoriesView {
     public void showCamera() {
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(image));
-        Log.i("StoriesFragment", image.getPath());
-
         if (intent.resolveActivity(context.getPackageManager()) != null) {
-            // Start the image capture intent to take photo
             startActivityForResult(intent, CAMERA_REQUEST_ID);
         }
     }
@@ -361,8 +352,6 @@ public class StoriesFragment extends Fragment implements StoriesView {
     @Override
     public void fileFromPath(String filePath) {
         image = new File(filePath);
-        Log.i("StoriesFragment", "fileFromPath method : " + image.getPath());
-
     }
 
     @Override
@@ -384,21 +373,15 @@ public class StoriesFragment extends Fragment implements StoriesView {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("StoriesFragment","onActivityResult");
         if (requestCode == GALLERY_REQUEST_ID && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
             if (imageUri != null) {
-
                 Glide.with(this).load(imageUri).fitCenter().crossFade().into(imageView);
-
             }
 
         } else if (requestCode == CAMERA_REQUEST_ID && resultCode == RESULT_OK) {
-            Log.d("StoriesFragment","onActivityResult Camera");
-            Log.d("StoriesFragment","onActivityResult Camera If"+imageUri.toString());
+            imageUri = Uri.fromFile(image);
             if (imageUri != null) {
-                Log.d("StoriesFragment","onActivityResult Camera If"+imageUri.toString());
-                imageUri = Uri.fromFile(image);
                 Glide.with(this).load(imageUri).fitCenter().crossFade().into(imageView);
             }
         }

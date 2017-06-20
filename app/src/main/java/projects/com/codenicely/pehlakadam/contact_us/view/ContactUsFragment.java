@@ -240,6 +240,7 @@ public class ContactUsFragment extends Fragment implements ContactUsView {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        
+        ((HomeActivity)context).getSupportActionBar().show();
+        ((HomeActivity)context).getSupportActionBar().setTitle("Home");
     }
 }

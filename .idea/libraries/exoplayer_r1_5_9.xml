@@ -6,7 +6,7 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.exoplayer/exoplayer/r1.5.9/b8cdfe6e4b18532d63a1f613cfaf6ca5684f636b/exoplayer-r1.5.9-sources.jar!/" />
+      <root url="jar://$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/caches/modules-2/files-2.1/com.google.android.exoplayer/exoplayer/r1.5.9/b8cdfe6e4b18532d63a1f613cfaf6ca5684f636b/exoplayer-r1.5.9-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

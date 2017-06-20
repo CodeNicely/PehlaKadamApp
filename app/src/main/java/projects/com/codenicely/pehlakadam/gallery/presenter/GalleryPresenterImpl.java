@@ -36,7 +36,6 @@ public class GalleryPresenterImpl implements GalleryPresenter {
 
                 }else{
 
-
                     galleryView.showLoader(false);
 
                 }
