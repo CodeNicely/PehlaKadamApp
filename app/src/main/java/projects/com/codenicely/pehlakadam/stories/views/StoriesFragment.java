@@ -158,24 +158,22 @@ public class StoriesFragment extends Fragment implements StoriesView {
         progressDialog.setCancelable(false);
         initialize();
 
-//        text_post.setFocusable(false);
-
         if (sharedPrefs.isLoggedIn()){
             cardView.setEnabled(true);
         }
         else {
-            Log.d("StoriesFragment","Checking Login");
+
             cardView.setEnabled(false);
         }
-//        text_post.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                text_post.setFocusable(true);
-//            }
-//        });
         storiesPresenter.requestStories(sharedPrefs.getAccessToken());
-        imageLoader.loadImage(sharedPrefs.getProfileImage(), profile_image, bar_profile_image);
-        Log.d("StoriesFragment","Below ImageLoader");
+        if ( sharedPrefs.getProfileImage().equals("profile_image" )|| sharedPrefs.getProfileImage().equals("") ) {
+
+            profile_image.setImageResource(R.drawable.ic_profile);
+            bar_profile_image.setVisibility(View.INVISIBLE);
+        } else {
+            imageLoader.loadImage(sharedPrefs.getProfileImage(), profile_image, bar_profile_image);
+        }
+
         icon_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -386,7 +384,7 @@ public class StoriesFragment extends Fragment implements StoriesView {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        Log.d("StoriesFragment","onActivityResult");
         if (requestCode == GALLERY_REQUEST_ID && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
             if (imageUri != null) {
@@ -396,8 +394,10 @@ public class StoriesFragment extends Fragment implements StoriesView {
             }
 
         } else if (requestCode == CAMERA_REQUEST_ID && resultCode == RESULT_OK) {
-
+            Log.d("StoriesFragment","onActivityResult Camera");
+            Log.d("StoriesFragment","onActivityResult Camera If"+imageUri.toString());
             if (imageUri != null) {
+                Log.d("StoriesFragment","onActivityResult Camera If"+imageUri.toString());
                 imageUri = Uri.fromFile(image);
                 Glide.with(this).load(imageUri).fitCenter().crossFade().into(imageView);
             }

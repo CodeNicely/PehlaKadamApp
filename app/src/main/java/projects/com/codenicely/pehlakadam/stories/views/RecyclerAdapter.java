@@ -111,7 +111,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         else{
             holder.button_share.setImageResource(R.drawable.ic_share);
         }
-        Log.d("RecyclerAdapter",holder.likesPost.toString());
+
         holder.likesPost.setText(storiesListDetails.getLikes()+" ");
         holder.shares_post.setText(storiesListDetails.getShares()+" ");
         holder.button_like.setOnClickListener(new View.OnClickListener() {

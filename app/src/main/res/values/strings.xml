@@ -42,5 +42,11 @@
     <string name="login">Login</string>
     <string name="photos_not_available">Photos not available</string>
     <string name="profile">Profile</string>
+    <string name="join_reason">Why do you want to join ?</string>
+    <string name="cancel">Cancel</string>
+    <string name="join_us">Join Us</string>
+    <string name="Upcoming">Upcoming</string>
+    <string name="past">Past</string>
+    <string name="venue">Venue</string>
 
 </resources>

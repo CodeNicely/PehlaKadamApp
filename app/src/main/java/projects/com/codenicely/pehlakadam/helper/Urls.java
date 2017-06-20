@@ -23,4 +23,5 @@ public class Urls {
 	public static final String SUB_URL_CONTACT_US = "conatct_us/";
     public static final String REQUEST_JOIN_US = "join_us/";
 
+	public static final String REQUEST_CAMPAIGN = "campaign/";
 }

@@ -39,11 +39,10 @@ public interface StoriesRequestApi {
     );
 
     @Multipart
-    @FormUrlEncoded
     @POST(Urls.REQUEST_STORIES)
     Observable<StoriesImageData> addStories(@Part("access_token") RequestBody access_token,
                                             @Part("title") RequestBody title,
                                             @Part("description") RequestBody description,
-                                            @Part("image") MultipartBody.Part image);
+                                            @Part MultipartBody.Part image);
 }
 

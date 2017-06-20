@@ -20,6 +20,8 @@
     <dimen name="padding_small">2dp</dimen>
 
     <!--Profile Image-->
+    <dimen name="image_very_big">130dp</dimen>
+    <dimen name="image_big">100dp</dimen>
     <dimen name="image_large">70dp</dimen>
     <dimen name="image_medium">50dp</dimen>
     <dimen name="image_small">30dp</dimen>

@@ -1,7 +1,12 @@
 package projects.com.codenicely.pehlakadam.home.views;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -13,13 +18,17 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,26 +42,24 @@ import projects.com.codenicely.pehlakadam.gallery.view.GalleryFragment;
 import projects.com.codenicely.pehlakadam.gallery_video.model.data.ContentDetails;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
 import projects.com.codenicely.pehlakadam.image_viewer.ImageViewerActivity;
+import projects.com.codenicely.pehlakadam.join_us.model.RetrofitJoinUsProvider;
+import projects.com.codenicely.pehlakadam.join_us.presenter.JoinUsPresenter;
+import projects.com.codenicely.pehlakadam.join_us.presenter.JoinUsPresenterImpl;
+import projects.com.codenicely.pehlakadam.join_us.view.JoinUsView;
 import projects.com.codenicely.pehlakadam.stories.views.StoriesFragment;
 import projects.com.codenicely.pehlakadam.video_player.VideoPlayer;
 
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, JoinUsView{
 
     private SharedPrefs sharedPrefs;
     private List<String> titleList = new ArrayList<>();
     private List<Fragment> fragmentList = new ArrayList<>();
     private ViewPagerAdapter viewPagerAdapter;
-
-//    @BindView(R.id.tabLayout)
-//    TabLayout tabLayout;
-//    @BindView(R.id.progressBar)
-//    ProgressBar progressBar;
-//    @BindView(R.id.appBarLayout)
-//    AppBarLayout appBarLayout;
-//    @BindView(R.id.viewPagerLayout)
-//    RelativeLayout relativeLayout;
+    private Context context;
+    private ProgressBar progressBar;
+    private JoinUsPresenter joinUsPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,40 +69,18 @@ public class HomeActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().show();
-
-
-
+        sharedPrefs=new SharedPrefs(this);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
             this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
+        context=this;
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        joinUsPresenter= new JoinUsPresenterImpl(context,this,new RetrofitJoinUsProvider());
+        Log.d("HomeActivity----","1"+joinUsPresenter.toString());
         setFragment(new HomeFragment(),"Pehla Kadam");
-//
-//        appBarLayout.setVisibility(View.VISIBLE);
-//        relativeLayout.setVisibility(View.VISIBLE);
-//        ViewPager viewpager=(ViewPager)findViewById(R.id.home_viewpager);
-//
-//        sharedPrefs=new SharedPrefs(this);
-//        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-//
-//        StoriesFragment storiesFragment = StoriesFragment.newInstance();
-//        GalleryFragment galleryFragment=new GalleryFragment();
-//
-//        fragmentList.add(storiesFragment);
-//        fragmentList.add(galleryFragment);
-//
-//        titleList.add("Stories");
-//        titleList.add("Gallery");
-//
-//        viewpager.setAdapter(viewPagerAdapter);
-//        tabLayout.setupWithViewPager(viewpager);
-//        viewPagerAdapter.setData(fragmentList,titleList);
-//        viewPagerAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -141,6 +126,7 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_feedback) {
 
         } else if (id == R.id.nav_join_us) {
+            showDialogBox();
 
         } else if (id == R.id.nav_about_us) {
             AboutUsFragment aboutUsFragment = new AboutUsFragment();
@@ -197,4 +183,60 @@ public class HomeActivity extends AppCompatActivity
         startActivity(image_viewer);
     }
 
+    public void showDialogBox(){
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.join_us_dialog, null);
+        dialogBuilder.setView(dialogView);
+        Log.d("HomeActivity----","2"+joinUsPresenter.toString());
+        final EditText join_reason=(EditText)dialogView.findViewById(R.id.join_reason) ;
+        progressBar = (ProgressBar)dialogView.findViewById(R.id.join_us_bar);
+        dialogBuilder.setTitle(R.string.join_us);
+        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //do something with edt.getText().toString();
+                String desc=join_reason.getText().toString();
+                Log.d("HomeActivity----","3"+joinUsPresenter.toString());
+
+                joinUsPresenter.requestJoinUs(sharedPrefs.getAccessToken(),desc);
+            }
+        });
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //pass
+                dialog.dismiss();
+
+            }
+        });
+        AlertDialog b = dialogBuilder.create();
+        b.show();
+
+
+    }
+
+    @Override
+    public void showProgressBar(boolean show) {
+        if(show){
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        else {
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void showDialog(String message) {
+        final AlertDialog ad = new AlertDialog.Builder(context).create();
+        ad.setCancelable(false);
+        ad.setTitle(R.string.join_us);
+        ad.setMessage(message);
+        ad.setButton(DialogInterface.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ad.cancel();
+
+            }
+        });
+        ad.show();
+    }
 }

@@ -1,6 +1,7 @@
 package projects.com.codenicely.pehlakadam.join_us.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -21,12 +22,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitJoinUsProvider implements JoinUsProvider {
     private JoinUsApi joinUsApi;
-    private Context context;
     private Call<JoinUsData> call;
 
-    public RetrofitJoinUsProvider(Context context) {
+    public RetrofitJoinUsProvider() {
 
-        this.context=context;
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor)
@@ -45,17 +44,21 @@ public class RetrofitJoinUsProvider implements JoinUsProvider {
 
     @Override
     public void requestJoinUs(String access_token,String desc , final JoinUsCallBack joinUsCallBack) {
+        Log.d("JoinUsRetrofit","1");
         call = joinUsApi.requestJoinUs(access_token,desc);
         call.enqueue(new Callback<JoinUsData>() {
             @Override
             public void onResponse(Call<JoinUsData> call, Response<JoinUsData> response) {
                 joinUsCallBack.onSuccess(response.body());
+                Log.d("JoinUsRetrofit","Success");
             }
 
             @Override
             public void onFailure(Call<JoinUsData> call, Throwable t) {
                 t.printStackTrace();
+                Log.d("JoinUsRetrofit","Failure");
                 joinUsCallBack.onFailure();
+
             }
         });
     }

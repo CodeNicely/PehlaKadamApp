@@ -1,6 +1,7 @@
 package projects.com.codenicely.pehlakadam.join_us.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import projects.com.codenicely.pehlakadam.helper.Toaster;
 import projects.com.codenicely.pehlakadam.join_us.JoinUsCallBack;
@@ -12,7 +13,7 @@ import projects.com.codenicely.pehlakadam.join_us.view.JoinUsView;
  * Created by aman on 20/6/17.
  */
 
-public class JoinUsPresenterImpl implements JoinUsProvider {
+public class JoinUsPresenterImpl implements JoinUsPresenter {
     private JoinUsView joinUsView;
     private JoinUsProvider joinUsProvider;
     private Context context;
@@ -26,11 +27,13 @@ public class JoinUsPresenterImpl implements JoinUsProvider {
     }
 
     @Override
-    public void requestJoinUs(String access_token, String desc, final JoinUsCallBack joinUsCallBack) {
+    public void requestJoinUs(String access_token,String desc) {
+        Log.d("JoinUsPresenter","1");
         joinUsView.showProgressBar(true);
         joinUsProvider.requestJoinUs(access_token, desc, new JoinUsCallBack() {
             @Override
             public void onSuccess(JoinUsData joinUsData) {
+                Log.d("JoinUsPresenter","success");
                 try
                 {
                     if (joinUsData.isSuccess()) {
@@ -52,9 +55,9 @@ public class JoinUsPresenterImpl implements JoinUsProvider {
                 joinUsView.showProgressBar(false);
 //                toaster.showMessage("No Internet Connection");
                 joinUsView.showDialog("Something Went Wrong");
+                Log.d("JoinUsPresenter","failure");
             }
         });
-
     }
 
     @Override
