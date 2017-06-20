@@ -1,7 +1,10 @@
 package projects.com.codenicely.pehlakadam.welcome.view;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,15 +17,15 @@ import java.util.Timer;
 
 import projects.com.codenicely.pehlakadam.R;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
+import projects.com.codenicely.pehlakadam.language.LanguageFragment;
 import projects.com.codenicely.pehlakadam.verify_otp.view.VerifyOtpImpl;
 import projects.com.codenicely.pehlakadam.welcome.data.WardDetails;
 import projects.com.codenicely.pehlakadam.welcome.data.WelcomePageDetails;
-import projects.com.codenicely.pehlakadam.welcome.model.MockWelcomeProvider;
 import projects.com.codenicely.pehlakadam.welcome.model.RetrofitWelcomeProvider;
 import projects.com.codenicely.pehlakadam.welcome.presenter.WelcomePresenter;
 import projects.com.codenicely.pehlakadam.welcome.presenter.WelcomePresenterImpl;
 
-public class WelcomeActivity extends AppCompatActivity implements WelcomeView {
+public class WelcomeActivity extends AppCompatActivity implements WelcomeView,LanguageFragment.OnFragmentInteractionListener {
 
     private ViewPager viewPager;
     private SharedPrefs sharedPrefs;
@@ -30,7 +33,6 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeView {
     private ViewPagerAdapter viewPagerAdapter;
     private ProgressBar progressBar;
     private WelcomePresenter welcomePresenter;
-    TextView[] dots;
     Timer swipeTimer;
 
 
@@ -42,10 +44,15 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeView {
         if(!sharedPrefs.isFirstTimeLaunch()){
 			setHome();
 		}
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		fragmentTransaction.replace(R.id.welcome_layout, new LanguageFragment());
+		fragmentTransaction.addToBackStack(null);
+		fragmentTransaction.commit();
 
-        progressBar = (ProgressBar)findViewById(R.id.first_progressBar);
 
-//        dotsLayout=(LinearLayout)findViewById(R.id.layoutDots);
+		progressBar = (ProgressBar)findViewById(R.id.first_progressBar);
+
         viewPagerAdapter = new ViewPagerAdapter(this,this);
         viewPager=(ViewPager)findViewById(R.id.first_viewPager);
 //        welcomePresenter= new WelcomePresenterImpl(this, new MockWelcomeProvider());
@@ -145,4 +152,9 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeView {
 //        startActivity(in);
 //        finish();
     }
+
+	@Override
+	public void onFragmentInteraction(Uri uri) {
+
+	}
 }
