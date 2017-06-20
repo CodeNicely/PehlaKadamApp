@@ -1,15 +1,16 @@
 package projects.com.codenicely.pehlakadam.home.views;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,34 +18,39 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import projects.com.codenicely.pehlakadam.R;
 import projects.com.codenicely.pehlakadam.about_us.view.AboutUsFragment;
 import projects.com.codenicely.pehlakadam.contact_us.view.ContactUsFragment;
-import projects.com.codenicely.pehlakadam.gallery.view.GalleryFragment;
+import projects.com.codenicely.pehlakadam.feedback.view.FeedbackView;
 import projects.com.codenicely.pehlakadam.gallery_video.model.data.ContentDetails;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
 import projects.com.codenicely.pehlakadam.image_viewer.ImageViewerActivity;
-import projects.com.codenicely.pehlakadam.stories.views.StoriesFragment;
 import projects.com.codenicely.pehlakadam.video_player.VideoPlayer;
 
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,FeedbackView {
 
     private SharedPrefs sharedPrefs;
     private List<String> titleList = new ArrayList<>();
     private List<Fragment> fragmentList = new ArrayList<>();
     private ViewPagerAdapter viewPagerAdapter;
+	private boolean LOCATION_REQUEST = false;
 
+	Context context;
 //    @BindView(R.id.tabLayout)
 //    TabLayout tabLayout;
 //    @BindView(R.id.progressBar)
@@ -62,7 +68,7 @@ public class HomeActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().show();
-
+        context=this;
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -73,7 +79,15 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        Dexter.initialize(context);
+        if (checkPermissionForLocation()){
 
+        }else {
+            if (requestLocationPermission()){
+
+            }
+
+        }
         setFragment(new HomeFragment(),"Pehla Kadam");
 //
 //        appBarLayout.setVisibility(View.VISIBLE);
@@ -129,6 +143,50 @@ public class HomeActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+    private boolean checkPermissionForLocation() {
+
+        if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ){
+//			Toast.makeText(getContext(),"CHeck True",Toast.LENGTH_SHORT).show();
+            return true;
+
+        }
+        else{
+            //	Toast.makeText(getContext(),"CHeck False",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+    private boolean requestLocationPermission() {
+
+
+        Dexter.checkPermission(new PermissionListener() {
+            @Override
+            public void onPermissionGranted(PermissionGrantedResponse response) {
+
+
+                LOCATION_REQUEST = true;
+            }
+
+            @Override
+            public void onPermissionDenied(PermissionDeniedResponse response) {
+
+
+                LOCATION_REQUEST = false;
+            }
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+
+
+            }
+        }, Manifest.permission.ACCESS_FINE_LOCATION);
+
+//		Toast.makeText(getContext(),"REquest True",Toast.LENGTH_SHORT).show();
+
+        return LOCATION_REQUEST;
+
+    }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -144,10 +202,9 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_about_us) {
             AboutUsFragment aboutUsFragment = new AboutUsFragment();
-            addFragment(aboutUsFragment,"About Us");
+            setFragment(aboutUsFragment,"About Us");
 
         } else if (id == R.id.nav_contact_us) {
-
             ContactUsFragment contactUsFragment = new ContactUsFragment();
             setFragment(contactUsFragment,"Contact Us");
         }
@@ -197,4 +254,13 @@ public class HomeActivity extends AppCompatActivity
         startActivity(image_viewer);
     }
 
+    @Override
+    public void showLoader(boolean success) {
+
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
+    }
 }

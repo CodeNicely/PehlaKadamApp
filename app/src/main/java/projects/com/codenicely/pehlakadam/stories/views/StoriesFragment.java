@@ -210,8 +210,8 @@ public class StoriesFragment extends Fragment implements StoriesView {
     void initialize(){
 
         sharedPrefs=new SharedPrefs(getContext());
-//        storiesPresenter = new StoriesPresenterImpl(this,new RetrofitStoriesProvider());
-        storiesPresenter = new StoriesPresenterImpl(this,new MockStoriesProvider());
+        storiesPresenter = new StoriesPresenterImpl(this,new RetrofitStoriesProvider(context));
+      //  storiesPresenter = new StoriesPresenterImpl(this,new MockStoriesProvider());
         imageLoader =new GlideImageLoader(getContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerAdapter = new RecyclerAdapter(getContext(),this);

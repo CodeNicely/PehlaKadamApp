@@ -20,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import projects.com.codenicely.pehlakadam.R;
 import projects.com.codenicely.pehlakadam.about_us.data.AboutUsData;
+import projects.com.codenicely.pehlakadam.about_us.model.MockAboutUsProvider;
 import projects.com.codenicely.pehlakadam.about_us.model.RetrofitAboutUsProvider;
 import projects.com.codenicely.pehlakadam.about_us.presenter.AboutUsPresenter;
 import projects.com.codenicely.pehlakadam.about_us.presenter.AboutUsPresenterImpl;
@@ -42,10 +43,10 @@ public class AboutUsFragment extends Fragment implements AboutUsView {
     private static final String ARG_PARAM2 = "param2";
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
-    @BindView(R.id.description)
-    TextView description;
-    @BindView(R.id.title)
-    TextView title;
+//    @BindView(R.id.description)
+//    TextView description;
+//    @BindView(R.id.title)
+//    TextView title;
     @BindView(R.id.imageView)
     ImageView imageView;
     @BindView(R.id.imageProgressBar)
@@ -123,9 +124,11 @@ public class AboutUsFragment extends Fragment implements AboutUsView {
 
 		snackView = getActivity().findViewById(R.id.aboutus_layout);
         imageLoader = new GlideImageLoader(getContext());
+//        aboutUsPresenter = new AboutUsPresenterImpl(this, new MockAboutUsProvider());
+
         aboutUsPresenter = new AboutUsPresenterImpl(this, new RetrofitAboutUsProvider());
 
-        description.setVisibility(View.GONE);
+        //description.setVisibility(View.GONE);
         imageView.setVisibility(View.GONE);
         aboutUsPresenter.requestAboutUs(sharedPrefs.getUserLanguage());
 
@@ -175,13 +178,9 @@ public class AboutUsFragment extends Fragment implements AboutUsView {
 
 
         imageLoader.loadImage(aboutUsData.getImage(), imageView, imageProgressBar);
-//        description.setText(aboutUsData.getDescription());
-//        title.setText(aboutUsData.getTitle());
 		aboutUsAdapter.setAboutUsDetailsList(aboutUsData.getAbout_us_list());
 		aboutUsAdapter.notifyDataSetChanged();
 		imageView.setVisibility(View.VISIBLE);
-        description.setVisibility(View.VISIBLE);
-
     }
 
     @Override
