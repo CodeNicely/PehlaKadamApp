@@ -148,6 +148,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                     holder.button_share.setImageResource(R.drawable.ic_shared);
                 }
                 //// TODO: 17/6/17 Share Presenter Call
+                storiesFragment.whatsappShare(storiesListDetails.getDescription());
                 storiesPresenter.requestLikeShare(sharedPreferences.getAccessToken(),
                         storiesListDetails.getStory_id(),position,1);
                 if (storiesLikeShareData != null){
