@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projects.com.codenicely.pehlakadam.R;
+import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
 import projects.com.codenicely.pehlakadam.helper.image_loader.GlideImageLoader;
 import projects.com.codenicely.pehlakadam.helper.image_loader.ImageLoader;
 import projects.com.codenicely.pehlakadam.home.views.HomeActivity;
@@ -52,11 +53,13 @@ public class ViewPagerAdapter extends PagerAdapter {
 	ImageLoader imageLoader;
 	private ArrayAdapter<String> ward_array_adapter;
 	private WelcomeActivity welcomeActivity;
+	private SharedPrefs sharedPrefs;
 
 
 	public ViewPagerAdapter(Context context,WelcomeActivity welcomeActivity) {
         this.context = context;
 		this.welcomeActivity = welcomeActivity;
+		this.sharedPrefs =new SharedPrefs(context);
     }
 
     public void setData(List<WelcomePageDetails> pageDetailsList,List<WardDetails> wardDetailsList){
@@ -127,6 +130,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 			skip_button.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
+					sharedPrefs.setFirstTimeLaunch(false);
 					Intent i = new Intent(context, HomeActivity.class);
 					((WelcomeActivity)context).startActivity(i);
 					((WelcomeActivity)context).finish();

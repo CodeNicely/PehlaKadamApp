@@ -52,8 +52,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         this.layoutInflater = LayoutInflater.from(context);
         this.imageLoader =new GlideImageLoader(context);
         this.sharedPreferences = new SharedPrefs(context);
-//        this.storiesPresenter= new StoriesPresenterImpl(storiesFragment,new RetrofitStoriesProvider());
-        this.storiesPresenter= new StoriesPresenterImpl(storiesFragment,new MockStoriesProvider());
+        this.storiesPresenter= new StoriesPresenterImpl(storiesFragment,new RetrofitStoriesProvider(context));
+//        this.storiesPresenter= new StoriesPresenterImpl(storiesFragment,new MockStoriesProvider());
 
     }
 
