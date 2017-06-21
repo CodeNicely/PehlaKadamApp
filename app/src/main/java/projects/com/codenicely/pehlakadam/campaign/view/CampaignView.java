@@ -8,6 +8,6 @@ import projects.com.codenicely.pehlakadam.campaign.model.data.CampaignData;
 
 public interface CampaignView {
     void showProgressBar(boolean show);
-    void setData(CampaignData campaignData);
+    void setData(CampaignData campaignData,int c);
 
 }

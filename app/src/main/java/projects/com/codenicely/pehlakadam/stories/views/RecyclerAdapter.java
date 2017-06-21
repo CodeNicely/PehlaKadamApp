@@ -115,6 +115,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
         holder.likesPost.setText(storiesListDetails.getLikes()+" ");
         holder.shares_post.setText(storiesListDetails.getShares()+" ");
+        Log.d("StoriesRecyclerAdapter",sharedPreferences.getAccessToken().toString());
         holder.button_like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

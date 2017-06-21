@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/aman/.android/build-cache/8080d385a5317073321f5828e6ff3844394735de/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="7045152f3bd1870740b9bcb1cddff495e189774e">
+        <dex dex="/home/aman/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/classes_1cfc5b640bc679878e00b557590cad99150e550a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/aman/.android/build-cache/1433beb4e5131786e9a3719445bdbae786692de8/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="461929440e66685425a298693507f6fb27b0a872">
+        <dex dex="/home/aman/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/classes_9d0d125fef6e7f0fb4609d70d93932350d5a41bd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/aman/.android/build-cache/ff40614b5e9d8f740c3079407c2a3a4531a18aa7/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="204f607419af8247cc1b2a61f50663c65f841c12">
+        <dex dex="/home/aman/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/classes_1316b6df863ea8f2431cf0b58d73894c3678f9bc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/aman/.android/build-cache/c302c83e993e7b9a1bc34de8cf4647195bdc97ec/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="005d20a198159b87f65812fc5c51b2d84c5eba0a">
+        <dex dex="/home/aman/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/classes_c5406c1e54d00c8a840aa7def04f698650eeb596.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/aman/.android/build-cache/b5616db534e55f1d1bc094cdac3812aeee5f00a5/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="646439081688c43e04ec4aa7ba6915ddfdcc337f">
+        <dex dex="/home/aman/AndroidStudioProjects/PehlaKadamApp/app/build/intermediates/pre-dexed/debug/classes_86de94c0bcd90dcd2a48e7422c58236d20fbd257.jar" />
+    </item>
+
+</items>

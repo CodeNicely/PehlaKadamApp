@@ -15,6 +15,6 @@ import retrofit2.http.Query;
 public interface CampaignRequestApi {
 
     @GET(Urls.REQUEST_CAMPAIGN)
-    Call<CampaignData> requestCampaign(@Query("lang_type") String lang_type,
-                                       @Query("campaign_type") String campaign_type);
+    Call<CampaignData> requestCampaign(@Query("lang_type") int lang_type,
+                                       @Query("campaign_type") int campaign_type);
 }

@@ -40,7 +40,7 @@ public class RetrofitCampaignProvider implements CampaignProvider {
     }
 
     @Override
-    public void requestCampaign(String lang_type, String campaign_type,
+    public void requestCampaign(int lang_type, int campaign_type,
                                 final CampaignCallBack campaignCallBack) {
         call= campaignRequestApi.requestCampaign(lang_type,campaign_type);
         call.enqueue(new Callback<CampaignData>() {

@@ -50,5 +50,6 @@
     <string name="venue">Venue</string>
     <string name="title">Title</string>
     <string name="home">Home</string>
+    <string name="about_campaign_images">Images are related to specific Campaigns</string>
 
 </resources>

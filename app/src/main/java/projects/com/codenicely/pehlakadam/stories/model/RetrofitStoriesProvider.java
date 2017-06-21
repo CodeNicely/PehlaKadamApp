@@ -2,6 +2,7 @@ package projects.com.codenicely.pehlakadam.stories.model;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -80,6 +81,7 @@ public class RetrofitStoriesProvider implements StoriesProvider{
     @Override
     public void requestLikeShare(String access_token, int story_id,
                                  int button_id, final StoriesLikeShareCallBack storiesLikeShareCallBack) {
+        Log.d("StoriesRetrofit",access_token);
         Call<StoriesLikeShareData> storiesLikeShareDataCall;
         if(button_id==0)//LIKE BUTTON CLICK
         {
