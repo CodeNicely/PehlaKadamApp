@@ -4,6 +4,11 @@
     <group android:checkableBehavior="single">
 
         <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/icon_home"
+            android:title="@string/login"
+            android:visible="false"/>
+        <item
             android:id="@+id/nav_home"
             android:icon="@drawable/icon_home"
             android:title="@string/home"
@@ -34,6 +39,11 @@
                 android:id="@+id/nav_contact_us"
                 android:icon="@drawable/ic_contact"
                 android:title="Contact Us" />
+            <item
+                android:id="@+id/nav_developers"
+                android:icon="@drawable/ic_developer_mode_black_24dp"
+                android:title="Developers" />
+
         </menu>
     </item>
 

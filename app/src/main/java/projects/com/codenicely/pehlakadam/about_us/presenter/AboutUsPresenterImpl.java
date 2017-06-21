@@ -45,7 +45,7 @@ public class AboutUsPresenterImpl implements AboutUsPresenter {
             public void onFailure() {
 
                 aboutUsView.showLoader(false);
-//                aboutUsView.showMessage(MyApplication.getContext().getResources().getString(R.string.failure_message));
+//                aboutUsView.showDialog(MyApplication.getContext().getResources().getString(R.string.failure_message));
 
             }
         });

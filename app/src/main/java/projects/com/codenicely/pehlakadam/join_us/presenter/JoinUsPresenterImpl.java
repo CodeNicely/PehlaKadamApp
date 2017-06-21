@@ -53,7 +53,7 @@ public class JoinUsPresenterImpl implements JoinUsPresenter {
             @Override
             public void onFailure() {
                 joinUsView.showProgressBar(false);
-//                toaster.showMessage("No Internet Connection");
+//                toaster.showDialog("No Internet Connection");
                 joinUsView.showDialog("Something Went Wrong");
                 Log.d("JoinUsPresenter","failure");
             }

@@ -108,6 +108,10 @@ public class SharedPrefs {
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
     }
 
+    public void setLoggedIn(boolean loggedIn) {
+        editor.putBoolean(KEY_IS_LOGGEDIN, loggedIn);
+        editor.commit();
+    }
 
 
 

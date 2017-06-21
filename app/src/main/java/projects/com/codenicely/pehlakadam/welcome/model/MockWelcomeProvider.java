@@ -8,7 +8,7 @@ import java.util.List;
 
 import projects.com.codenicely.pehlakadam.welcome.LoginCallback;
 import projects.com.codenicely.pehlakadam.welcome.WelcomeCallBack;
-import projects.com.codenicely.pehlakadam.welcome.data.WardDetails;
+import projects.com.codenicely.pehlakadam.login.data.WardDetails;
 import projects.com.codenicely.pehlakadam.welcome.data.WelcomeData;
 import projects.com.codenicely.pehlakadam.welcome.data.WelcomePageDetails;
 

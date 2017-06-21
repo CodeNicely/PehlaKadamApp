@@ -33,7 +33,7 @@ public class ContactUsPresenterImpl implements ContactUsPresenter {
                 contactUsView.showLoader(false);
                 if (contactUsData.isSuccess()) {
                     contactUsView.setData(contactUsData);
-//                    contactUsView.showMessage(contactUsData.getMessage());
+//                    contactUsView.showDialog(contactUsData.getMessage());
                 } else {
                     contactUsView.showMessage(contactUsData.getMessage());
                 }

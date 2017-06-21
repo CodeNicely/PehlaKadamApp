@@ -157,7 +157,7 @@ public class StoriesFragment extends Fragment implements StoriesView {
         progressDialog.setIndeterminate(true);
         progressDialog.setCancelable(false);
         initialize();
-
+        Log.d("StoriesFragment",sharedPrefs.isLoggedIn()+" 1");
         if (sharedPrefs.isLoggedIn()){
             cardView.setEnabled(true);
         }
@@ -190,6 +190,7 @@ public class StoriesFragment extends Fragment implements StoriesView {
         button_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("StoriesFragment",sharedPrefs.isLoggedIn()+" 1");
                 if (sharedPrefs.isLoggedIn())
                 {
                     String desc =text_post.getText().toString();
@@ -209,8 +210,8 @@ public class StoriesFragment extends Fragment implements StoriesView {
 
     void initialize(){
         sharedPrefs=new SharedPrefs(context);
-//        storiesPresenter = new StoriesPresenterImpl(this,new RetrofitStoriesProvider(context));
-        storiesPresenter = new StoriesPresenterImpl(this,new MockStoriesProvider());
+        storiesPresenter = new StoriesPresenterImpl(this,new RetrofitStoriesProvider(context));
+//        storiesPresenter = new StoriesPresenterImpl(this,new MockStoriesProvider());
         imageLoader =new GlideImageLoader(context);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         recyclerAdapter = new RecyclerAdapter(context,this);

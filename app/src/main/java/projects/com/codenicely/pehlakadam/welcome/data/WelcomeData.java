@@ -2,6 +2,8 @@ package projects.com.codenicely.pehlakadam.welcome.data;
 
 import java.util.List;
 
+import projects.com.codenicely.pehlakadam.login.data.WardDetails;
+
 public class WelcomeData {
 
     private boolean success;

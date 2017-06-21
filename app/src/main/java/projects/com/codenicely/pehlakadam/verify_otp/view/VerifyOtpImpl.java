@@ -34,11 +34,8 @@ public class VerifyOtpImpl extends AppCompatActivity implements VerifyOtpView{
 	@BindView(R.id.progressBar)
 	ProgressBar progressbar;
 	WelcomeActivity welcomeActivity;
-
 	private SharedPrefs sharedPrefs;
-
 	private VerifyOtpPresenter otpPresenter;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +95,7 @@ public class VerifyOtpImpl extends AppCompatActivity implements VerifyOtpView{
 		Log.d("res", token);
 		sharedPrefs.setAccessToken(token);
 		sharedPrefs.setFirstTimeLaunch(false);
+		sharedPrefs.setLoggedIn(true);
 		Intent a = new Intent(VerifyOtpImpl.this, HomeActivity.class);
 		startActivity(a);
 		finish();

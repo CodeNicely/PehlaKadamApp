@@ -1,10 +1,7 @@
 package projects.com.codenicely.pehlakadam.welcome.view;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,7 +14,7 @@ import java.util.Timer;
 import projects.com.codenicely.pehlakadam.R;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
 import projects.com.codenicely.pehlakadam.verify_otp.view.VerifyOtpImpl;
-import projects.com.codenicely.pehlakadam.welcome.data.WardDetails;
+import projects.com.codenicely.pehlakadam.login.data.WardDetails;
 import projects.com.codenicely.pehlakadam.welcome.data.WelcomePageDetails;
 import projects.com.codenicely.pehlakadam.welcome.model.RetrofitWelcomeProvider;
 import projects.com.codenicely.pehlakadam.welcome.presenter.WelcomePresenter;
@@ -122,6 +119,9 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeView{
     public void setData(List<WelcomePageDetails> pageDetails, List<WardDetails> wardDetailsList) {
         viewPagerAdapter.setData(pageDetails,wardDetailsList);
         viewPagerAdapter.notifyDataSetChanged();
+        if (!sharedPrefs.isFirstTimeLaunch()){
+            viewPager.setCurrentItem(wardDetailsList.size());
+        }
     }
 
 	@Override

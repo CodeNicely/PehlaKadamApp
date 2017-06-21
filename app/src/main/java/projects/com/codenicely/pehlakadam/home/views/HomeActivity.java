@@ -1,24 +1,18 @@
 package projects.com.codenicely.pehlakadam.home.views;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,18 +21,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import projects.com.codenicely.pehlakadam.R;
 import projects.com.codenicely.pehlakadam.about_us.view.AboutUsFragment;
 import projects.com.codenicely.pehlakadam.contact_us.view.ContactUsFragment;
-import projects.com.codenicely.pehlakadam.gallery.view.GalleryFragment;
+import projects.com.codenicely.pehlakadam.developers.view.DeveloperFragment;
+import projects.com.codenicely.pehlakadam.feedback.model.RetrofitFeedbackHelper;
+import projects.com.codenicely.pehlakadam.feedback.presenter.FeedbackPresenter;
+import projects.com.codenicely.pehlakadam.feedback.presenter.FeedbackPresenterImpl;
+import projects.com.codenicely.pehlakadam.feedback.view.FeedbackView;
 import projects.com.codenicely.pehlakadam.gallery_video.model.data.ContentDetails;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
 import projects.com.codenicely.pehlakadam.image_viewer.ImageViewerActivity;
@@ -46,12 +41,12 @@ import projects.com.codenicely.pehlakadam.join_us.model.RetrofitJoinUsProvider;
 import projects.com.codenicely.pehlakadam.join_us.presenter.JoinUsPresenter;
 import projects.com.codenicely.pehlakadam.join_us.presenter.JoinUsPresenterImpl;
 import projects.com.codenicely.pehlakadam.join_us.view.JoinUsView;
-import projects.com.codenicely.pehlakadam.stories.views.StoriesFragment;
 import projects.com.codenicely.pehlakadam.video_player.VideoPlayer;
+import projects.com.codenicely.pehlakadam.welcome.view.WelcomeActivity;
 
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, JoinUsView{
+        implements NavigationView.OnNavigationItemSelectedListener, JoinUsView,FeedbackView{
 
     private SharedPrefs sharedPrefs;
     private List<String> titleList = new ArrayList<>();
@@ -60,7 +55,7 @@ public class HomeActivity extends AppCompatActivity
     private Context context;
     private ProgressBar progressBar;
     private JoinUsPresenter joinUsPresenter;
-
+	private FeedbackPresenter feedbackPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,9 +72,15 @@ public class HomeActivity extends AppCompatActivity
         toggle.syncState();
         context=this;
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        joinUsPresenter= new JoinUsPresenterImpl(context,this,new RetrofitJoinUsProvider());
-        Log.d("HomeActivity----","1"+joinUsPresenter.toString());
+
+		navigationView.setNavigationItemSelectedListener(this);
+		if (!sharedPrefs.isLoggedIn()){
+
+			navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
+		}
+		joinUsPresenter= new JoinUsPresenterImpl(context,this,new RetrofitJoinUsProvider());
+        feedbackPresenter = new FeedbackPresenterImpl(this,new RetrofitFeedbackHelper());
+		Log.d("HomeActivity----","1"+joinUsPresenter.toString());
         setFragment(new HomeFragment(),"Pehla Kadam");
     }
 
@@ -128,8 +129,13 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_profile) {
 
 
-        } else if (id == R.id.nav_feedback) {
+        } else if (id == R.id.nav_login) {
 
+            Intent intent = new Intent(this, WelcomeActivity.class);
+            startActivity(intent);
+
+        } else if (id == R.id.nav_feedback) {
+            showFeedbackDialogBox();
 
         } else if (id == R.id.nav_join_us) {
             showDialogBox();
@@ -142,12 +148,17 @@ public class HomeActivity extends AppCompatActivity
 
             ContactUsFragment contactUsFragment = new ContactUsFragment();
             setFragment(contactUsFragment,"Contact Us");
-        }
+        } else if (id == R.id.nav_developers) {
+
+			DeveloperFragment developerFragment = new DeveloperFragment();
+			setFragment(developerFragment,"Developers");
+		}
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     public void setFragment(Fragment fragment, String title) {
         if (fragment != null) {
@@ -220,6 +231,33 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
+    private void showFeedbackDialogBox() {
+
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.feedback_dialog, null);
+        dialogBuilder.setView(dialogView);
+        final EditText feedbackEdittext=(EditText)dialogView.findViewById(R.id.feedback_edittext);
+        progressBar = (ProgressBar)dialogView.findViewById(R.id.join_us_bar);
+        dialogBuilder.setTitle(R.string.feedback);
+        dialogBuilder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String feedback=feedbackEdittext.getText().toString();
+				feedbackPresenter.sendFeedback(sharedPrefs.getAccessToken(),feedback);
+            }
+        });
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //pass
+                dialog.dismiss();
+
+            }
+        });
+        AlertDialog b = dialogBuilder.create();
+        b.show();
+
+
+    }
     @Override
     public void showProgressBar(boolean show) {
         if(show){
@@ -228,6 +266,22 @@ public class HomeActivity extends AppCompatActivity
         else {
             progressBar.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void showFeedbackDialog(String message) {
+        final AlertDialog ad = new AlertDialog.Builder(context).create();
+        ad.setCancelable(false);
+        ad.setTitle(getString(R.string.feedback));
+        ad.setMessage(message);
+        ad.setButton(DialogInterface.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ad.cancel();
+
+            }
+        });
+        ad.show();
     }
 
     @Override
