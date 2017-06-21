@@ -9,9 +9,9 @@ import projects.com.codenicely.pehlakadam.contact_us.model.data.ContactUsData;
 
 public class MockProvider implements  ContactUsProvider {
     @Override
-    public void requestContactUs(ContactUsCallback contactUsCallback) {
+    public void requestContactUs(int lang_type,ContactUsCallback contactUsCallback) {
         contactUsCallback.onSuccess(new ContactUsData(true,"Success","Codenicely@gmail.com","8109573930",
-                "Raipur","www.facebook.com","www.gmail.com"));
+                "Raipur","","www.gmail.com"));
 
     }
 

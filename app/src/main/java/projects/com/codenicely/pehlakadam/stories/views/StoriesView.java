@@ -1,6 +1,7 @@
 package projects.com.codenicely.pehlakadam.stories.views;
 
 import projects.com.codenicely.pehlakadam.stories.model.data.StoriesData;
+import projects.com.codenicely.pehlakadam.stories.model.data.StoriesLikeShareData;
 
 /**
  * Created by aman on 16/6/17.
@@ -11,6 +12,7 @@ public interface StoriesView {
     void showProgressBar(boolean show);
     void setListData(StoriesData storiesData);
     void showMessage(String error);
+    void disableButton(boolean enable);
     void showDialogLoader(boolean show);
     boolean checkPermissionForCamera();
 
@@ -51,5 +53,6 @@ public interface StoriesView {
     void showGallery();
 
     void fileFromPath(String filePath);
+    void updateItemData(StoriesLikeShareData storiesLikeShareData);
 
 }

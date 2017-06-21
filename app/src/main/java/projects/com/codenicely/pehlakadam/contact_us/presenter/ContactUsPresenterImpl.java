@@ -23,10 +23,10 @@ public class ContactUsPresenterImpl implements ContactUsPresenter {
     }
 
     @Override
-    public void requestContactUs() {
+    public void requestContactUs(int lang_type) {
 
         contactUsView.showLoader(true);
-        contactUsProvider.requestContactUs(new ContactUsCallback() {
+        contactUsProvider.requestContactUs(lang_type,new ContactUsCallback() {
             @Override
             public void onSuccess(ContactUsData contactUsData) {
 

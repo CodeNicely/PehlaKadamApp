@@ -38,8 +38,8 @@ public class SharedPrefs {
         editor = pref.edit();
     }
 
-    public static String getProfileImage() {
-        return PROFILE_IMAGE;
+    public String getProfileImage() {
+        return pref.getString(PROFILE_IMAGE, "profile_image");
     }
 
 

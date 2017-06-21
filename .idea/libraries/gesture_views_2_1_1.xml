@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="gesture-views-2.1.1">
     <CLASSES>
-      <root url="jar://$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/caches/modules-2/files-2.1/com.alexvasilkov/gesture-views/2.1.1/f46205d5a153cca4f8bf3109baa105b3258f55d2/gesture-views-2.1.1.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.alexvasilkov/gesture-views/2.1.1/f46205d5a153cca4f8bf3109baa105b3258f55d2/gesture-views-2.1.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

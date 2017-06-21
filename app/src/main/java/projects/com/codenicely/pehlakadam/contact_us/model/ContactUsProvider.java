@@ -10,7 +10,7 @@ import projects.com.codenicely.pehlakadam.contact_us.ContactUsCallback;
 public interface ContactUsProvider {
 
 
-    void requestContactUs(ContactUsCallback contactUsCallback);
+    void requestContactUs(int lang_type,ContactUsCallback contactUsCallback);
 
     void onDestroy();
 

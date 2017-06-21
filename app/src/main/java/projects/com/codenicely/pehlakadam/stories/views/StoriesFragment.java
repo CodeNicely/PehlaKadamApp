@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,13 +44,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import projects.com.codenicely.pehlakadam.R;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
+import projects.com.codenicely.pehlakadam.helper.Toaster;
 import projects.com.codenicely.pehlakadam.helper.image_loader.GlideImageLoader;
 import projects.com.codenicely.pehlakadam.helper.image_loader.ImageLoader;
 import projects.com.codenicely.pehlakadam.stories.model.MockStoriesProvider;
 import projects.com.codenicely.pehlakadam.stories.model.RetrofitStoriesProvider;
 import projects.com.codenicely.pehlakadam.stories.model.data.StoriesData;
+import projects.com.codenicely.pehlakadam.stories.model.data.StoriesLikeShareData;
 import projects.com.codenicely.pehlakadam.stories.presenter.StoriesPresenter;
 import projects.com.codenicely.pehlakadam.stories.presenter.StoriesPresenterImpl;
+import projects.com.codenicely.pehlakadam.welcome.view.WelcomeActivity;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -83,6 +87,7 @@ public class StoriesFragment extends Fragment implements StoriesView {
     private static final int CAMERA_REQUEST_ID = 100;
     private final int GALLERY_REQUEST_ID = 1;
     private File image = null;
+    private Toaster toaster;
 
     @BindView(R.id.card_post)
     CardView cardView;
@@ -128,8 +133,6 @@ public class StoriesFragment extends Fragment implements StoriesView {
     public static StoriesFragment newInstance() {
         StoriesFragment fragment = new StoriesFragment();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -138,8 +141,6 @@ public class StoriesFragment extends Fragment implements StoriesView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -150,36 +151,31 @@ public class StoriesFragment extends Fragment implements StoriesView {
         View view= inflater.inflate(R.layout.fragment_stories, container, false);
         ButterKnife.bind(this,view);
         context = getContext();
-        progressDialog = new ProgressDialog(getContext());
+        progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Please wait . . .");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setIndeterminate(true);
         progressDialog.setCancelable(false);
         initialize();
 
-//        text_post.setFocusable(false);
-
         if (sharedPrefs.isLoggedIn()){
             cardView.setEnabled(true);
         }
         else {
-            Log.d("StoriesFragment","Checking Login");
             cardView.setEnabled(false);
         }
-//        text_post.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                text_post.setFocusable(true);
-//            }
-//        });
         storiesPresenter.requestStories(sharedPrefs.getAccessToken());
-        imageLoader.loadImage(sharedPrefs.getProfileImage(), profile_image, bar_profile_image);
-        Log.d("StoriesFragment","Below ImageLoader");
+        if ( sharedPrefs.getProfileImage().equals("profile_image" )|| sharedPrefs.getProfileImage().equals("") ) {
+
+            profile_image.setImageResource(R.drawable.ic_profile);
+            bar_profile_image.setVisibility(View.INVISIBLE);
+        } else {
+            imageLoader.loadImage(sharedPrefs.getProfileImage(), profile_image, bar_profile_image);
+        }
+
         icon_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //// TODO: 17/6/17 Permission or Camera
-                Log.d("StoriesFragment","Camera");
                 storiesPresenter.openCamera();
             }
         });
@@ -187,8 +183,6 @@ public class StoriesFragment extends Fragment implements StoriesView {
         icon_gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //// TODO: 17/6/17 Permission or Gallery
-                Log.d("StoriesFragment","Gallery");
                 storiesPresenter.openGallery();
             }
         });
@@ -196,11 +190,17 @@ public class StoriesFragment extends Fragment implements StoriesView {
         button_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Todo : Add Post Module
-                String desc =text_post.getText().toString();
-                Log.d("StoriesFragment",desc+" ");
-                hideKeyboard();
-                storiesPresenter.addStories(sharedPrefs.getAccessToken(),"Title",desc,imageUri);
+                if (sharedPrefs.isLoggedIn())
+                {
+                    String desc =text_post.getText().toString();
+                    hideKeyboard();
+                    storiesPresenter.addStories(sharedPrefs.getAccessToken(),"Title",desc,imageUri);
+                }else{
+                    toaster.showMessage("Please Login!!!");
+//                    Intent i =new Intent(getActivity(), WelcomeActivity.class);
+//                    startActivity(i);
+//                    getActivity().finish();
+                }
             }
         });
         hideKeyboard();
@@ -208,18 +208,18 @@ public class StoriesFragment extends Fragment implements StoriesView {
     }
 
     void initialize(){
-
-        sharedPrefs=new SharedPrefs(getContext());
+        sharedPrefs=new SharedPrefs(context);
         storiesPresenter = new StoriesPresenterImpl(this,new RetrofitStoriesProvider(context));
-      //  storiesPresenter = new StoriesPresenterImpl(this,new MockStoriesProvider());
-        imageLoader =new GlideImageLoader(getContext());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerAdapter = new RecyclerAdapter(getContext(),this);
+//        storiesPresenter = new StoriesPresenterImpl(this,new MockStoriesProvider());
+        imageLoader =new GlideImageLoader(context);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        recyclerAdapter = new RecyclerAdapter(context,this);
         recycler_post.setLayoutManager(linearLayoutManager);
         recycler_post.setHasFixedSize(true);
-        recyclerAdapter = new RecyclerAdapter(getContext(),this);
+        recyclerAdapter = new RecyclerAdapter(context,this);
         recycler_post.setAdapter(recyclerAdapter);
         Dexter.initialize(context);
+        toaster= new Toaster(context);
 
     }
 
@@ -250,7 +250,6 @@ public class StoriesFragment extends Fragment implements StoriesView {
         }
         else
         {
-            Log.d("Stories","progressBar Gone");
             progress_post.setVisibility(View.GONE);
         }
     }
@@ -263,7 +262,20 @@ public class StoriesFragment extends Fragment implements StoriesView {
 
     @Override
     public void showMessage(String error) {
-        Toast.makeText(getContext(),error,Toast.LENGTH_SHORT).show();
+        Toast.makeText(context,error,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void disableButton(boolean show) {
+        if(show)
+        {
+            button_post.setEnabled(false);
+        }
+        else
+        {
+            button_post.setEnabled(true);
+        }
+
     }
 
     @Override
@@ -341,10 +353,7 @@ public class StoriesFragment extends Fragment implements StoriesView {
     public void showCamera() {
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(image));
-        Log.i("StoriesFragment", image.getPath());
-
         if (intent.resolveActivity(context.getPackageManager()) != null) {
-            // Start the image capture intent to take photo
             startActivityForResult(intent, CAMERA_REQUEST_ID);
         }
     }
@@ -362,8 +371,11 @@ public class StoriesFragment extends Fragment implements StoriesView {
     @Override
     public void fileFromPath(String filePath) {
         image = new File(filePath);
-        Log.i("StoriesFragment", "fileFromPath method : " + image.getPath());
+    }
 
+    @Override
+    public void updateItemData(StoriesLikeShareData storiesLikeShareData) {
+        recyclerAdapter.updateData(storiesLikeShareData);
     }
 
 
@@ -380,19 +392,15 @@ public class StoriesFragment extends Fragment implements StoriesView {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == GALLERY_REQUEST_ID && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
             if (imageUri != null) {
-
                 Glide.with(this).load(imageUri).fitCenter().crossFade().into(imageView);
-
             }
 
         } else if (requestCode == CAMERA_REQUEST_ID && resultCode == RESULT_OK) {
-
+            imageUri = Uri.fromFile(image);
             if (imageUri != null) {
-                imageUri = Uri.fromFile(image);
                 Glide.with(this).load(imageUri).fitCenter().crossFade().into(imageView);
             }
         }

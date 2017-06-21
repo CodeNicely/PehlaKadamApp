@@ -22,5 +22,6 @@ public class Urls {
 	public static final String SUB_URL_GALLERY_VIDEO = "gallery_video/";
 	public static final String SUB_NOTIFICATION_IMAGES = "fcm/";
 	public static final String SUB_URL_CONTACT_US = "conatct_us/";
-
+    public static final String REQUEST_JOIN_US = "join_us/";
+	public static final String REQUEST_CAMPAIGN = "campaign/";
 }
