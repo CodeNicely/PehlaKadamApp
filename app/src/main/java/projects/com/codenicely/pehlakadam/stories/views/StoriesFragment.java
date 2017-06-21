@@ -209,8 +209,8 @@ public class StoriesFragment extends Fragment implements StoriesView {
 
     void initialize(){
         sharedPrefs=new SharedPrefs(context);
-        storiesPresenter = new StoriesPresenterImpl(this,new RetrofitStoriesProvider(context));
-//        storiesPresenter = new StoriesPresenterImpl(this,new MockStoriesProvider());
+//        storiesPresenter = new StoriesPresenterImpl(this,new RetrofitStoriesProvider(context));
+        storiesPresenter = new StoriesPresenterImpl(this,new MockStoriesProvider());
         imageLoader =new GlideImageLoader(context);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         recyclerAdapter = new RecyclerAdapter(context,this);
@@ -385,6 +385,19 @@ public class StoriesFragment extends Fragment implements StoriesView {
             progressDialog.show();
         } else {
             progressDialog.hide();
+        }
+    }
+
+    @Override
+    public void whatsappShare(String text) {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, text);
+        sendIntent.setType("text/plain");
+        try {
+            startActivity(sendIntent);
+        } catch (android.content.ActivityNotFoundException ex) {
+            toaster.showMessage("Whatsapp have not been installed.");
         }
     }
 
