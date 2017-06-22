@@ -42,7 +42,8 @@ public class MockCampaignProvider implements CampaignProvider {
             {
                 CampaignListDetails campaignListDetails = new CampaignListDetails(i
                         ,"http://www.contactauthority.com/website-assests/images/campaign1.png",
-                        "Swach Bharat","Tomorrow","Promote Cleanliness","Amapara",imageListDetailses);
+                        "Swach Bharat","Tomorrow","Promote Cleanliness. Cleanliness is the first step towards development of a society. It increases the standard of living.",
+                        "Amapara",imageListDetailses);
                 campaignListDetailses.add(campaignListDetails);
             }
             campaignData = new CampaignData(true,"Success",campaignListDetailses);

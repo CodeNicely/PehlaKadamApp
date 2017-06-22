@@ -25,10 +25,14 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
@@ -43,6 +47,9 @@ import projects.com.codenicely.pehlakadam.contact_us.view.ContactUsFragment;
 import projects.com.codenicely.pehlakadam.gallery.view.GalleryFragment;
 import projects.com.codenicely.pehlakadam.gallery_video.model.data.ContentDetails;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
+import projects.com.codenicely.pehlakadam.helper.Toaster;
+import projects.com.codenicely.pehlakadam.helper.image_loader.GlideImageLoader;
+import projects.com.codenicely.pehlakadam.helper.image_loader.ImageLoader;
 import projects.com.codenicely.pehlakadam.image_viewer.ImageViewerActivity;
 import projects.com.codenicely.pehlakadam.join_us.model.RetrofitJoinUsProvider;
 import projects.com.codenicely.pehlakadam.join_us.presenter.JoinUsPresenter;
@@ -62,6 +69,8 @@ public class HomeActivity extends AppCompatActivity
     private Context context;
     private ProgressBar progressBar;
     private JoinUsPresenter joinUsPresenter;
+    private Toaster toaster;
+    private ImageLoader imageLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +92,8 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         joinUsPresenter= new JoinUsPresenterImpl(context,this,new RetrofitJoinUsProvider());
         Log.d("HomeActivity----","1"+joinUsPresenter.toString());
+        toaster=new Toaster(context);
+        imageLoader = new GlideImageLoader(context);
         setFragment(new HomeFragment(),"Pehla Kadam");
     }
 
@@ -135,7 +146,12 @@ public class HomeActivity extends AppCompatActivity
 
 
         } else if (id == R.id.nav_join_us) {
-            showDialogBox();
+//            if(sharedPrefs.isLoggedIn())
+//            {
+                showDialogBox();
+//            }else{
+//                toaster.showMessage("Please Login!!!");
+//            }
 
         } else if (id == R.id.nav_about_us) {
             AboutUsFragment aboutUsFragment = new AboutUsFragment();
@@ -192,35 +208,104 @@ public class HomeActivity extends AppCompatActivity
         startActivity(image_viewer);
     }
 
+//    public void showDialogBox(){
+//        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+//        LayoutInflater inflater = this.getLayoutInflater();
+//        final View dialogView = inflater.inflate(R.layout.join_us_dialog, null);
+//        dialogBuilder.setView(dialogView);
+//        Log.d("HomeActivity----","2"+joinUsPresenter.toString());
+//        final EditText join_reason=(EditText)dialogView.findViewById(R.id.join_reason) ;
+//        progressBar = (ProgressBar)dialogView.findViewById(R.id.join_us_bar);
+//        dialogBuilder.setTitle(R.string.join_us);
+//        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int whichButton) {
+//                //do something with edt.getText().toString();
+//                String desc=join_reason.getText().toString();
+//                Log.d("HomeActivity----","3"+joinUsPresenter.toString());
+//
+//                joinUsPresenter.requestJoinUs(sharedPrefs.getAccessToken(),desc);
+//            }
+//        });
+//        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int whichButton) {
+//                //pass
+//                dialog.dismiss();
+//
+//            }
+//        });
+//        AlertDialog b = dialogBuilder.create();
+//        b.show();
+//
+//
+//    }
+
+
     public void showDialogBox(){
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.join_us_dialog, null);
-        dialogBuilder.setView(dialogView);
-        Log.d("HomeActivity----","2"+joinUsPresenter.toString());
-        final EditText join_reason=(EditText)dialogView.findViewById(R.id.join_reason) ;
-        progressBar = (ProgressBar)dialogView.findViewById(R.id.join_us_bar);
-        dialogBuilder.setTitle(R.string.join_us);
-        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                //do something with edt.getText().toString();
-                String desc=join_reason.getText().toString();
-                Log.d("HomeActivity----","3"+joinUsPresenter.toString());
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog);
+        ImageView imageView = (ImageView)dialog.findViewById(R.id.profile_image) ;
+        ProgressBar progressBar = (ProgressBar)dialog.findViewById(R.id.image_bar);
+        final TextView name = (TextView) dialog.findViewById(R.id.name);
+        final EditText mobile = (EditText) dialog.findViewById(R.id.mobile);
+        final EditText email = (EditText) dialog.findViewById(R.id.email);
+        final EditText address = (EditText) dialog.findViewById(R.id.ward);
+        final EditText join_reason = (EditText) dialog.findViewById(R.id.join_reason);
+        Button btn_ok = (Button) dialog.findViewById(R.id.btn_submit);
+        Button btn_cancel= (Button) dialog.findViewById(R.id.btn_cancel);
+        if ( sharedPrefs.getProfileImage().equals("profile_image" )|| sharedPrefs.getProfileImage().equals("") ) {
 
-                joinUsPresenter.requestJoinUs(sharedPrefs.getAccessToken(),desc);
-            }
-        });
-        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                //pass
+            imageView.setImageResource(R.drawable.ic_profile);
+            progressBar.setVisibility(View.INVISIBLE);
+        } else {
+            imageLoader.loadImage(sharedPrefs.getProfileImage(), imageView, progressBar);
+        }
+        name.setText(sharedPrefs.getUsername());
+        mobile.setText(sharedPrefs.getMobile());
+        email.setText(sharedPrefs.getEmail());
+        address.setText(sharedPrefs.getWard());
+        address.setFocusable(false);
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 dialog.dismiss();
-
             }
         });
-        AlertDialog b = dialogBuilder.create();
-        b.show();
 
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String name1,email1,mobile1,reason;
+                name1= name.getText().toString();
+                email1= email.getText().toString();
+                mobile1= mobile.getText().toString();
+                reason= join_reason.getText().toString();
 
+                if(name1.equals("") || name1.equals(null)) {
+                    name.setError("Please enter Name");
+                    name.requestFocus();
+                }else if (mobile1.equals("") || mobile1.equals(null)) {
+                    mobile.setError("Please enter mobile");
+                    mobile.requestFocus();
+                }else if (mobile1.length() != 10) {
+                    mobile.setError("Mobile number length should be 10");
+                    mobile.requestFocus();
+                }else if (email1.equals("")) {
+                    email.setError("Please enter Email");
+                    email.requestFocus();
+                }else if (reason.equals("")) {
+                    join_reason.setError("Please enter Reason");
+                    join_reason.requestFocus();
+                }else {
+                    joinUsPresenter.requestJoinUs(sharedPrefs.getAccessToken(),mobile1,
+                                                    email1,reason);
+                }
+            }
+        });
+
+        dialog.show();
     }
 
     @Override

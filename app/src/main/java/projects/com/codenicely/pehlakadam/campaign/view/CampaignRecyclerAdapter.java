@@ -39,7 +39,7 @@ public class CampaignRecyclerAdapter extends RecyclerView.Adapter<CampaignRecycl
     private List<CampaignListDetails> campaignListDetailsList= new ArrayList<>();
     private CampaignListDetails campaignListData;
     private int campaign_type;//0 = Past & 1 = Upcoming
-    private ViewPagerAdapter viewPagerAdapter;
+
 
 
     public CampaignRecyclerAdapter(Context context, CampaignFragment campaignFragment) {
@@ -47,14 +47,11 @@ public class CampaignRecyclerAdapter extends RecyclerView.Adapter<CampaignRecycl
         this.campaignFragment = campaignFragment;
         this.layoutInflater = LayoutInflater.from(context);
         this.imageLoader= new GlideImageLoader(context);
-        this.viewPagerAdapter = new ViewPagerAdapter(context,campaignFragment);
-
     }
 
     void setData(List<CampaignListDetails> campaignListDetailses,int campaign_type){
         this.campaignListDetailsList=campaignListDetailses;
         this.campaign_type=campaign_type;
-        Log.d("CampaignRecycler",campaign_type+"campaign_type"+campaignListDetailses.size());
     }
 
     @Override
@@ -66,6 +63,9 @@ public class CampaignRecyclerAdapter extends RecyclerView.Adapter<CampaignRecycl
     @Override
     public void onBindViewHolder(CampaignRecyclerAdapter.MyViewHolder holder, int position) {
         holder.bar_card.setVisibility(View.VISIBLE);
+        holder.bar_viewPager.setVisibility(View.GONE);
+        holder.layout_pager_campaign.setVisibility(View.GONE);
+        holder.pager_campaign.setVisibility(View.GONE);
         campaignListData=campaignListDetailsList.get(position);
         try {
             if (campaignListData.getImage().equals("") || campaignListData.getImage().equals(null)) {
@@ -80,19 +80,19 @@ public class CampaignRecyclerAdapter extends RecyclerView.Adapter<CampaignRecycl
         }
         holder.name_campaign.setText(campaignListData.getName());
         holder.date_campaign.setText(campaignListData.getDate());
-        Log.d("CampaignRecyclerAdapter","--"+campaign_type+" "+ campaignListData.getDescription());
         holder.desc_campaign.setText(campaignListData.getDescription());
-        holder.venue_campaign.setText(campaignListData.getVenue());
+        holder.venue_campaign.setText("at "+campaignListData.getVenue().toString());
         holder.bar_card.setVisibility(View.GONE);
         if(campaign_type==0)
         {
+            holder.bar_viewPager.setVisibility(View.VISIBLE);
             holder.layout_pager_campaign.setVisibility(View.VISIBLE);
-            holder.pager_campaign.setAdapter(viewPagerAdapter);
-            Log.d("CampaignRecyclerAdapter","--"+campaign_type+" "+
-                    campaignListData.getImage_list().size());
+            holder.pager_campaign.setVisibility(View.VISIBLE);
+
             try{
-                viewPagerAdapter.setPagerData(campaignListData.getImage_list());
-                viewPagerAdapter.notifyDataSetChanged();
+                holder.viewPagerAdapter.setPagerData(campaignListData.getImage_list());
+                holder.viewPagerAdapter.notifyDataSetChanged();
+                holder.bar_viewPager.setVisibility(View.GONE);
 
             }catch (NullPointerException e)
             {
@@ -122,16 +122,21 @@ public class CampaignRecyclerAdapter extends RecyclerView.Adapter<CampaignRecycl
         @BindView(R.id.desc_campaign)
         TextView desc_campaign;
         @BindView(R.id.layout_pager_campaign)
-        LinearLayout layout_pager_campaign;
+        RelativeLayout layout_pager_campaign;
         @BindView(R.id.pager_campaign)
         ViewPager pager_campaign;
         @BindView(R.id.bar_card)
         ProgressBar bar_card;
-
+        @BindView(R.id.bar_viewPager)
+        ProgressBar bar_viewPager;
+        private ViewPagerAdapter viewPagerAdapter;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
+            viewPagerAdapter = new ViewPagerAdapter(context,campaignFragment);
+            pager_campaign.setAdapter(viewPagerAdapter);
+
         }
     }
 }

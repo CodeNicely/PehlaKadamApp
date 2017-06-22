@@ -6,6 +6,6 @@ package projects.com.codenicely.pehlakadam.join_us.presenter;
 
 public interface JoinUsPresenter {
 
-    void requestJoinUs(String access_token,String description);
+    void requestJoinUs(String access_token,String mobile, String email,String description);
     void onDestroy();
 }

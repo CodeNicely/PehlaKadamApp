@@ -87,7 +87,7 @@ public class CampaignFragment extends Fragment implements CampaignView {
         ButterKnife.bind(this,view);
         context=getContext();
         initialize();
-        Log.d("CampaignFragment",sharedPrefs.getUserLanguage()+" ");
+        campaignPresenter.requestCampaign(sharedPrefs.getUserLanguage(),1);
         button_past.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,7 +152,6 @@ public class CampaignFragment extends Fragment implements CampaignView {
     @Override
     public void setData(CampaignData campaignData, int campaign_type) {
         recyclerAdapter.setData(campaignData.getPast(),campaign_type);
-        Log.d("CampaignFragment",campaign_type+"campaign_type"+campaignData.getPast().size());
         recyclerAdapter.notifyDataSetChanged();
     }
 

@@ -51,5 +51,6 @@
     <string name="title">Title</string>
     <string name="home">Home</string>
     <string name="about_campaign_images">Images are related to specific Campaigns</string>
+    <string name="ward">Address/Ward</string>
 
 </resources>

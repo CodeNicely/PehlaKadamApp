@@ -20,6 +20,9 @@ public class SharedPrefs {
     private static final int KEY_VERSION = 1;
     private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
     private static final String PROFILE_IMAGE = "profile_image";
+    private static final String MOBILE= "mobile";
+    private static final String EMAIL= "email";
+    private static final String WARD= "ward";
 
     // LogCat tag
     private static String TAG = "Shared Preference";
@@ -55,7 +58,7 @@ public class SharedPrefs {
     }
 
     public String getUsername() {
-        return pref.getString(KEY_USERNAME, "Not Available");
+        return pref.getString(KEY_USERNAME, "Name");
     }
 
     public void setUsername(String username) {
@@ -113,6 +116,26 @@ public class SharedPrefs {
         editor.commit();
     }
 
+    public String getMobile() {
+        return MOBILE;
+    }
 
+    public String getEmail() {
+        return EMAIL;
+    }
 
+    public String getWard() {
+        return WARD;
+    }
+    public void setMobile(String mobile) {
+        editor.putString(MOBILE, mobile);
+        editor.commit();
+    }
+    public void setEmail(String email) {
+        editor.putString(MOBILE, email);
+        editor.commit();
+    }    public void setWard(String ward) {
+        editor.putString(MOBILE, ward);
+        editor.commit();
+    }
 }

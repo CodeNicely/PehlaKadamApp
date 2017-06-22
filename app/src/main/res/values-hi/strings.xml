@@ -50,4 +50,5 @@
     <string name="title">Title</string>
     <string name="home">Home</string>
     <string name="about_campaign_images">छवियां विशिष्ट अभियान से संबंधित हैं</string>
+    <string name="ward">Address/Ward</string>
 </resources>
