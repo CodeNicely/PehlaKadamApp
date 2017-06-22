@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import projects.com.codenicely.pehlakadam.R;
@@ -82,7 +83,7 @@ public class CampaignRecyclerAdapter extends RecyclerView.Adapter<CampaignRecycl
             holder.name_campaign.setText(campaignListData.getName());
             holder.date_campaign.setText(campaignListData.getDate());
             holder.desc_campaign.setText(campaignListData.getDescription());
-            holder.venue_campaign.setText("at " + campaignListData.getVenue().toString());
+            holder.venue_campaign.setText("at " + campaignListData.getVenue());
             holder.bar_card.setVisibility(View.GONE);
         }catch (NullPointerException e){
 
