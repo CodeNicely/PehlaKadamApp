@@ -5,5 +5,5 @@ package projects.com.codenicely.pehlakadam.campaign.presenter;
  */
 
 public interface CampaignPresenter {
-    void requestCampaign(String lang_type, String campaign_type);
+    void requestCampaign(int lang_type, int campaign_type);
 }

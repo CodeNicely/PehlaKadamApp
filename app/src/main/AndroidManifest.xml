@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/pk_icon10_text_green"
@@ -51,6 +52,9 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="f0975af0a704ed10a7ea197a17cae20207ecfa5d" />
     </application>
 
 </manifest>

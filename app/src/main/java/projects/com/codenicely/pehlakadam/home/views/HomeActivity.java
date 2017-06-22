@@ -6,52 +6,58 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import projects.com.codenicely.pehlakadam.R;
 import projects.com.codenicely.pehlakadam.about_us.view.AboutUsFragment;
 import projects.com.codenicely.pehlakadam.contact_us.view.ContactUsFragment;
-import projects.com.codenicely.pehlakadam.gallery.view.GalleryFragment;
+import projects.com.codenicely.pehlakadam.developers.view.DeveloperFragment;
+import projects.com.codenicely.pehlakadam.feedback.model.RetrofitFeedbackHelper;
+import projects.com.codenicely.pehlakadam.feedback.presenter.FeedbackPresenter;
+import projects.com.codenicely.pehlakadam.feedback.presenter.FeedbackPresenterImpl;
+import projects.com.codenicely.pehlakadam.feedback.view.FeedbackView;
 import projects.com.codenicely.pehlakadam.gallery_video.model.data.ContentDetails;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
+import projects.com.codenicely.pehlakadam.helper.Toaster;
+import projects.com.codenicely.pehlakadam.helper.image_loader.GlideImageLoader;
+import projects.com.codenicely.pehlakadam.helper.image_loader.ImageLoader;
 import projects.com.codenicely.pehlakadam.image_viewer.ImageViewerActivity;
 import projects.com.codenicely.pehlakadam.join_us.model.RetrofitJoinUsProvider;
 import projects.com.codenicely.pehlakadam.join_us.presenter.JoinUsPresenter;
 import projects.com.codenicely.pehlakadam.join_us.presenter.JoinUsPresenterImpl;
 import projects.com.codenicely.pehlakadam.join_us.view.JoinUsView;
-import projects.com.codenicely.pehlakadam.stories.views.StoriesFragment;
+import projects.com.codenicely.pehlakadam.profile.view.ProfileFragment;
 import projects.com.codenicely.pehlakadam.video_player.VideoPlayer;
+import projects.com.codenicely.pehlakadam.welcome.view.WelcomeActivity;
 
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, JoinUsView{
+        implements NavigationView.OnNavigationItemSelectedListener, JoinUsView,FeedbackView{
 
     private SharedPrefs sharedPrefs;
     private List<String> titleList = new ArrayList<>();
@@ -60,10 +66,14 @@ public class HomeActivity extends AppCompatActivity
     private Context context;
     private ProgressBar progressBar;
     private JoinUsPresenter joinUsPresenter;
+	private FeedbackPresenter feedbackPresenter;
+    private Toaster toaster;
+    private ImageLoader imageLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -77,9 +87,17 @@ public class HomeActivity extends AppCompatActivity
         toggle.syncState();
         context=this;
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        joinUsPresenter= new JoinUsPresenterImpl(context,this,new RetrofitJoinUsProvider());
-        Log.d("HomeActivity----","1"+joinUsPresenter.toString());
+
+		navigationView.setNavigationItemSelectedListener(this);
+		if (!sharedPrefs.isLoggedIn()){
+
+			navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
+		}
+		joinUsPresenter= new JoinUsPresenterImpl(context,this,new RetrofitJoinUsProvider());
+        feedbackPresenter = new FeedbackPresenterImpl(this,new RetrofitFeedbackHelper());
+		Log.d("HomeActivity----","1"+joinUsPresenter.toString());
+        toaster=new Toaster(context);
+        imageLoader = new GlideImageLoader(context);
         setFragment(new HomeFragment(),"Pehla Kadam");
     }
 
@@ -127,27 +145,43 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_profile) {
 
+            ProfileFragment profileFragment = new ProfileFragment();
+            setFragment(profileFragment,"Profile");
+        } else if (id == R.id.nav_login) {
+
+            Intent intent = new Intent(this, WelcomeActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_feedback) {
-
+            showFeedbackDialogBox();
 
         } else if (id == R.id.nav_join_us) {
-            showDialogBox();
+//            if(sharedPrefs.isLoggedIn())
+//            {
+                showDialogBox();
+//            }else{
+//                toaster.showMessage("Please Login!!!");
+//            }
 
         } else if (id == R.id.nav_about_us) {
             AboutUsFragment aboutUsFragment = new AboutUsFragment();
-            addFragment(aboutUsFragment,"About Us");
+            setFragment(aboutUsFragment,"About Us");
 
         } else if (id == R.id.nav_contact_us) {
 
             ContactUsFragment contactUsFragment = new ContactUsFragment();
             setFragment(contactUsFragment,"Contact Us");
-        }
+        } else if (id == R.id.nav_developers) {
+
+			DeveloperFragment developerFragment = new DeveloperFragment();
+			setFragment(developerFragment,"Developers");
+		}
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     public void setFragment(Fragment fragment, String title) {
         if (fragment != null) {
@@ -189,22 +223,119 @@ public class HomeActivity extends AppCompatActivity
         startActivity(image_viewer);
     }
 
+//    public void showDialogBox(){
+//        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+//        LayoutInflater inflater = this.getLayoutInflater();
+//        final View dialogView = inflater.inflate(R.layout.join_us_dialog, null);
+//        dialogBuilder.setView(dialogView);
+//        Log.d("HomeActivity----","2"+joinUsPresenter.toString());
+//        final EditText join_reason=(EditText)dialogView.findViewById(R.id.join_reason) ;
+//        progressBar = (ProgressBar)dialogView.findViewById(R.id.join_us_bar);
+//        dialogBuilder.setTitle(R.string.join_us);
+//        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int whichButton) {
+//                //do something with edt.getText().toString();
+//                String desc=join_reason.getText().toString();
+//                Log.d("HomeActivity----","3"+joinUsPresenter.toString());
+//
+//                joinUsPresenter.requestJoinUs(sharedPrefs.getAccessToken(),desc);
+//            }
+//        });
+//        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int whichButton) {
+//                //pass
+//                dialog.dismiss();
+//
+//            }
+//        });
+//        AlertDialog b = dialogBuilder.create();
+//        b.show();
+//
+//
+//    }
+
+
     public void showDialogBox(){
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog);
+        ImageView imageView = (ImageView)dialog.findViewById(R.id.profile_image) ;
+        ProgressBar progressBar = (ProgressBar)dialog.findViewById(R.id.image_bar);
+        final TextView name = (TextView) dialog.findViewById(R.id.name);
+        final EditText mobile = (EditText) dialog.findViewById(R.id.mobile);
+        final EditText email = (EditText) dialog.findViewById(R.id.email);
+        final EditText address = (EditText) dialog.findViewById(R.id.ward);
+        final EditText join_reason = (EditText) dialog.findViewById(R.id.join_reason);
+        Button btn_ok = (Button) dialog.findViewById(R.id.btn_submit);
+        Button btn_cancel= (Button) dialog.findViewById(R.id.btn_cancel);
+        if ( sharedPrefs.getProfileImage().equals("profile_image" )|| sharedPrefs.getProfileImage().equals("") ) {
+
+            imageView.setImageResource(R.drawable.ic_profile);
+            progressBar.setVisibility(View.INVISIBLE);
+        } else {
+            imageLoader.loadImage(sharedPrefs.getProfileImage(), imageView, progressBar);
+        }
+        name.setText(sharedPrefs.getUsername());
+        mobile.setText(sharedPrefs.getMobile());
+        email.setText(sharedPrefs.getEmail());
+        address.setText(sharedPrefs.getWard());
+        address.setFocusable(false);
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String name1,email1,mobile1,reason;
+                name1= name.getText().toString();
+                email1= email.getText().toString();
+                mobile1= mobile.getText().toString();
+                reason= join_reason.getText().toString();
+
+                if(name1.equals("") || name1.equals(null)) {
+                    name.setError("Please enter Name");
+                    name.requestFocus();
+                }else if (mobile1.equals("") || mobile1.equals(null)) {
+                    mobile.setError("Please enter mobile");
+                    mobile.requestFocus();
+                }else if (mobile1.length() != 10) {
+                    mobile.setError("Mobile number length should be 10");
+                    mobile.requestFocus();
+                }else if (email1.equals("")) {
+                    email.setError("Please enter Email");
+                    email.requestFocus();
+                }else if (reason.equals("")) {
+                    join_reason.setError("Please enter Reason");
+                    join_reason.requestFocus();
+                }else {
+                    joinUsPresenter.requestJoinUs(sharedPrefs.getAccessToken(),mobile1,
+                                                    email1,reason);
+                }
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void showFeedbackDialogBox() {
+
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.join_us_dialog, null);
+        final View dialogView = inflater.inflate(R.layout.feedback_dialog, null);
         dialogBuilder.setView(dialogView);
-        Log.d("HomeActivity----","2"+joinUsPresenter.toString());
-        final EditText join_reason=(EditText)dialogView.findViewById(R.id.join_reason) ;
+        final EditText feedbackEdittext=(EditText)dialogView.findViewById(R.id.feedback_edittext);
         progressBar = (ProgressBar)dialogView.findViewById(R.id.join_us_bar);
-        dialogBuilder.setTitle(R.string.join_us);
-        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+        dialogBuilder.setTitle(R.string.feedback);
+        dialogBuilder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                //do something with edt.getText().toString();
-                String desc=join_reason.getText().toString();
-                Log.d("HomeActivity----","3"+joinUsPresenter.toString());
-
-                joinUsPresenter.requestJoinUs(sharedPrefs.getAccessToken(),desc);
+                String feedback=feedbackEdittext.getText().toString();
+				feedbackPresenter.sendFeedback(sharedPrefs.getAccessToken(),feedback);
             }
         });
         dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -219,7 +350,6 @@ public class HomeActivity extends AppCompatActivity
 
 
     }
-
     @Override
     public void showProgressBar(boolean show) {
         if(show){
@@ -228,6 +358,22 @@ public class HomeActivity extends AppCompatActivity
         else {
             progressBar.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void showFeedbackDialog(String message) {
+        final AlertDialog ad = new AlertDialog.Builder(context).create();
+        ad.setCancelable(false);
+        ad.setTitle(getString(R.string.feedback));
+        ad.setMessage(message);
+        ad.setButton(DialogInterface.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ad.cancel();
+
+            }
+        });
+        ad.show();
     }
 
     @Override

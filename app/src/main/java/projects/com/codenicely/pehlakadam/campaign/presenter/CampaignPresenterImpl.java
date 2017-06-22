@@ -27,7 +27,7 @@ public class CampaignPresenterImpl  implements  CampaignPresenter{
     }
 
     @Override
-    public void requestCampaign(String lang_type, String campaign_type) {
+    public void requestCampaign(int lang_type, final int campaign_type) {
         campaignView.showProgressBar(true);
         campaignProvider.requestCampaign(lang_type, campaign_type, new CampaignCallBack() {
             @Override
@@ -36,7 +36,8 @@ public class CampaignPresenterImpl  implements  CampaignPresenter{
                     if(campaignData.isSuccess())
                     {
                         campaignView.showProgressBar(false);
-                        campaignView.setData(campaignData);
+                        campaignView.setData(campaignData,campaign_type);
+                        toaster.showMessage(campaignData.getMessage());
                     }
                     else{
                         campaignView.showProgressBar(false);

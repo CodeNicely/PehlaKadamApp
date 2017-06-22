@@ -2,7 +2,7 @@ package projects.com.codenicely.pehlakadam.welcome.view;
 
 import java.util.List;
 
-import projects.com.codenicely.pehlakadam.welcome.data.WardDetails;
+import projects.com.codenicely.pehlakadam.login.data.WardDetails;
 import projects.com.codenicely.pehlakadam.welcome.data.WelcomePageDetails;
 
 public interface WelcomeView {

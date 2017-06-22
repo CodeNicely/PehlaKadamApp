@@ -14,6 +14,7 @@ public interface StoriesView {
     void showMessage(String error);
     void disableButton(boolean enable);
     void showDialogLoader(boolean show);
+    void whatsappShare(String text);
     boolean checkPermissionForCamera();
 
     /**
@@ -53,6 +54,6 @@ public interface StoriesView {
     void showGallery();
 
     void fileFromPath(String filePath);
-    void updateItemData(StoriesLikeShareData storiesLikeShareData);
+    void updateItemData(StoriesLikeShareData storiesLikeShareData,int position);
 
 }

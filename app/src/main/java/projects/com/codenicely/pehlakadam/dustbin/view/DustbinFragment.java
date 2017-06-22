@@ -42,6 +42,7 @@ import projects.com.codenicely.pehlakadam.dustbin.model.RetrofitDustbinProvider;
 import projects.com.codenicely.pehlakadam.dustbin.presenter.DustbinPresenter;
 import projects.com.codenicely.pehlakadam.dustbin.presenter.DustbinPresenterImpl;
 import projects.com.codenicely.pehlakadam.helper.OnMapAndViewReadyListener;
+import projects.com.codenicely.pehlakadam.helper.Toaster;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,6 +71,8 @@ public class DustbinFragment extends Fragment implements
 	private LocationRequest mLocationRequest;
 	private double latitude;
 	private double longitude;
+	private Toaster toaster;
+	private Context context;
 
 	//Define a request code to send to Google Play services
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
@@ -112,6 +115,8 @@ public class DustbinFragment extends Fragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 		View v =inflater.inflate(R.layout.fragment_dustbin, container, false);
+		context=getContext();
+		toaster= new Toaster(context);
 
 		mGoogleApiClient = new GoogleApiClient.Builder(getContext())
 								   // The next two lines tell the new client that “this” current class will handle connection stuff
@@ -204,13 +209,15 @@ public class DustbinFragment extends Fragment implements
 		mMap.setContentDescription("Map with lots of markers.");
 
 
-
-		LatLngBounds bounds = new LatLngBounds.Builder()
-		.include(new LatLng(dustbinDetailsList.get(0).getLatitude(), dustbinDetailsList.get(0).getLongitude()))
-		.build();
-
-		mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 1000));
-
+		try {
+			LatLngBounds bounds = new LatLngBounds.Builder()
+					.include(new LatLng(dustbinDetailsList.get(0).getLatitude(), dustbinDetailsList.get(0).getLongitude()))
+					.build();
+			mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50));
+		}catch (IndexOutOfBoundsException e)
+		{
+			toaster.showMessage("Null List");
+		}
 	}
 
 	private void addMarkersToMap() {

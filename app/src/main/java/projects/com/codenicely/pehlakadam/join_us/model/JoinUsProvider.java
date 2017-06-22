@@ -8,7 +8,8 @@ import projects.com.codenicely.pehlakadam.join_us.JoinUsCallBack;
 
 public interface JoinUsProvider {
 
-    void requestJoinUs(String access_token ,String desc, JoinUsCallBack joinUsCallBack);
+    void requestJoinUs(String access_token ,String mobile, String email
+                        ,String desc, JoinUsCallBack joinUsCallBack);
 
     void onDestroy();
 }

@@ -48,10 +48,11 @@
                 <ImageView
 
                     android:id="@+id/imageView"
-                    android:layout_width="match_parent"
+                    android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:padding="8dp" />
+
             </RelativeLayout>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"

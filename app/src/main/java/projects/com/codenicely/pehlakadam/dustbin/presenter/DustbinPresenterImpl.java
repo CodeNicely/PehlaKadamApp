@@ -1,9 +1,12 @@
 package projects.com.codenicely.pehlakadam.dustbin.presenter;
 
+import android.widget.Toast;
+
 import projects.com.codenicely.pehlakadam.dustbin.DustbinCallback;
 import projects.com.codenicely.pehlakadam.dustbin.data.DustbinData;
 import projects.com.codenicely.pehlakadam.dustbin.model.DustbinProvider;
 import projects.com.codenicely.pehlakadam.dustbin.view.DustbinView;
+import projects.com.codenicely.pehlakadam.helper.Toaster;
 
 /**
  * Created by ujjwal on 20/6/17.
@@ -24,10 +27,19 @@ public class DustbinPresenterImpl implements DustbinPresenter{
 			@Override
 			public void onSuccess(DustbinData dustbinData) {
 				dustbinView.showLoader(false);
-				if (dustbinData.isSuccess()){
-					dustbinView.setData(dustbinData);
-				}else {
-					dustbinView.showMessage(dustbinData.getMessage());
+				try {
+					if (dustbinData.getDustbin_list().size()== 0)
+					{
+						if (dustbinData.isSuccess()) {
+							dustbinView.setData(dustbinData);
+						} else {
+							dustbinView.showMessage(dustbinData.getMessage());
+						}
+					}
+
+				}catch (NullPointerException e)
+				{
+					dustbinView.showMessage("Dustbin List Empty");
 				}
 			}
 

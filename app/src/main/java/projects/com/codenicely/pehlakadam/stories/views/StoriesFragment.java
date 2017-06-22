@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
@@ -157,7 +158,9 @@ public class StoriesFragment extends Fragment implements StoriesView {
         progressDialog.setIndeterminate(true);
         progressDialog.setCancelable(false);
         initialize();
-
+        text_post.setText("");
+        imageView.setVisibility(View.INVISIBLE);
+        Log.d("StoriesFragment",sharedPrefs.isLoggedIn()+" 1");
         if (sharedPrefs.isLoggedIn()){
             cardView.setEnabled(true);
         }
@@ -190,6 +193,7 @@ public class StoriesFragment extends Fragment implements StoriesView {
         button_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("StoriesFragment",sharedPrefs.isLoggedIn()+" 1");
                 if (sharedPrefs.isLoggedIn())
                 {
                     String desc =text_post.getText().toString();
@@ -197,9 +201,15 @@ public class StoriesFragment extends Fragment implements StoriesView {
                     storiesPresenter.addStories(sharedPrefs.getAccessToken(),"Title",desc,imageUri);
                 }else{
                     toaster.showMessage("Please Login!!!");
-//                    Intent i =new Intent(getActivity(), WelcomeActivity.class);
-//                    startActivity(i);
-//                    getActivity().finish();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent i =new Intent(getActivity(), WelcomeActivity.class);
+                            startActivity(i);
+                            getActivity().finish();
+                        }
+                    },900);
+
                 }
             }
         });
@@ -374,8 +384,8 @@ public class StoriesFragment extends Fragment implements StoriesView {
     }
 
     @Override
-    public void updateItemData(StoriesLikeShareData storiesLikeShareData) {
-        recyclerAdapter.updateData(storiesLikeShareData);
+    public void updateItemData(StoriesLikeShareData storiesLikeShareData,int position) {
+        recyclerAdapter.updateData(storiesLikeShareData,position);
     }
 
 
@@ -388,6 +398,19 @@ public class StoriesFragment extends Fragment implements StoriesView {
         }
     }
 
+    @Override
+    public void whatsappShare(String text) {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, text);
+        sendIntent.setType("text/plain");
+        try {
+            startActivity(sendIntent);
+        } catch (android.content.ActivityNotFoundException ex) {
+            toaster.showMessage("Whatsapp have not been installed.");
+        }
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -395,12 +418,14 @@ public class StoriesFragment extends Fragment implements StoriesView {
         if (requestCode == GALLERY_REQUEST_ID && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
             if (imageUri != null) {
+                imageView.setVisibility(View.VISIBLE);
                 Glide.with(this).load(imageUri).fitCenter().crossFade().into(imageView);
             }
 
         } else if (requestCode == CAMERA_REQUEST_ID && resultCode == RESULT_OK) {
             imageUri = Uri.fromFile(image);
             if (imageUri != null) {
+                imageView.setVisibility(View.VISIBLE);
                 Glide.with(this).load(imageUri).fitCenter().crossFade().into(imageView);
             }
         }

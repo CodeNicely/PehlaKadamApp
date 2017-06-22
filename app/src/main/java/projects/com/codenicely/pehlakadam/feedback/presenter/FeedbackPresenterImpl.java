@@ -19,20 +19,20 @@ public class FeedbackPresenterImpl implements FeedbackPresenter{
 
 	@Override
 	public void sendFeedback(String access_token, String feedback) {
-		feedbackView.showLoader(true);
+		feedbackView.showProgressBar(true);
 		feedbackHelper.sendFeedback(access_token, feedback, new FeedbackCallback() {
 			@Override
 			public void onSuccess(FeedbackResponse feedbackResponse) {
 
-				feedbackView.showLoader(false);
-				feedbackView.showMessage(feedbackResponse.getMessage());
+				feedbackView.showProgressBar(false);
+				feedbackView.showFeedbackDialog(feedbackResponse.getMessage());
 
 			}
 
 			@Override
 			public void onFailed() {
-				feedbackView.showLoader(false);
-				feedbackView.showMessage("Unable to connect to server");
+				feedbackView.showProgressBar(false);
+				feedbackView.showFeedbackDialog("Unable to connect to server");
 			}
 		});
 	}

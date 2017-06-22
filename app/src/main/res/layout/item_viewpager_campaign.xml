@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:contentPadding="@dimen/padding_small"
+    android:layout_margin="@dimen/padding_small"
+    android:id="@+id/image_layout"
+    >
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:minWidth="@dimen/image_large"
+        android:minHeight="@dimen/image_large"
+        android:maxHeight="@dimen/image_hd"
+        android:maxWidth="@dimen/image_hd"
+        android:contentDescription="@string/about_campaign_images"
+        android:src="@drawable/pk_icon10_text_green"
+        android:id="@+id/image_pager_campaign"
+        />
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:id="@+id/img_bar_campaign"
+        />
+</RelativeLayout>

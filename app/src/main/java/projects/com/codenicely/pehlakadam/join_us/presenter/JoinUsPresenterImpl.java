@@ -27,10 +27,10 @@ public class JoinUsPresenterImpl implements JoinUsPresenter {
     }
 
     @Override
-    public void requestJoinUs(String access_token,String desc) {
+    public void requestJoinUs(String access_token,String mobile, String email,String desc) {
         Log.d("JoinUsPresenter","1");
         joinUsView.showProgressBar(true);
-        joinUsProvider.requestJoinUs(access_token, desc, new JoinUsCallBack() {
+        joinUsProvider.requestJoinUs(access_token,mobile, email, desc, new JoinUsCallBack() {
             @Override
             public void onSuccess(JoinUsData joinUsData) {
                 Log.d("JoinUsPresenter","success");
@@ -53,7 +53,7 @@ public class JoinUsPresenterImpl implements JoinUsPresenter {
             @Override
             public void onFailure() {
                 joinUsView.showProgressBar(false);
-//                toaster.showMessage("No Internet Connection");
+//                toaster.showDialog("No Internet Connection");
                 joinUsView.showDialog("Something Went Wrong");
                 Log.d("JoinUsPresenter","failure");
             }

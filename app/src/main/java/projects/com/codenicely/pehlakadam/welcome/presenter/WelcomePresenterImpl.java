@@ -3,7 +3,7 @@ package projects.com.codenicely.pehlakadam.welcome.presenter;
 
 import projects.com.codenicely.pehlakadam.welcome.LoginCallback;
 import projects.com.codenicely.pehlakadam.welcome.WelcomeCallBack;
-import projects.com.codenicely.pehlakadam.welcome.data.LoginResponse;
+import projects.com.codenicely.pehlakadam.login.data.LoginResponse;
 import projects.com.codenicely.pehlakadam.welcome.data.WelcomeData;
 import projects.com.codenicely.pehlakadam.welcome.model.WelcomeProvider;
 import projects.com.codenicely.pehlakadam.welcome.view.WelcomeView;
@@ -28,19 +28,18 @@ public class WelcomePresenterImpl implements WelcomePresenter {
                 if(welcomeData.isSuccess())
                 {
                     welcomeView.setData(welcomeData.getWelcome_page(),welcomeData.getWard_list());
-                    welcomeView.showMessage("Success");
                     welcomeView.showProgressBar(false);
                 }
                 else
                 {
-                    welcomeView.showMessage("Try Again Sometime Later");
+                    welcomeView.showMessage(welcomeData.getMessage());
                     welcomeView.showProgressBar(false);
                 }
             }
 
             @Override
             public void onFailure() {
-                    welcomeView.showMessage("Failed");
+                    welcomeView.showMessage("Unable to connect to Server");
             }
         });
 
@@ -59,7 +58,6 @@ public class WelcomePresenterImpl implements WelcomePresenter {
                     welcomeView.showMessage(loginResponse.getMessage());
                 }
             }
-
             @Override
             public void onFailure() {
                 welcomeView.showProgressBar(false);

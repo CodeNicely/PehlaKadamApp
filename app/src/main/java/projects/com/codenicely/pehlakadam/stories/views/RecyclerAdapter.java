@@ -52,13 +52,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         this.layoutInflater = LayoutInflater.from(context);
         this.imageLoader =new GlideImageLoader(context);
         this.sharedPreferences = new SharedPrefs(context);
-//        this.storiesPresenter= new StoriesPresenterImpl(storiesFragment,new RetrofitStoriesProvider());
-        this.storiesPresenter= new StoriesPresenterImpl(storiesFragment,new MockStoriesProvider());
+        this.storiesPresenter= new StoriesPresenterImpl(storiesFragment,new RetrofitStoriesProvider(context));
+//        this.storiesPresenter= new StoriesPresenterImpl(storiesFragment,new MockStoriesProvider());
 
     }
 
-    void updateData(StoriesLikeShareData storiesLikeShareData){
+    void updateData(StoriesLikeShareData storiesLikeShareData,int i){
         this.storiesLikeShareData = storiesLikeShareData;
+        if (storiesLikeShareData != null){
+            storiesListDetailses.get(i).setLiked(storiesLikeShareData.isLiked());
+            storiesListDetailses.get(i).setLikes(storiesLikeShareData.getLikes());
+            storiesListDetailses.get(i).setShared(storiesLikeShareData.isShared());
+            storiesListDetailses.get(i).setShares(storiesLikeShareData.getShares());
+        }
+        notifyItemChanged(i);
     }
 
     void setData(List<StoriesListDetails> storiesListDetailses){
@@ -77,9 +84,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         final StoriesListDetails storiesListDetails = storiesListDetailses.get(position);
         holder.bar_card_post.setVisibility(View.GONE);
         if (storiesListDetails.getUser_image() != null) {
-
+            Log.d("StoriesRecycler","User_Image"+storiesListDetails.getUser_image());
             holder.profileImage.setVisibility(View.VISIBLE);
-            imageLoader.loadImage(storiesListDetails.getImage(), holder.image_post, holder.bar_user_image);
+            imageLoader.loadImage(storiesListDetails.getUser_image(), holder.profileImage, holder.bar_user_image);
         } else {
             holder.profileImage.setImageResource(R.drawable.ic_profile);
         }
@@ -115,6 +122,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
         holder.likesPost.setText(storiesListDetails.getLikes()+" ");
         holder.shares_post.setText(storiesListDetails.getShares()+" ");
+        Log.d("StoriesRecyclerAdapter",sharedPreferences.getAccessToken().toString());
         holder.button_like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,12 +137,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                 //// TODO: 17/6/17 Like Presenter Call
                 storiesPresenter.requestLikeShare(sharedPreferences.getAccessToken(),
                         storiesListDetails.getStory_id(),position,0);
-                if (storiesLikeShareData != null){
-                    storiesListDetailses.get(position).setLiked(storiesLikeShareData.isLiked());
-                    storiesListDetailses.get(position).setLikes(storiesLikeShareData.getLikes());
-                }
-
-                notifyItemChanged(position);
             }
         });
         holder.button_share.setOnClickListener(new View.OnClickListener() {
@@ -148,13 +150,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                     holder.button_share.setImageResource(R.drawable.ic_shared);
                 }
                 //// TODO: 17/6/17 Share Presenter Call
+                storiesFragment.whatsappShare(storiesListDetails.getDescription());
                 storiesPresenter.requestLikeShare(sharedPreferences.getAccessToken(),
                         storiesListDetails.getStory_id(),position,1);
-                if (storiesLikeShareData != null){
-                    storiesListDetailses.get(position).setShared(storiesLikeShareData.isShared());
-                    storiesListDetailses.get(position).setShares(storiesLikeShareData.getShares());
-                }
-                notifyItemChanged(position);
             }
         });
 
