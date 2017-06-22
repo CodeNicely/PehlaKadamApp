@@ -18,6 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import projects.com.codenicely.pehlakadam.R;
+import projects.com.codenicely.pehlakadam.campaign.view.CampaignFragment;
 import projects.com.codenicely.pehlakadam.dustbin.view.DustbinFragment;
 import projects.com.codenicely.pehlakadam.gallery.view.GalleryFragment;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
@@ -95,7 +96,6 @@ public class HomeFragment extends Fragment {
         ButterKnife.bind(this,view);
         ((HomeActivity)getContext()).getSupportActionBar().show();
         ViewPager viewpager=(ViewPager)view.findViewById(R.id.home_viewpager);
-        initialize();
 
         sharedPrefs=new SharedPrefs(getContext());
         viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
@@ -109,27 +109,25 @@ public class HomeFragment extends Fragment {
         StoriesFragment storiesFragment = new StoriesFragment();
         GalleryFragment galleryFragment=new GalleryFragment();
 		DustbinFragment dustbinFragment = new DustbinFragment();
+        CampaignFragment campaignFragment = new CampaignFragment();
 
-        fragmentList.add(storiesFragment);
-        fragmentList.add(galleryFragment);
-		fragmentList.add(dustbinFragment);
-
-        titleList.add("Stories");
-        titleList.add("Gallery");
-		titleList.add("Dustbins");
+        setTabData(storiesFragment,"Stories");
+        setTabData(galleryFragment,"Gallery");
+        setTabData(dustbinFragment,"Dustbin");
+        setTabData(campaignFragment,"Campaign");
 
         viewpager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewpager);
         viewPagerAdapter.setData(fragmentList,titleList);
         viewPagerAdapter.notifyDataSetChanged();
-
+        viewpager.setOffscreenPageLimit(fragmentList.size());
         return view;
     }
 
-    void initialize(){
-
+    void setTabData(Fragment fragment,String title){
+        fragmentList.add(fragment);
+        titleList.add(title);
     }
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

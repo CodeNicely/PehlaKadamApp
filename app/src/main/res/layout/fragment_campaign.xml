@@ -37,6 +37,8 @@
                         android:textSize="@dimen/activity_horizontal_margin"
                         android:textColor="@color/Dark"
                         android:layout_weight="1"
+                        android:background="@drawable/card_background"
+                        android:layout_marginRight="@dimen/padding_small"
                         android:id="@+id/button_upcoming"
                         />
                     <Button
@@ -47,6 +49,8 @@
                         android:textSize="@dimen/activity_horizontal_margin"
                         android:textColor="@color/Dark"
                         android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/padding_small"
+                        android:background="@drawable/card_background"
                         android:id="@+id/button_past"
                         />
 
@@ -63,7 +67,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:nestedScrollingEnabled="false"
-                        android:id="@+id/recycler_post"
+                        android:id="@+id/recycler_campaign"
                         >
 
                     </android.support.v7.widget.RecyclerView>
@@ -73,7 +77,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:visibility="gone"
-                        android:id="@+id/progress_post"
+                        android:id="@+id/progress_campaign"
                         />
                 </RelativeLayout>
             </RelativeLayout>

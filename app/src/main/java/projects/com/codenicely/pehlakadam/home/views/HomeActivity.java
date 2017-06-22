@@ -22,6 +22,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +43,7 @@ import projects.com.codenicely.pehlakadam.join_us.model.RetrofitJoinUsProvider;
 import projects.com.codenicely.pehlakadam.join_us.presenter.JoinUsPresenter;
 import projects.com.codenicely.pehlakadam.join_us.presenter.JoinUsPresenterImpl;
 import projects.com.codenicely.pehlakadam.join_us.view.JoinUsView;
+import projects.com.codenicely.pehlakadam.profile.view.ProfileFragment;
 import projects.com.codenicely.pehlakadam.video_player.VideoPlayer;
 import projects.com.codenicely.pehlakadam.welcome.view.WelcomeActivity;
 
@@ -59,6 +62,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -128,7 +132,8 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_profile) {
 
-
+            ProfileFragment profileFragment = new ProfileFragment();
+            setFragment(profileFragment,"Profile");
         } else if (id == R.id.nav_login) {
 
             Intent intent = new Intent(this, WelcomeActivity.class);
@@ -142,7 +147,7 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_about_us) {
             AboutUsFragment aboutUsFragment = new AboutUsFragment();
-            addFragment(aboutUsFragment,"About Us");
+            setFragment(aboutUsFragment,"About Us");
 
         } else if (id == R.id.nav_contact_us) {
 

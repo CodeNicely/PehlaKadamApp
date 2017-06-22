@@ -30,6 +30,7 @@ public class RetrofitWelcomeProvider implements WelcomeProvider {
 
     public RetrofitWelcomeProvider()
     {
+
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 

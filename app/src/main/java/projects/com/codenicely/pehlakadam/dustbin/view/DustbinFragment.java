@@ -209,7 +209,7 @@ public class DustbinFragment extends Fragment implements
 		.include(new LatLng(dustbinDetailsList.get(0).getLatitude(), dustbinDetailsList.get(0).getLongitude()))
 		.build();
 
-		mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 1000));
+		mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50));
 
 	}
 

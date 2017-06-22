@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -20,7 +21,7 @@ import projects.com.codenicely.pehlakadam.about_us.data.AboutUsDetails;
 
 public class AboutUsAdapter extends RecyclerView.Adapter{
 
-	private List<AboutUsDetails> aboutUsDetailsList;
+	private List<AboutUsDetails> aboutUsDetailsList = new ArrayList<>();
 	private Context context;
 	private LayoutInflater layoutInflater;
 

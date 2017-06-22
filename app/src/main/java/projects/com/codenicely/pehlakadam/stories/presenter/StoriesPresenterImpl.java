@@ -76,13 +76,19 @@ public class StoriesPresenterImpl implements StoriesPresenter {
         storiesProvider.requestLikeShare(access_token, story_id, button_id, new StoriesLikeShareCallBack() {
             @Override
             public void onSuccess(StoriesLikeShareData storiesLikeShareData) {
-                if(storiesLikeShareData.isSuccess())
-                {
-                    storiesView.updateItemData(storiesLikeShareData);
-                }
-                else {
+                try{
+                    if(storiesLikeShareData.isSuccess())
+                    {
+                        storiesView.updateItemData(storiesLikeShareData);
+                    }
+                    else {
+
+                    }
+                }catch (NullPointerException e){
+                    e.printStackTrace();
 
                 }
+
 
             }
 
@@ -158,7 +164,6 @@ public class StoriesPresenterImpl implements StoriesPresenter {
                             if (storiesImageData.isSuccess()){
                                 requestStories(access_token);
                             }else {
-
                             }
                             storiesView.showDialogLoader(false);
                             storiesView.showMessage(storiesImageData.getMessage());

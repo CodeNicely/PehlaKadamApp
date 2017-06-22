@@ -13,16 +13,18 @@ public class ProfileData {
 	private String message;
 	private String name;
 	private String mobile;
+	private String email;
 	private String ward;
 	private String image;
 	private List<WardDetails> wardDetailsList;
 
-	public ProfileData(boolean success, String message, String name, String mobile, String ward,
-					   String image, List<WardDetails> wardDetailsList) {
+	public ProfileData(boolean success, String message, String name, String mobile, String email,
+					   String ward, String image, List<WardDetails> wardDetailsList) {
 		this.success = success;
 		this.message = message;
 		this.name = name;
 		this.mobile = mobile;
+		this.email = email;
 		this.ward = ward;
 		this.image = image;
 		this.wardDetailsList = wardDetailsList;
@@ -34,6 +36,10 @@ public class ProfileData {
 
 	public String getMessage() {
 		return message;
+	}
+
+	public String getEmail() {
+		return email;
 	}
 
 	public String getName() {
