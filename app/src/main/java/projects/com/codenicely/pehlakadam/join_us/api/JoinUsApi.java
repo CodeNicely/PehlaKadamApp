@@ -15,5 +15,7 @@ public interface JoinUsApi {
 
     @GET(Urls.REQUEST_JOIN_US)
     Call<JoinUsData> requestJoinUs(@Query("access_token") String access_token,
+                                   @Query("mobile") String mobile,
+                                   @Query("email") String email,
                                    @Query("description") String desc);
 }

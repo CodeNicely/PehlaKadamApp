@@ -35,7 +35,6 @@ public class ViewPagerAdapter extends PagerAdapter {
     public ViewPagerAdapter(Context context, CampaignFragment campaignFragment) {
         this.context = context;
         this.campaignFragment = campaignFragment;
-        this.layoutInflater = LayoutInflater.from(context);
         imageLoader = new GlideImageLoader(context);
     }
 
@@ -45,13 +44,14 @@ public class ViewPagerAdapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container,final int position) {
+        layoutInflater = LayoutInflater.from(context);
         View view= layoutInflater.inflate(R.layout.item_viewpager_campaign,container,false);
-
-        ImageListDetails imageListData= imageListDetailses.get(position);
-        Log.d("CampaignViewPager",position+" "+ imageListData.getUrl());
+        container.addView(view);
         imageView= (ImageView)view.findViewById(R.id.image_pager_campaign);
         progressBar= (ProgressBar)view.findViewById(R.id.img_bar_campaign);
+        ImageListDetails imageListData= imageListDetailses.get(position);
+        Log.d("CampaignViewPager",position+" "+ imageListData.getUrl());
         if(imageListData.getUrl().equals("")){
             imageView.setImageResource(R.drawable.pk_icon10_text_green);
             progressBar.setVisibility(View.GONE);
@@ -74,5 +74,11 @@ public class ViewPagerAdapter extends PagerAdapter {
     public void destroyItem(ViewGroup container, int position, Object object) {
         View view = (View) object;
         container.removeView(view);
+    }
+
+    @Override
+    public float getPageWidth(int position) {
+        super.getPageWidth(position);
+        return 0.4f;
     }
 }

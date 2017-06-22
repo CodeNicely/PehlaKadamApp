@@ -43,9 +43,9 @@ public class RetrofitJoinUsProvider implements JoinUsProvider {
     }
 
     @Override
-    public void requestJoinUs(String access_token,String desc , final JoinUsCallBack joinUsCallBack) {
+    public void requestJoinUs(String access_token,String mobile, String email,String desc , final JoinUsCallBack joinUsCallBack) {
         Log.d("JoinUsRetrofit","1");
-        call = joinUsApi.requestJoinUs(access_token,desc);
+        call = joinUsApi.requestJoinUs(access_token,mobile,email,desc);
         call.enqueue(new Callback<JoinUsData>() {
             @Override
             public void onResponse(Call<JoinUsData> call, Response<JoinUsData> response) {

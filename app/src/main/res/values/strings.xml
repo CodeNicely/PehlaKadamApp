@@ -53,5 +53,6 @@
     <string name="feedback">Feedback</string>
     <string name="please_give_us_your_feedback">Please give us your feedback</string>
     <string name="about_campaign_images">Images are related to specific Campaigns</string>
+    <string name="ward">Address/Ward</string>
 
 </resources>
