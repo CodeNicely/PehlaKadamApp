@@ -106,8 +106,8 @@ public class CampaignFragment extends Fragment implements CampaignView {
 
     void initialize(){
         sharedPrefs=new SharedPrefs(context);
-//        campaignPresenter = new CampaignPresenterImpl(context,this, new RetrofitCampaignProvider()) ;
-        campaignPresenter = new CampaignPresenterImpl(context,this,new MockCampaignProvider());
+        campaignPresenter = new CampaignPresenterImpl(context,this, new RetrofitCampaignProvider()) ;
+//        campaignPresenter = new CampaignPresenterImpl(context,this,new MockCampaignProvider());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         recyclerAdapter = new CampaignRecyclerAdapter(context,this);
         recycler_campaign.setLayoutManager(linearLayoutManager);

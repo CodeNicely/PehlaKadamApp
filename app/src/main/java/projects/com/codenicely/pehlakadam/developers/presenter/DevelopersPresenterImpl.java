@@ -31,11 +31,18 @@ public class DevelopersPresenterImpl implements DevelopersPresenter {
             public void onSuccess(DeveloperData developerData) {
 
                 developerView.showLoading(false);
-                if (developerData.isSuccess()) {
-                    developerView.setData(developerData.getDeveloper_data());
-                } else {
-                    developerView.showMessage(developerData.getMessage());
+                try
+                {
+                    if (developerData.isSuccess()) {
+                        developerView.setData(developerData.getDeveloper_data());
+                    } else {
+                        developerView.showMessage(developerData.getMessage());
+                    }
+                }catch (NullPointerException e)
+                {
+                    developerView.showMessage("Null List");
                 }
+
 
             }
 
