@@ -106,8 +106,32 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+//            navigationView.getMenu().getItem(0).setChecked(true);
             super.onBackPressed();
+
+        } else {
+
+            final android.support.v7.app.AlertDialog ad = new android.support.v7.app.AlertDialog.Builder(this)
+                                                                  .create();
+            ad.setCancelable(false);
+            ad.setTitle("Exit ?");
+            ad.setMessage("Do you really want to exit ?");
+            ad.setButton(DialogInterface.BUTTON_POSITIVE, "yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ad.cancel();
+                    finish();
+                }
+            });
+            ad.setButton(DialogInterface.BUTTON_NEGATIVE, "no", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ad.cancel();
+
+                }
+            });
+            ad.show();
         }
     }
 
@@ -175,6 +199,7 @@ public class HomeActivity extends AppCompatActivity
 
 			DeveloperFragment developerFragment = new DeveloperFragment();
 			setFragment(developerFragment,"Developers");
+			getSupportActionBar().hide();
 		}
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -29,6 +30,8 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeView{
     private ProgressBar progressBar;
     private WelcomePresenter welcomePresenter;
     Timer swipeTimer;
+    private FrameLayout frameLayout;
+
 
 
     @Override
@@ -41,6 +44,7 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeView{
 		}
 
 		progressBar = (ProgressBar)findViewById(R.id.first_progressBar);
+        frameLayout = (FrameLayout) findViewById(R.id.welcome_layout);
         viewPagerAdapter = new ViewPagerAdapter(this,this);
         viewPager=(ViewPager)findViewById(R.id.first_viewPager);
 //        welcomePresenter= new WelcomePresenterImpl(this, new MockWelcomeProvider());
@@ -76,6 +80,7 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeView{
                 page.setScaleY(normalizedposition / 2 + 0.5f);
             }
         });
+
         swipeTimer = new Timer();
 
 //        swipeTimer.schedule(new TimerTask() {
