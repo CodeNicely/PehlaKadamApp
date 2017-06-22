@@ -123,6 +123,7 @@
                     <TextView
                         android:id="@+id/email"
                         android:layout_width="match_parent"
+                        android:layout_gravity="center_vertical"
                         android:layout_height="wrap_content"
                         android:padding="4dp"
                         android:textColor="@color/colorAccent" />
@@ -144,6 +145,7 @@
                         android:id="@+id/mobile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:padding="4dp"
                         android:textColor="@color/colorAccent" />
                 </LinearLayout>
@@ -167,6 +169,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="4dp"
+                        android:layout_gravity="center_vertical"
                         android:textColor="@color/colorAccent" />
                 </LinearLayout>
 
@@ -178,8 +181,8 @@
 
                     <ImageView
                         android:id="@+id/websiteImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:padding="4dp"
                         android:src="@drawable/facebook_logo" />
 
@@ -188,6 +191,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="4dp"
+                        android:layout_gravity="center_vertical"
                         android:textColor="@color/colorAccent" />
                 </LinearLayout>
 
@@ -198,8 +202,9 @@
 
                     <ImageView
                         android:id="@+id/facebookImage"
-                        android:layout_width="32dp"
+                        android:layout_width="40dp"
                         android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
                         android:padding="4dp"
                         android:src="@drawable/facebook_logo" />
 
@@ -208,6 +213,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="4dp"
+                        android:layout_gravity="center_vertical"
                         android:textColor="@color/colorAccent" />
                 </LinearLayout>
 

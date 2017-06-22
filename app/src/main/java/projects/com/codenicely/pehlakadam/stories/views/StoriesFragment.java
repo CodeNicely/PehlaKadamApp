@@ -384,8 +384,8 @@ public class StoriesFragment extends Fragment implements StoriesView {
     }
 
     @Override
-    public void updateItemData(StoriesLikeShareData storiesLikeShareData) {
-        recyclerAdapter.updateData(storiesLikeShareData);
+    public void updateItemData(StoriesLikeShareData storiesLikeShareData,int position) {
+        recyclerAdapter.updateData(storiesLikeShareData,position);
     }
 
 

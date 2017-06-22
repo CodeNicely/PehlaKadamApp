@@ -78,11 +78,15 @@ public class CampaignRecyclerAdapter extends RecyclerView.Adapter<CampaignRecycl
             holder.imageView.setImageResource(R.drawable.ic_campaign);
             holder.progressBar.setVisibility(View.INVISIBLE);
         }
-        holder.name_campaign.setText(campaignListData.getName());
-        holder.date_campaign.setText(campaignListData.getDate());
-        holder.desc_campaign.setText(campaignListData.getDescription());
-        holder.venue_campaign.setText("at "+campaignListData.getVenue().toString());
-        holder.bar_card.setVisibility(View.GONE);
+        try {
+            holder.name_campaign.setText(campaignListData.getName());
+            holder.date_campaign.setText(campaignListData.getDate());
+            holder.desc_campaign.setText(campaignListData.getDescription());
+            holder.venue_campaign.setText("at " + campaignListData.getVenue().toString());
+            holder.bar_card.setVisibility(View.GONE);
+        }catch (NullPointerException e){
+
+        }
         if(campaign_type==0)
         {
             holder.bar_viewPager.setVisibility(View.VISIBLE);
@@ -98,6 +102,9 @@ public class CampaignRecyclerAdapter extends RecyclerView.Adapter<CampaignRecycl
             {
                 Log.d("CampaignRecyclerAdapter","NullPointer");
                 e.printStackTrace();
+                holder.bar_viewPager.setVisibility(View.GONE);
+                holder.layout_pager_campaign.setVisibility(View.GONE);
+                holder.pager_campaign.setVisibility(View.GONE);
             }
 
         }

@@ -62,7 +62,11 @@ public class ViewPagerAdapter extends PagerAdapter {
     }
     @Override
     public int getCount() {
-        return imageListDetailses.size();
+        try {
+            return imageListDetailses.size();
+        }catch (NullPointerException e){
+            return 0;
+        }
     }
 
     @Override

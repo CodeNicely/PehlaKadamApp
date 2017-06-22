@@ -32,6 +32,8 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeView{
     Timer swipeTimer;
     private FrameLayout frameLayout;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,15 +71,15 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeView{
         };
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
-//        viewPager.setPageTransformer(false, new ViewPager.PageTransformer() {
-//            @Override
-//            public void transformPage(View page, float position) {
-//                // do transformation here
-//                final float normalizedposition = Math.abs(Math.abs(position) - 1);
-//                page.setScaleX(normalizedposition / 2 + 0.5f);
-//                page.setScaleY(normalizedposition / 2 + 0.5f);
-//            }
-//        });
+        viewPager.setPageTransformer(false, new ViewPager.PageTransformer() {
+            @Override
+            public void transformPage(View page, float position) {
+                // do transformation here
+                final float normalizedposition = Math.abs(Math.abs(position) - 1);
+                page.setScaleX(normalizedposition / 2 + 0.5f);
+                page.setScaleY(normalizedposition / 2 + 0.5f);
+            }
+        });
 
         swipeTimer = new Timer();
 

@@ -16,6 +16,7 @@ public interface FeedbackApi {
 
 	@FormUrlEncoded
 	@POST(Urls.SUB_URL_FEEDBACK)
-	Call<FeedbackResponse> getFeedback(@Field("feedback") String feedback,@Field("access_token") String access_token);
+	Call<FeedbackResponse> getFeedback(
+			@Field("feedback") String feedback,@Field("access_token") String access_token);
 
 }

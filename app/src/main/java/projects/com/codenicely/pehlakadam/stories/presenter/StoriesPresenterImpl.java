@@ -71,27 +71,23 @@ public class StoriesPresenterImpl implements StoriesPresenter {
     }
 
     @Override
-    public void requestLikeShare(String access_token, int story_id,int position,int button_id) {
+    public void requestLikeShare(String access_token, int story_id, final int position, int button_id) {
 
         storiesProvider.requestLikeShare(access_token, story_id, button_id, new StoriesLikeShareCallBack() {
             @Override
             public void onSuccess(StoriesLikeShareData storiesLikeShareData) {
-                try{
+                try
+                {
                     if(storiesLikeShareData.isSuccess())
                     {
-                        storiesView.updateItemData(storiesLikeShareData);
+                        storiesView.updateItemData(storiesLikeShareData, position);
                     }
                     else {
-
                     }
                 }catch (NullPointerException e){
                     e.printStackTrace();
-
                 }
-
-
             }
-
             @Override
             public void onFailure(String error) {
 
@@ -163,6 +159,7 @@ public class StoriesPresenterImpl implements StoriesPresenter {
                         public void onNext(StoriesImageData storiesImageData) {
                             if (storiesImageData.isSuccess()){
                                 requestStories(access_token);
+                                Log.d("StoriesPresenter","Story Posted");
                             }else {
                             }
                             storiesView.showDialogLoader(false);

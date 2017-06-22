@@ -54,6 +54,6 @@ public interface StoriesView {
     void showGallery();
 
     void fileFromPath(String filePath);
-    void updateItemData(StoriesLikeShareData storiesLikeShareData);
+    void updateItemData(StoriesLikeShareData storiesLikeShareData,int position);
 
 }
