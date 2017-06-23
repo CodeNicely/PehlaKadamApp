@@ -69,7 +69,7 @@ public class HomeActivity extends AppCompatActivity
 	private FeedbackPresenter feedbackPresenter;
     private Toaster toaster;
     private ImageLoader imageLoader;
-
+    private static Dialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +98,8 @@ public class HomeActivity extends AppCompatActivity
 		Log.d("HomeActivity----","1"+joinUsPresenter.toString());
         toaster=new Toaster(context);
         imageLoader = new GlideImageLoader(context);
-        setFragment(new HomeFragment(),"Pehla Kadam");
+        dialog = new Dialog(context, R.style.dialogstyle);
+        addFragment(new HomeFragment(),"Pehla Kadam");
     }
 
     @Override
@@ -106,32 +107,56 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+//            navigationView.getMenu().getItem(0).setChecked(true);
             super.onBackPressed();
+
+        } else {
+
+            final android.support.v7.app.AlertDialog ad = new android.support.v7.app.AlertDialog.Builder(this)
+                                                                  .create();
+            ad.setCancelable(false);
+            ad.setTitle("Exit ?");
+            ad.setMessage("Do you really want to exit ?");
+            ad.setButton(DialogInterface.BUTTON_POSITIVE, "yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ad.cancel();
+                    finish();
+                }
+            });
+            ad.setButton(DialogInterface.BUTTON_NEGATIVE, "no", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ad.cancel();
+
+                }
+            });
+            ad.show();
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.home, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -156,12 +181,12 @@ public class HomeActivity extends AppCompatActivity
             showFeedbackDialogBox();
 
         } else if (id == R.id.nav_join_us) {
-//            if(sharedPrefs.isLoggedIn())
-//            {
+            if(sharedPrefs.isLoggedIn())
+            {
                 showDialogBox();
-//            }else{
-//                toaster.showMessage("Please Login!!!");
-//            }
+            }else{
+                toaster.showMessage("Please Login!!!");
+            }
 
         } else if (id == R.id.nav_about_us) {
             AboutUsFragment aboutUsFragment = new AboutUsFragment();
@@ -175,6 +200,7 @@ public class HomeActivity extends AppCompatActivity
 
 			DeveloperFragment developerFragment = new DeveloperFragment();
 			setFragment(developerFragment,"Developers");
+			getSupportActionBar().hide();
 		}
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -223,41 +249,10 @@ public class HomeActivity extends AppCompatActivity
         startActivity(image_viewer);
     }
 
-//    public void showDialogBox(){
-//        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-//        LayoutInflater inflater = this.getLayoutInflater();
-//        final View dialogView = inflater.inflate(R.layout.join_us_dialog, null);
-//        dialogBuilder.setView(dialogView);
-//        Log.d("HomeActivity----","2"+joinUsPresenter.toString());
-//        final EditText join_reason=(EditText)dialogView.findViewById(R.id.join_reason) ;
-//        progressBar = (ProgressBar)dialogView.findViewById(R.id.join_us_bar);
-//        dialogBuilder.setTitle(R.string.join_us);
-//        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int whichButton) {
-//                //do something with edt.getText().toString();
-//                String desc=join_reason.getText().toString();
-//                Log.d("HomeActivity----","3"+joinUsPresenter.toString());
-//
-//                joinUsPresenter.requestJoinUs(sharedPrefs.getAccessToken(),desc);
-//            }
-//        });
-//        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int whichButton) {
-//                //pass
-//                dialog.dismiss();
-//
-//            }
-//        });
-//        AlertDialog b = dialogBuilder.create();
-//        b.show();
-//
-//
-//    }
-
-
     public void showDialogBox(){
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCanceledOnTouchOutside(true);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog);
         ImageView imageView = (ImageView)dialog.findViewById(R.id.profile_image) ;
@@ -316,6 +311,7 @@ public class HomeActivity extends AppCompatActivity
                 }else {
                     joinUsPresenter.requestJoinUs(sharedPrefs.getAccessToken(),mobile1,
                                                     email1,reason);
+                    dialog.dismiss();
                 }
             }
         });
@@ -352,6 +348,7 @@ public class HomeActivity extends AppCompatActivity
     }
     @Override
     public void showProgressBar(boolean show) {
+
         if(show){
             progressBar.setVisibility(View.VISIBLE);
         }
@@ -385,7 +382,9 @@ public class HomeActivity extends AppCompatActivity
         ad.setButton(DialogInterface.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
                 ad.cancel();
+
 
             }
         });

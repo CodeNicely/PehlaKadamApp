@@ -20,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import projects.com.codenicely.pehlakadam.R;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
+import projects.com.codenicely.pehlakadam.helper.Toaster;
 import projects.com.codenicely.pehlakadam.helper.image_loader.GlideImageLoader;
 import projects.com.codenicely.pehlakadam.helper.image_loader.ImageLoader;
 import projects.com.codenicely.pehlakadam.stories.model.MockStoriesProvider;
@@ -43,6 +44,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     private SharedPrefs sharedPreferences;
     private StoriesPresenter storiesPresenter;
     private StoriesLikeShareData storiesLikeShareData;
+    private Toaster toaster;
 
 
 
@@ -54,7 +56,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         this.sharedPreferences = new SharedPrefs(context);
         this.storiesPresenter= new StoriesPresenterImpl(storiesFragment,new RetrofitStoriesProvider(context));
 //        this.storiesPresenter= new StoriesPresenterImpl(storiesFragment,new MockStoriesProvider());
-
+        this.toaster= new Toaster(context);
     }
 
     void updateData(StoriesLikeShareData storiesLikeShareData,int i){
@@ -126,33 +128,40 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         holder.button_like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if(storiesListDetails.isLiked())
-                {
-                    holder.button_like.setImageResource(R.drawable.ic_like);
+                if (sharedPreferences.isLoggedIn()){
+//                if(storiesListDetails.isLiked())
+//                {
+//                    holder.button_like.setImageResource(R.drawable.ic_like);
+//                }
+//                else{
+//                    holder.button_like.setImageResource(R.drawable.ic_liked);
+//                }
+                    //// TODO: 17/6/17 Like Presenter Call
+                    storiesPresenter.requestLikeShare(sharedPreferences.getAccessToken(),
+                            storiesListDetails.getStory_id(),position,0);
                 }
                 else{
-                    holder.button_like.setImageResource(R.drawable.ic_liked);
+                    toaster.showMessage("Please Login to like");
                 }
-                //// TODO: 17/6/17 Like Presenter Call
-                storiesPresenter.requestLikeShare(sharedPreferences.getAccessToken(),
-                        storiesListDetails.getStory_id(),position,0);
+
             }
         });
         holder.button_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(storiesListDetails.isShared())
-                {
-                    holder.button_share.setImageResource(R.drawable.ic_share);
-                }
-                else{
-                    holder.button_share.setImageResource(R.drawable.ic_shared);
-                }
-                //// TODO: 17/6/17 Share Presenter Call
-                storiesFragment.whatsappShare(storiesListDetails.getDescription());
-                storiesPresenter.requestLikeShare(sharedPreferences.getAccessToken(),
-                        storiesListDetails.getStory_id(),position,1);
+
+//                    if(storiesListDetails.isShared())
+//                    {
+//                        holder.button_share.setImageResource(R.drawable.ic_share);
+//                    }
+//                    else{
+//                        holder.button_share.setImageResource(R.drawable.ic_shared);
+//                    }
+                    //// TODO: 17/6/17 Share Presenter Call
+                    storiesFragment.whatsappShare(storiesListDetails.getDescription());
+                    storiesPresenter.requestLikeShare(sharedPreferences.getAccessToken(),
+                            storiesListDetails.getStory_id(),position,1);
+
             }
         });
 
