@@ -32,18 +32,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.crashlytics.android.Crashlytics;
-<<<<<<< HEAD
-
 import butterknife.BindView;
-=======
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
-
->>>>>>> 66b1feea0c954107d125a96f6c24fd67fdfbe849
 import io.fabric.sdk.android.Fabric;
 import java.util.ArrayList;
 import java.util.List;
