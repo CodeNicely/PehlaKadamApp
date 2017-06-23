@@ -16,10 +16,10 @@ public class ProfileData {
 	private String email;
 	private String ward;
 	private String image;
-	private List<WardDetails> wardDetailsList;
+	private List<WardDetails> ward_list;
 
 	public ProfileData(boolean success, String message, String name, String mobile, String email,
-					   String ward, String image, List<WardDetails> wardDetailsList) {
+					   String ward, String image, List<WardDetails> ward_list) {
 		this.success = success;
 		this.message = message;
 		this.name = name;
@@ -27,7 +27,7 @@ public class ProfileData {
 		this.email = email;
 		this.ward = ward;
 		this.image = image;
-		this.wardDetailsList = wardDetailsList;
+		this.ward_list = ward_list;
 	}
 
 	public boolean isSuccess() {
@@ -58,7 +58,7 @@ public class ProfileData {
 		return image;
 	}
 
-	public List<WardDetails> getWardDetailsList() {
-		return wardDetailsList;
+	public List<WardDetails> getWard_list() {
+		return ward_list;
 	}
 }

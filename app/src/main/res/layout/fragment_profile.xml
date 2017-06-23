@@ -4,6 +4,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            app:title="Profile"
+            app:titleTextColor="@color/white"
+            />
+
+    </android.support.design.widget.AppBarLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -75,21 +95,32 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textSize="@dimen/text_size_large"
+                        android:text="@string/hint_name"
+                        android:gravity="left"
+                        android:textSize="@dimen/image_small"
                         android:id="@+id/name_textview"/>
+
                     <EditText
                         android:id="@+id/name_edittext"
                         android:visibility="gone"
+                        android:text="@string/hint_name"
+                        android:textSize="@dimen/image_small"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                 </RelativeLayout>
+                <!--android:track="@drawable/switch_track_selector"-->
+
                 <Switch
                     android:id="@+id/lang_toggle"
                     android:layout_weight="1.25"
                     android:layout_width="match_parent"
-                    android:textOn="Eng"
-                    android:textOff="Hin"
+                    android:textOn="@string/eng"
+                    android:switchMinWidth="75dp"
+                    android:textOff="@string/hin"
+                    android:showText="true"
+
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
 
@@ -102,7 +133,7 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_phone_blue_24dp"
+                    android:src="@drawable/icon_contact"
                     android:id="@+id/phoneImage"
                     />
                 <RelativeLayout
@@ -113,13 +144,20 @@
                     android:layout_height="wrap_content"
                     android:padding="4dp"
                     android:layout_gravity="center"
+                    android:hint="@string/hint_mobile"
+                    android:textSize="@dimen/text_size_medium"
                     android:id="@+id/phone_textview"/>
-                <EditText
-                    android:id="@+id/phone_edittext"
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:inputType="phone"
-                    android:layout_height="wrap_content"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:visibility="gone"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_mobile"
+                        android:inputType="phone"
+                        android:textSize="@dimen/text_size_medium"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/textSizeExtraSmall"
+                        android:id="@+id/phone_edittext"
+                        />
                 </RelativeLayout>
             </LinearLayout>
             <LinearLayout
@@ -131,7 +169,7 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/icon_email"
+                    android:src="@drawable/ic_email"
                     android:id="@+id/emailImage"
                     />
                 <RelativeLayout
@@ -142,13 +180,21 @@
                         android:layout_height="wrap_content"
                         android:padding="4dp"
                         android:layout_gravity="center"
+                        android:textSize="@dimen/text_size_medium"
+                        android:hint="@string/hint_email"
+
                         android:id="@+id/email_textview"/>
                     <EditText
-                        android:id="@+id/email_edittext"
-                        android:visibility="gone"
                         android:layout_width="match_parent"
+                        android:visibility="gone"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_email"
+                        android:textSize="@dimen/text_size_medium"
                         android:inputType="textEmailAddress"
-                        android:layout_height="wrap_content"/>
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/textSizeExtraSmall"
+                        android:id="@+id/email_edittext"
+                        />
                 </RelativeLayout>
             </LinearLayout>
             <LinearLayout
@@ -171,6 +217,8 @@
                         android:layout_height="wrap_content"
                         android:padding="4dp"
                         android:layout_gravity="center"
+                        android:hint="@string/ward"
+                        android:textSize="@dimen/text_size_medium"
                         android:id="@+id/ward_textview"/>
                     <Spinner
                         android:id="@+id/ward_spinner"
@@ -179,24 +227,43 @@
                         android:layout_height="wrap_content"/>
                 </RelativeLayout>
             </LinearLayout>
+
+
+
+
         </LinearLayout>
 </android.support.v7.widget.CardView>
 
     </RelativeLayout>
 </RelativeLayout>
 </ScrollView>
+
+</LinearLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/edit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/padding_medium"
+        android:layout_margin="@dimen/padding_large"
         android:clickable="true"
-        android:padding="@dimen/padding_small"
+        android:padding="@dimen/padding_large"
+        android:visibility="visible"
         android:src="@drawable/ic_edit_white_24dp"
         app:backgroundTint="@color/colorAccent" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/padding_large"
+        android:clickable="true"
+        android:visibility="gone"
+        android:padding="@dimen/padding_large"
+        android:src="@drawable/ic_done_white_24dp"
+        app:backgroundTint="@color/colorAccent" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="50dp"

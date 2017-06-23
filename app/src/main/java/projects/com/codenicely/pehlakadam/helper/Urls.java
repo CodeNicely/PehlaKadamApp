@@ -29,6 +29,6 @@ public class Urls {
 	public static final String SUB_URL_DEVELOPERS = "developer/";
     public static final String REQUEST_JOIN_US = "join_us/";
 	public static final String REQUEST_CAMPAIGN = "campaign/";
-	public static final String SUB_URL_EDIT_PROFILE = "edit_profile";
-	public static final String SUB_URL_SHOW_PROFILE = "show_profile";
+	public static final String SUB_URL_EDIT_PROFILE = "profile";
+	public static final String SUB_URL_SHOW_PROFILE = "profile";
 }

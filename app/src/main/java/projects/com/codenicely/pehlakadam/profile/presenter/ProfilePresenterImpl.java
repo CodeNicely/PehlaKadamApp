@@ -1,5 +1,7 @@
 package projects.com.codenicely.pehlakadam.profile.presenter;
 
+import android.net.Uri;
+
 import projects.com.codenicely.pehlakadam.profile.ProfileCallback;
 import projects.com.codenicely.pehlakadam.profile.data.ProfileData;
 import projects.com.codenicely.pehlakadam.profile.model.ProfileProvider;
@@ -38,5 +40,20 @@ public class ProfilePresenterImpl implements ProfilePresenter{
 				profileView.showMessage("Unable to connect to Server");
 			}
 		});
+	}
+
+	@Override
+	public void openCamera() {
+
+	}
+
+	@Override
+	public void openGallery() {
+
+	}
+
+	@Override
+	public void editProfile(String name, String mobile, String email, String ward, Uri imageUri) {
+
 	}
 }
