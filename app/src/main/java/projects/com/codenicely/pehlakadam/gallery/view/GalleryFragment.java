@@ -119,7 +119,7 @@ public class GalleryFragment extends Fragment implements GalleryView{
 
         galleryAdapter = new GalleryAdapter(context);
 
-        staggeredGridLayoutManager = new StaggeredGridLayoutManager(2,1);
+        staggeredGridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
 //        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3);
 //        recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);

@@ -75,7 +75,7 @@ public class HomeActivity extends AppCompatActivity
     private static Dialog dialog;
 
     @BindView(R.id.imageView)
-    private ImageView imageView;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
