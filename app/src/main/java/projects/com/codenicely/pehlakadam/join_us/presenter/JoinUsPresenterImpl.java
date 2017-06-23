@@ -29,7 +29,7 @@ public class JoinUsPresenterImpl implements JoinUsPresenter {
     @Override
     public void requestJoinUs(String access_token,String mobile, String email,String desc) {
         Log.d("JoinUsPresenter","1");
-        joinUsView.showProgressBar(true);
+//        joinUsView.showProgressBar(true);
         joinUsProvider.requestJoinUs(access_token,mobile, email, desc, new JoinUsCallBack() {
             @Override
             public void onSuccess(JoinUsData joinUsData) {
@@ -37,11 +37,11 @@ public class JoinUsPresenterImpl implements JoinUsPresenter {
                 try
                 {
                     if (joinUsData.isSuccess()) {
-                        joinUsView.showProgressBar(false);
+//                        joinUsView.showProgressBar(false);
                         joinUsView.showDialog(joinUsData.getMessage());
 
                     } else {
-                        joinUsView.showProgressBar(false);
+//                        joinUsView.showProgressBar(false);
                         toaster.showMessage(joinUsData.getMessage());
                     }
                 }catch (NullPointerException e){
@@ -52,7 +52,7 @@ public class JoinUsPresenterImpl implements JoinUsPresenter {
 
             @Override
             public void onFailure() {
-                joinUsView.showProgressBar(false);
+//                joinUsView.showProgressBar(false);
 //                toaster.showDialog("No Internet Connection");
                 joinUsView.showDialog("Something Went Wrong");
                 Log.d("JoinUsPresenter","failure");

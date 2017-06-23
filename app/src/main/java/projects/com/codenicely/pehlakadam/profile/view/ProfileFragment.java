@@ -323,4 +323,6 @@ public class ProfileFragment extends Fragment implements ProfileView {
 		// TODO: Update argument type and name
 		void onFragmentInteraction(Uri uri);
 	}
+
+
 }
