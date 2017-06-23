@@ -4,8 +4,8 @@
       <root url="jar://$USER_HOME$/.android/build-cache/48a5d49bb77734afd5af9fff82a99de2aadb2389/output/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="file://$USER_HOME$/.android/build-cache/a83937dd3f02dcc8e9db25a8b6b8e521cfe62897/output/res" />
-      <root url="jar://$USER_HOME$/.android/build-cache/a83937dd3f02dcc8e9db25a8b6b8e521cfe62897/output/jars/classes.jar!/" />
+      <root url="file://$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/caches/transforms-1/files-1.1/recyclerview-v7-25.3.1.aar/bac093621ec4addcf42c6405fe616904/res" />
+      <root url="jar://$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/caches/transforms-1/files-1.1/recyclerview-v7-25.3.1.aar/bac093621ec4addcf42c6405fe616904/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

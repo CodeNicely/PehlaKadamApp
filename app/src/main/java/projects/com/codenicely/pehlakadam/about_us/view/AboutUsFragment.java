@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +26,7 @@ import projects.com.codenicely.pehlakadam.about_us.model.RetrofitAboutUsProvider
 import projects.com.codenicely.pehlakadam.about_us.presenter.AboutUsPresenter;
 import projects.com.codenicely.pehlakadam.about_us.presenter.AboutUsPresenterImpl;
 import projects.com.codenicely.pehlakadam.helper.SharedPrefs;
+import projects.com.codenicely.pehlakadam.helper.Toaster;
 import projects.com.codenicely.pehlakadam.helper.image_loader.GlideImageLoader;
 import projects.com.codenicely.pehlakadam.helper.image_loader.ImageLoader;
 
@@ -64,6 +66,7 @@ public class AboutUsFragment extends Fragment implements AboutUsView {
 	private SharedPrefs sharedPrefs;
     private OnFragmentInteractionListener mListener;
 	private AboutUsAdapter aboutUsAdapter;
+	Context context;
     public AboutUsFragment() {
         // Required empty public constructor
     }
@@ -99,7 +102,7 @@ public class AboutUsFragment extends Fragment implements AboutUsView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
+        context = getContext();
 
         View view = inflater.inflate(R.layout.fragment_about_us, container, false);
         ButterKnife.bind(this, view);
@@ -109,7 +112,7 @@ public class AboutUsFragment extends Fragment implements AboutUsView {
 //
 //
 //        }
-        toolbar.setNavigationIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_arrow_back_black_24dp));
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_arrow_back_white_24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,11 +159,11 @@ public class AboutUsFragment extends Fragment implements AboutUsView {
 
     @Override
     public void showMessage(String message) {
-
-        Snackbar snackbar = Snackbar
-                .make(snackView, message, Snackbar.LENGTH_LONG);
-
-        snackbar.show();
+        Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
+//        Snackbar snackbar = Snackbar
+//                .make(snackView, message, Snackbar.LENGTH_LONG);
+//
+//        snackbar.show();
     }
 
     @Override

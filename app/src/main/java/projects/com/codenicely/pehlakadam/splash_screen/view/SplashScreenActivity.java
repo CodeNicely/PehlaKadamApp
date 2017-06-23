@@ -169,7 +169,13 @@ public class SplashScreenActivity extends Activity implements SplashScreenView {
 
 
 			if (!sharedPrefs.isFirstTimeLaunch()) {
+				if (sharedPrefs.getUserLanguage()==1){
+					setLocale("hi");
 
+				}else{
+					setLocale("en");
+
+				}
 				Log.d("FIRST_TIME---","No");
 				startActivity(new Intent(SplashScreenActivity.this, HomeActivity.class));
 				finish();

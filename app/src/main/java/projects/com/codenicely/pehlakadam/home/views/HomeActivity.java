@@ -1,15 +1,18 @@
 package projects.com.codenicely.pehlakadam.home.views;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -28,6 +31,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
+
 import io.fabric.sdk.android.Fabric;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +79,8 @@ public class HomeActivity extends AppCompatActivity
 	private FeedbackPresenter feedbackPresenter;
     private Toaster toaster;
     private ImageLoader imageLoader;
+    private boolean LOCATION_REQUEST = false;
+
     private static Dialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +88,17 @@ public class HomeActivity extends AppCompatActivity
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
+        context = this;
+        Dexter.initialize(context);
+        if (checkPermissionForLocation()){
+
+        }else {
+            if (requestLocationPermission()){
+
+            }
+
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().show();
@@ -98,8 +121,51 @@ public class HomeActivity extends AppCompatActivity
 		Log.d("HomeActivity----","1"+joinUsPresenter.toString());
         toaster=new Toaster(context);
         imageLoader = new GlideImageLoader(context);
-        dialog = new Dialog(context, R.style.dialogstyle);
-        addFragment(new HomeFragment(),"Pehla Kadam");
+		dialog = new Dialog(context, R.style.dialogstyle);
+		addFragment(new HomeFragment(),"Pehla Kadam");
+    }
+    private boolean checkPermissionForLocation() {
+
+        if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ){
+//			Toast.makeText(getContext(),"CHeck True",Toast.LENGTH_SHORT).show();
+            return true;
+
+        }
+        else{
+            //	Toast.makeText(getContext(),"CHeck False",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+    private boolean requestLocationPermission() {
+
+
+        Dexter.checkPermission(new PermissionListener() {
+            @Override
+            public void onPermissionGranted(PermissionGrantedResponse response) {
+
+
+                LOCATION_REQUEST = true;
+            }
+
+            @Override
+            public void onPermissionDenied(PermissionDeniedResponse response) {
+
+
+                LOCATION_REQUEST = false;
+            }
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+
+
+            }
+        }, Manifest.permission.ACCESS_FINE_LOCATION);
+
+//		Toast.makeText(getContext(),"REquest True",Toast.LENGTH_SHORT).show();
+
+        return LOCATION_REQUEST;
+
     }
 
     @Override
@@ -172,7 +238,9 @@ public class HomeActivity extends AppCompatActivity
 
             ProfileFragment profileFragment = new ProfileFragment();
             setFragment(profileFragment,"Profile");
-        } else if (id == R.id.nav_login) {
+			getSupportActionBar().hide();
+
+		} else if (id == R.id.nav_login) {
 
             Intent intent = new Intent(this, WelcomeActivity.class);
             startActivity(intent);
@@ -191,6 +259,7 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_about_us) {
             AboutUsFragment aboutUsFragment = new AboutUsFragment();
             setFragment(aboutUsFragment,"About Us");
+            getSupportActionBar().hide();
 
         } else if (id == R.id.nav_contact_us) {
 
@@ -214,7 +283,7 @@ public class HomeActivity extends AppCompatActivity
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.home_layout, fragment);
-            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.addToBackStack(title);
             fragmentTransaction.commit();
             getSupportActionBar().setTitle(title);
         }
