@@ -114,6 +114,7 @@ public class DustbinFragment extends Fragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
+		Log.d("DUSTBINONC---","qwertyuiop");
 		View v =inflater.inflate(R.layout.fragment_dustbin, container, false);
 		context=getContext();
 		toaster= new Toaster(context);
@@ -127,6 +128,7 @@ public class DustbinFragment extends Fragment implements
 								   .build();
 
 		// Create the LocationRequest object
+
 		mLocationRequest = LocationRequest.create()
 								   .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
 								   .setInterval(10 * 1000)        // 10 seconds, in milliseconds
@@ -146,7 +148,7 @@ public class DustbinFragment extends Fragment implements
 				dustbinPresenter.getDustbinData(latitude,longitude);
 
 			}
-		},1000);
+		},500);
 
 
 
@@ -246,7 +248,7 @@ public class DustbinFragment extends Fragment implements
 	@Override
 	public void setData(DustbinData dustbinData) {
 		dustbinDetailsList= dustbinData.getDustbin_list();
-
+		Log.d("DUSTBIN--",dustbinDetailsList.size()+"--"+dustbinData.getDustbin_list().size());
 		SupportMapFragment mapFragment =
 				(SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
 		new OnMapAndViewReadyListener(mapFragment, this);
@@ -276,13 +278,27 @@ public class DustbinFragment extends Fragment implements
 			latitude = location.getLatitude();
 			longitude = location.getLongitude();
 
-			Toast.makeText(getContext(),String.valueOf(latitude),Toast.LENGTH_SHORT).show();
+		//	Toast.makeText(getContext(),String.valueOf(latitude),Toast.LENGTH_SHORT).show();
 
 //			latitudeLongitude.setText("Current Location - " + String.valueOf(latitude)
 //											  + " , " + longitude);
 
 		}
 
+	}
+
+	@Override
+	public void onDestroyView() {
+
+		super.onDestroyView();
+	}
+
+	@Override
+	public void onDestroy() {
+
+		super.onDestroy();
+
+		getChildFragmentManager().beginTransaction().remove(DustbinFragment.this).commit();
 	}
 
 	@Override

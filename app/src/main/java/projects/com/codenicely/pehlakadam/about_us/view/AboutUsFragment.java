@@ -55,6 +55,12 @@ public class AboutUsFragment extends Fragment implements AboutUsView {
     ProgressBar imageProgressBar;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.intro_description)
+    TextView intro;
+    @BindView(R.id.vision_description)
+    TextView vision;
+    @BindView(R.id.achievement_description)
+    TextView achievements;
 	@BindView(R.id.recycler_view)
 	RecyclerView recyclerView;
     // TODO: Rename and change types of parameters
@@ -181,9 +187,14 @@ public class AboutUsFragment extends Fragment implements AboutUsView {
 
 
         imageLoader.loadImage(aboutUsData.getImage(), imageView, imageProgressBar);
-		aboutUsAdapter.setAboutUsDetailsList(aboutUsData.getAbout_us_list());
+		vision.setText(aboutUsData.getVision());
+		achievements.setText(aboutUsData.getAchievement());
+        intro.setText(aboutUsData.getAchievement());
+        aboutUsAdapter.setAboutUsDetailsList(aboutUsData.getAbout_us_list());
 		aboutUsAdapter.notifyDataSetChanged();
 		imageView.setVisibility(View.VISIBLE);
+
+
     }
 
     @Override

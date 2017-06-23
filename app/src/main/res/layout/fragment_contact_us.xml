@@ -99,7 +99,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:padding="@dimen/padding_medium"
-                            android:src="@drawable/icon_email"
+                            android:src="@drawable/ic_email"
                             android:id="@+id/emailImage"
                             />
 
@@ -130,7 +130,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:padding="@dimen/padding_small"
-                            android:src="@drawable/ic_phone_blue_24dp"
+                            android:src="@drawable/ic_phone_black_24dp"
                             android:id="@+id/mobileImage"
                             />
 

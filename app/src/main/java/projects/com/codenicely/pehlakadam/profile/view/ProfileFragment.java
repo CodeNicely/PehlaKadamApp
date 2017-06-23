@@ -1,8 +1,13 @@
 package projects.com.codenicely.pehlakadam.profile.view;
 
+import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +25,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -58,6 +72,11 @@ public class ProfileFragment extends Fragment implements ProfileView {
 	private static final String SELECT_WARD = "Select Ward";
 	private List<WardDetails> wardDetailsList = new ArrayList<>();
 	private File image = null;
+	private ProgressDialog progressDialog;
+	private boolean CAMERA_REQUEST = false;
+	private boolean GALLERY_REQUEST = false;
+	private static final int CAMERA_REQUEST_ID = 100;
+	private final int GALLERY_REQUEST_ID = 1;
 
 	private OnFragmentInteractionListener mListener;
 	private Context context;
@@ -267,36 +286,107 @@ public class ProfileFragment extends Fragment implements ProfileView {
 
 	@Override
 	public void showDialogLoader(boolean show) {
+		if (show) {
+			progressDialog.show();
+		} else {
+			progressDialog.hide();
+		}
 
 	}
 
 	@Override
 	public boolean checkPermissionForCamera() {
-		return false;
+		if (ContextCompat.checkSelfPermission(context,
+				Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
+					ContextCompat.checkSelfPermission(context,
+							Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+			return true;
+		else
+			return false;
 	}
 
 	@Override
 	public boolean checkPermissionForGallery() {
-		return false;
+		if (ContextCompat.checkSelfPermission(context,
+				Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+			return true;
+		else
+			return false;
 	}
 
 	@Override
 	public boolean requestCameraPermission() {
-		return false;
-	}
+
+
+		Dexter.checkPermissions(new MultiplePermissionsListener() {
+
+			@Override
+			public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
+
+
+				if (multiplePermissionsReport.areAllPermissionsGranted()) {
+
+					CAMERA_REQUEST = true;
+				} else {
+					CAMERA_REQUEST = false;
+				}
+			}
+
+			@Override
+			public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+
+			}
+		}, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+
+		return CAMERA_REQUEST;	}
 
 	@Override
 	public boolean requestGalleryPermission() {
-		return false;
+
+		Dexter.checkPermission(new PermissionListener() {
+
+			@Override
+			public void onPermissionGranted(PermissionGrantedResponse response) {/* ... */
+
+				GALLERY_REQUEST = true;
+			}
+
+			@Override
+			public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */
+
+				GALLERY_REQUEST = false;
+			}
+
+			@Override
+			public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {/* ... */}
+		}, Manifest.permission.READ_EXTERNAL_STORAGE);
+
+
+		return GALLERY_REQUEST;
+
 	}
 
 	@Override
 	public void showCamera() {
+		Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(image));
+		Log.i(TAG, image.getPath());
+
+		if (intent.resolveActivity(context.getPackageManager()) != null) {
+			// Start the image capture intent to take photo
+			startActivityForResult(intent, CAMERA_REQUEST_ID);
+		}
 
 	}
 
 	@Override
 	public void showGallery() {
+		Intent intent = new Intent();
+		intent.setType("image/*");
+		intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+		intent.setAction(Intent.ACTION_GET_CONTENT);
+		startActivityForResult(Intent.createChooser(intent, "Select Picture"), GALLERY_REQUEST_ID);
 
 	}
 

@@ -2,10 +2,14 @@ package projects.com.codenicely.pehlakadam.profile.presenter;
 
 import android.net.Uri;
 
+import java.io.File;
+
 import projects.com.codenicely.pehlakadam.profile.ProfileCallback;
 import projects.com.codenicely.pehlakadam.profile.data.ProfileData;
 import projects.com.codenicely.pehlakadam.profile.model.ProfileProvider;
 import projects.com.codenicely.pehlakadam.profile.view.ProfileView;
+
+import static projects.com.codenicely.pehlakadam.helper.utils.FileProvider.requestNewFile;
 
 /**
  * Created by ujjwal on 22/6/17.
@@ -44,7 +48,16 @@ public class ProfilePresenterImpl implements ProfilePresenter{
 
 	@Override
 	public void openCamera() {
-
+		File image = requestNewFile();
+		if (profileView.checkPermissionForCamera()) {
+			profileView.fileFromPath(image.getPath());
+			profileView.showCamera();
+		} else {
+			if (profileView.requestCameraPermission()) {
+				profileView.fileFromPath(image.getPath());
+				profileView.showCamera();
+			}
+		}
 	}
 
 	@Override

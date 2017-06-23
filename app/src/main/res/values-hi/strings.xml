@@ -51,4 +51,7 @@
     <string name="home">Home</string>
     <string name="about_campaign_images">छवियां विशिष्ट अभियान से संबंधित हैं</string>
     <string name="ward">Address/Ward</string>
+    <string name="introduction">Introduction</string>
+    <string name="vision">Vision</string>
+    <string name="achievements">Achievements</string>
 </resources>

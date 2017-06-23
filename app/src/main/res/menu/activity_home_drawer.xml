@@ -26,25 +26,20 @@
             android:id="@+id/nav_join_us"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Join Us" />
+        <item
+            android:id="@+id/nav_about_us"
+            android:icon="@drawable/ic_about"
+            android:title="About Us" />
+        <item
+            android:id="@+id/nav_contact_us"
+            android:icon="@drawable/ic_contact"
+            android:title="Contact Us" />
+        <item
+            android:id="@+id/nav_developers"
+            android:icon="@drawable/ic_developer_mode_black_24dp"
+            android:title="Developers" />
 
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_about_us"
-                android:icon="@drawable/ic_about"
-                android:title="About Us" />
-            <item
-                android:id="@+id/nav_contact_us"
-                android:icon="@drawable/ic_contact"
-                android:title="Contact Us" />
-            <item
-                android:id="@+id/nav_developers"
-                android:icon="@drawable/ic_developer_mode_black_24dp"
-                android:title="Developers" />
-
-        </menu>
-    </item>
 
 </menu>

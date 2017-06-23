@@ -108,7 +108,7 @@ public class HomeFragment extends Fragment {
 
         StoriesFragment storiesFragment = new StoriesFragment();
         GalleryFragment galleryFragment=new GalleryFragment();
-		DustbinFragment dustbinFragment = new DustbinFragment();
+		DustbinFragment dustbinFragment = DustbinFragment.newInstance("","");
         CampaignFragment campaignFragment = new CampaignFragment();
 
         setTabData(storiesFragment,"Stories");
