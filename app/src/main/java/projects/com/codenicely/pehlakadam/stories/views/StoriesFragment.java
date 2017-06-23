@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -120,6 +121,9 @@ public class StoriesFragment extends Fragment implements StoriesView {
     @BindView(R.id.imageView)
     ImageView imageView;
 
+    @BindView(R.id.title_post)
+    EditText title_post;
+
     private OnFragmentInteractionListener mListener;
 
     public StoriesFragment() {
@@ -197,19 +201,19 @@ public class StoriesFragment extends Fragment implements StoriesView {
                 if (sharedPrefs.isLoggedIn())
                 {
                     String desc =text_post.getText().toString();
+                    String title=title_post.getText().toString();
                     hideKeyboard();
-                    storiesPresenter.addStories(sharedPrefs.getAccessToken(),"Title",desc,imageUri);
+                    storiesPresenter.addStories(sharedPrefs.getAccessToken(),title,desc,imageUri);
                 }else{
                     toaster.showMessage("Please Login!!!");
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent i =new Intent(getActivity(), WelcomeActivity.class);
-                            startActivity(i);
-                            getActivity().finish();
-                        }
-                    },900);
-
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Intent i =new Intent(getActivity(), WelcomeActivity.class);
+//                            startActivity(i);
+//                            getActivity().finish();
+//                        }
+//                    },900);
                 }
             }
         });
@@ -386,6 +390,14 @@ public class StoriesFragment extends Fragment implements StoriesView {
     @Override
     public void updateItemData(StoriesLikeShareData storiesLikeShareData,int position) {
         recyclerAdapter.updateData(storiesLikeShareData,position);
+    }
+
+    @Override
+    public void clearAddPostCard() {
+        text_post.setText("");
+        imageView.setVisibility(View.GONE);
+        title_post.setText("");
+        hideKeyboard();
     }
 
 

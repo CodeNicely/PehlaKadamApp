@@ -159,6 +159,7 @@ public class StoriesPresenterImpl implements StoriesPresenter {
                         public void onNext(StoriesImageData storiesImageData) {
                             if (storiesImageData.isSuccess()){
                                 requestStories(access_token);
+                                storiesView.clearAddPostCard();
                                 Log.d("StoriesPresenter","Story Posted");
                             }else {
                             }

@@ -53,16 +53,38 @@
                             android:id="@+id/bar_profile_image"
                             />
                     </RelativeLayout>
-                    <EditText
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="@string/hint_post"
-                        android:paddingLeft="@dimen/padding_large"
-                        android:gravity="top"
-                        android:textAlignment="gravity"
-                        android:clickable="true"
-                        android:id="@+id/text_post"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:weightSum="2"
+                        >
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/title"
+                            android:paddingLeft="@dimen/padding_large"
+                            android:gravity="top"
+                            android:textAlignment="gravity"
+                            android:clickable="true"
+                            android:layout_weight="1.5"
+                            android:paddingTop="0px"
+                            android:textSize="@dimen/textSizeSmall"
+                            android:id="@+id/title_post"
                         />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/hint_post"
+                            android:paddingLeft="@dimen/padding_large"
+                            android:gravity="top"
+                            android:textAlignment="gravity"
+                            android:clickable="true"
+                            android:layout_weight="0.5"
+                            android:id="@+id/text_post"
+                            />
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -94,7 +116,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:background="@drawable/button_background"
+                        android:background="@color/blue_lagoon"
                         android:text="@string/post"
                         android:textSize="@dimen/activity_horizontal_margin"
                         android:textColor="@color/Dark"
@@ -130,8 +152,6 @@
                 >
 
             </android.support.v7.widget.RecyclerView>
-
-
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

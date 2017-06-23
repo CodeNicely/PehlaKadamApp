@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorPrimary">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -17,9 +17,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
-            app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+            app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
             app:title="@string/verify_otp"
-            app:titleTextColor="@color/colorAccent" />
+            app:titleTextColor="@color/white" />
     </android.support.design.widget.AppBarLayout>
 
     <ScrollView
@@ -28,16 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/appBarLayout"
         android:padding="12dp">
-        <!--
-
-                <android.support.v7.widget.CardView
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="12dp"
-                    app:cardCornerRadius="8dp"
-                    app:contentPadding="8dp">
-        -->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,7 +61,7 @@
                     android:textColor="@color/colorAccent"
                     android:textColorHint="@color/colorAccent"
                     android:textSize="@dimen/small_text_size"
-                    android:theme="@style/EditTextTheme" />
+                    />
             </android.support.design.widget.TextInputLayout>
 
             <Button
@@ -80,13 +70,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/rounded_button"
+                style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
                 android:clickable="true"
                 android:enabled="true"
                 android:gravity="center"
-                android:text="submit"
+                android:text="@string/submit"
                 android:textColor="@color/colorAccent"
-
                 />
         </LinearLayout>
         <!--</android.support.v7.widget.CardView>-->
@@ -101,6 +90,4 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:visibility="gone" />
-
-
 </RelativeLayout>

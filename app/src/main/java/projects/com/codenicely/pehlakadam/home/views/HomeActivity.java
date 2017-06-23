@@ -27,7 +27,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.crashlytics.android.Crashlytics;
+
+import butterknife.BindView;
 import io.fabric.sdk.android.Fabric;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +73,10 @@ public class HomeActivity extends AppCompatActivity
     private Toaster toaster;
     private ImageLoader imageLoader;
     private static Dialog dialog;
+
+    @BindView(R.id.imageView)
+    private ImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +92,7 @@ public class HomeActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        Glide.with(this).load(R.drawable.pk_icon10_text_green).into(imageView);
         context=this;
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 

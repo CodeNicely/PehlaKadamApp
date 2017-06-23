@@ -55,5 +55,6 @@ public interface StoriesView {
 
     void fileFromPath(String filePath);
     void updateItemData(StoriesLikeShareData storiesLikeShareData,int position);
+    void clearAddPostCard();
 
 }

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00000000"
+    android:background="#0000"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -156,9 +156,10 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/Light"
+                    android:background="@color/blue_lagoon"
                     android:layout_marginTop="@dimen/padding_large"
                     android:textSize="@dimen/textSizeSmall"
+                    android:textColor="@color/colorAccent"
                     android:text="@string/cancel"
                     android:id="@+id/btn_cancel"
                     />
@@ -166,8 +167,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:background="@color/Light"
+                    android:background="@color/blue_lagoon"
                     android:layout_marginTop="@dimen/padding_large"
+                    android:textColor="@color/colorAccent"
                     android:textSize="@dimen/textSizeSmall"
                     android:text="@string/join_us"
                     android:id="@+id/btn_submit"

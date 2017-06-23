@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +57,7 @@ public class GalleryFragment extends Fragment implements GalleryView{
 
     private GalleryPresenter galleryPresenter;
     private GalleryAdapter galleryAdapter;
+    private StaggeredGridLayoutManager staggeredGridLayoutManager;
 
 
     private OnFragmentInteractionListener mListener;
@@ -117,15 +119,12 @@ public class GalleryFragment extends Fragment implements GalleryView{
 
         galleryAdapter = new GalleryAdapter(context);
 
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        staggeredGridLayoutManager = new StaggeredGridLayoutManager(2,1);
+//        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3);
+//        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setLayoutManager(staggeredGridLayoutManager);
         recyclerView.setAdapter(galleryAdapter);
-
-        galleryPresenter.getImages(1);
-
-
-
+        galleryPresenter.getImages(sharedPrefs.getUserLanguage());
         return view;
     }
 
