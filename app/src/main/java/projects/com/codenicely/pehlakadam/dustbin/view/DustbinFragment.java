@@ -298,7 +298,7 @@ public class DustbinFragment extends Fragment implements
 
 		super.onDestroy();
 
-		getChildFragmentManager().beginTransaction().remove(DustbinFragment.this).commit();
+//		getChildFragmentManager().beginTransaction().remove(DustbinFragment.this).commit();
 	}
 
 	@Override
