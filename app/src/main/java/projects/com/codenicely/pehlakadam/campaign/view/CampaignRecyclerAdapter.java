@@ -92,7 +92,6 @@ public class CampaignRecyclerAdapter extends RecyclerView.Adapter<CampaignRecycl
             holder.bar_viewPager.setVisibility(View.VISIBLE);
             holder.layout_pager_campaign.setVisibility(View.VISIBLE);
             holder.pager_campaign.setVisibility(View.VISIBLE);
-            Log.d("CampaignRecycler",campaignListData.getImage_list().size()+"");
             try{
                 Log.d("CampaignRecycler",campaignListData.getImage_list().size()+"");
                 holder.viewPagerAdapter.setPagerData(campaignListData.getImage_list());

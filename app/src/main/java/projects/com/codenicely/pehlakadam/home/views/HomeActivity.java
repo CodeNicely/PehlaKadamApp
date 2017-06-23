@@ -107,7 +107,7 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+        } else if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
 //            navigationView.getMenu().getItem(0).setChecked(true);
             super.onBackPressed();
 
