@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="fabric-1.3.17">
     <CLASSES>
-      <root url="file://$USER_HOME$/.android/build-cache/c302c83e993e7b9a1bc34de8cf4647195bdc97ec/output/res" />
-      <root url="jar://$USER_HOME$/.android/build-cache/c302c83e993e7b9a1bc34de8cf4647195bdc97ec/output/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/bd8adcc02cdb04519508e0cac2a83bad3b64dee6/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/bd8adcc02cdb04519508e0cac2a83bad3b64dee6/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

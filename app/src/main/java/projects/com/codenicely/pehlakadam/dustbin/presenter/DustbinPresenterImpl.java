@@ -27,20 +27,20 @@ public class DustbinPresenterImpl implements DustbinPresenter{
 			@Override
 			public void onSuccess(DustbinData dustbinData) {
 				dustbinView.showLoader(false);
-				try {
-					if (dustbinData.getDustbin_list().size()== 0)
-					{
+//				try {
+//					if (dustbinData.getDustbin_list().size()== 0)
+//					{
 						if (dustbinData.isSuccess()) {
 							dustbinView.setData(dustbinData);
 						} else {
 							dustbinView.showMessage(dustbinData.getMessage());
 						}
-					}
+//					}
 
-				}catch (NullPointerException e)
-				{
-					dustbinView.showMessage("Dustbin List Empty");
-				}
+//				}catch (NullPointerException e)
+//				{
+//					dustbinView.showMessage("Dustbin List Empty");
+//				}
 			}
 
 			@Override

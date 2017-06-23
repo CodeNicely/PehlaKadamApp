@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -108,13 +109,13 @@ public class HomeFragment extends Fragment {
 
         StoriesFragment storiesFragment = new StoriesFragment();
         GalleryFragment galleryFragment=new GalleryFragment();
-		DustbinFragment dustbinFragment = new DustbinFragment();
+		DustbinFragment dustbinFragment = DustbinFragment.newInstance("","");
         CampaignFragment campaignFragment = new CampaignFragment();
 
-        setTabData(storiesFragment,"Stories");
-        setTabData(galleryFragment,"Gallery");
-        setTabData(dustbinFragment,"Dustbin");
-        setTabData(campaignFragment,"Campaign");
+        setTabData(storiesFragment, getResources().getString(R.string.stories));
+        setTabData(galleryFragment,getResources().getString(R.string.gallery));
+        setTabData(dustbinFragment,getResources().getString(R.string.dustbin));
+        setTabData(campaignFragment,getResources().getString(R.string.campaign));
 
         viewpager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewpager);

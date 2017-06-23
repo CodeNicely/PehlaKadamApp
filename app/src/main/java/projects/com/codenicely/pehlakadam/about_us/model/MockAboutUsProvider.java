@@ -15,12 +15,13 @@ public class MockAboutUsProvider implements AboutUsProvider {
 	public void requestAboutUs(int lang_type, AboutUsCallBack aboutUsCallBack) {
 		List<AboutUsDetails> aboutUsDetailsList = new ArrayList<>();
 
-		for (int i=0;i<5;i++){
-			AboutUsDetails aboutUsDetails = new AboutUsDetails("Title "+i,"Description "+i,"image");
-			aboutUsDetailsList.add(aboutUsDetails);
-		}
+//		for (int i=0;i<5;i++){
+//			AboutUsDetails aboutUsDetails = new AboutUsDetails("Title "+i,"Description "+i,"image");
+//			aboutUsDetailsList.add(aboutUsDetails);
+//		}
+
 		aboutUsCallBack
-				.onSuccess(new AboutUsData(true,"Success","www.facebook.com",aboutUsDetailsList));
+				.onSuccess(new AboutUsData(true,"Success","","","","www.facebook.com",aboutUsDetailsList));
 	}
 
 	@Override

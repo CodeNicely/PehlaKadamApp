@@ -70,7 +70,7 @@ public class SplashScreenActivity extends Activity implements SplashScreenView {
         imageLoader = new GlideImageLoader(this);
         Log.d("ID-----------",codenicely_logo.toString());
         Glide.with(this).load(R.drawable.codenicely_logo).into(codenicely_logo);
-        Glide.with(this).load(R.drawable.pk_icon10_text_green).into(logo);
+        Glide.with(this).load(R.drawable.pk_fu_01).into(logo);
 
         sharedPrefs = new SharedPrefs(this);
         splashScreenPresenter = new SplashScreenPresenterImpl(this,
@@ -169,16 +169,24 @@ public class SplashScreenActivity extends Activity implements SplashScreenView {
 
 
 			if (!sharedPrefs.isFirstTimeLaunch()) {
-				if (sharedPrefs.getUserLanguage()==1){
-					setLocale("hi");
+                handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (sharedPrefs.getUserLanguage()==1){
+                            setLocale("hi");
 
-				}else{
-					setLocale("en");
+                        }else{
+                            setLocale("en");
 
-				}
-				Log.d("FIRST_TIME---","No");
-				startActivity(new Intent(SplashScreenActivity.this, HomeActivity.class));
-				finish();
+                        }
+                        Log.d("FIRST_TIME---","No");
+                        startActivity(new Intent(SplashScreenActivity.this, HomeActivity.class));
+                        finish();
+                    }
+                }, 3000);
+
+
 
 			} else {
 
@@ -250,7 +258,7 @@ public class SplashScreenActivity extends Activity implements SplashScreenView {
                 }
 
             }
-        }, 300);
+        }, 3000);
 
     }
 

@@ -55,6 +55,14 @@
     <string name="about_campaign_images">Images are related to specific Campaigns</string>
     <string name="ward">Address/Ward</string>
     <string name="eng">Eng</string>
-    <string name="hin">Hin</string>
+    <string name="hin">हिंदी</string>
+    <string name="introduction">Introduction</string>
+    <string name="vision">Vision</string>
+    <string name="achievements">Achievements</string>
+    <string name="about_us">About Us</string>
+    <string name="stories">Stories</string>
+    <string name="gallery">Gallery</string>
+    <string name="dustbin">Dustbin</string>
+    <string name="campaign">Campaign</string>
 
 </resources>

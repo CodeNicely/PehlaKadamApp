@@ -47,8 +47,20 @@
     <string name="login_button">लॉग इन करें</string>
     <string name="login">लॉग इन करें</string>
     <string name="edittext_name">नाम</string>
-    <string name="title">Title</string>
-    <string name="home">Home</string>
+    <string name="home">घर</string>
     <string name="about_campaign_images">छवियां विशिष्ट अभियान से संबंधित हैं</string>
     <string name="ward">Address/Ward</string>
+    <string name="introduction">Introduction</string>
+    <string name="vision">Vision</string>
+    <string name="eng">English</string>
+    <string name="feedback">प्रतिक्रिया</string>
+    <string name="hin">हिंदी</string>
+    <string name="about_us">हमारे बारे में</string>
+    <string name="title">शीर्षक</string>
+    <string name="please_give_us_your_feedback">कृपया हमें अपने फीडबैक से अवगत कराएं</string>
+    <string name="achievements" translatable="false">उपलब्धियां</string>
+    <string name="stories">कहानियों</string>
+    <string name="gallery">गेलरी</string>
+    <string name="dustbin">कचरे के डिब्बे</string>
+    <string name="campaign">अभियान</string>
 </resources>

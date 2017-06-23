@@ -68,7 +68,8 @@ import projects.com.codenicely.pehlakadam.welcome.view.WelcomeActivity;
 
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, JoinUsView,FeedbackView{
+        implements NavigationView.OnNavigationItemSelectedListener, JoinUsView,FeedbackView
+{
 
     private SharedPrefs sharedPrefs;
     private List<String> titleList = new ArrayList<>();
@@ -84,8 +85,8 @@ public class HomeActivity extends AppCompatActivity
 
     private static Dialog dialog;
 
-    @BindView(R.id.imageView)
-    ImageView imageView;
+    /*@BindView(R.id.imageView)
+    ImageView imageView;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,13 +96,12 @@ public class HomeActivity extends AppCompatActivity
         ButterKnife.bind(this);
         context = this;
         Dexter.initialize(context);
+
         if (checkPermissionForLocation()){
 
         }else {
             if (requestLocationPermission()){
-
             }
-
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -113,9 +113,11 @@ public class HomeActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-        Glide.with(this).load(R.drawable.pk_icon10_text_green).into(imageView);
         context=this;
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+//        ImageView imageView=(ImageView)navigationView.findViewById(R.id.imageView);
+//        Glide.with(this).load(R.drawable.pk_icon10_text_green).into(imageView);
 
 		navigationView.setNavigationItemSelectedListener(this);
 		if (!sharedPrefs.isLoggedIn()){
@@ -128,7 +130,7 @@ public class HomeActivity extends AppCompatActivity
         toaster=new Toaster(context);
         imageLoader = new GlideImageLoader(context);
 		dialog = new Dialog(context, R.style.dialogstyle);
-		addFragment(new HomeFragment(),"Pehla Kadam");
+		addFragment(new HomeFragment(),getResources().getString(R.string.app_name));
     }
     private boolean checkPermissionForLocation() {
 
@@ -179,7 +181,8 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+        }
+        else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
 //            navigationView.getMenu().getItem(0).setChecked(true);
             super.onBackPressed();
 
@@ -252,8 +255,12 @@ public class HomeActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_feedback) {
-            showFeedbackDialogBox();
-
+			if(sharedPrefs.isLoggedIn())
+			{
+				showFeedbackDialogBox();
+			}else{
+				toaster.showMessage("Please Login!!!");
+			}
         } else if (id == R.id.nav_join_us) {
             if(sharedPrefs.isLoggedIn())
             {
@@ -340,7 +347,6 @@ public class HomeActivity extends AppCompatActivity
         Button btn_ok = (Button) dialog.findViewById(R.id.btn_submit);
         Button btn_cancel= (Button) dialog.findViewById(R.id.btn_cancel);
         if ( sharedPrefs.getProfileImage().equals("profile_image" )|| sharedPrefs.getProfileImage().equals("") ) {
-
             imageView.setImageResource(R.drawable.ic_profile);
             progressBar.setVisibility(View.INVISIBLE);
         } else {
@@ -405,8 +411,15 @@ public class HomeActivity extends AppCompatActivity
         dialogBuilder.setTitle(R.string.feedback);
         dialogBuilder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                String feedback=feedbackEdittext.getText().toString();
-				feedbackPresenter.sendFeedback(sharedPrefs.getAccessToken(),feedback);
+				String feedback=feedbackEdittext.getText().toString();
+
+				if(feedback.equals("") || feedback.equals(null)) {
+					feedbackEdittext.setError("Please enter Feedback");
+					feedbackEdittext.requestFocus();
+
+				}else{
+					feedbackPresenter.sendFeedback(sharedPrefs.getAccessToken(),feedback);
+				}
             }
         });
         dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
