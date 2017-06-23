@@ -7,9 +7,10 @@ package projects.com.codenicely.pehlakadam.helper;
 public class Urls {
 
 //	public static final String BASE_URL = "http://ec2-13-59-45-187.us-east-2.compute.amazonaws.com:2020/";
-	public static final String BASE_URL = "http://192.168.0.115:8000/";
+//	public static final String BASE_URL = "http://192.168.0.115:8000/";
 //	public static final String BASE_URL = "http://192.168.0.119:8000/";
 //	public static final String BASE_URL = "http://192.168.43.184:8000/";
+	public static final String BASE_URL = "http://pehlakadam.codenicely.in:80/";
 	public static final String REQUEST_STORIES = "stories/";
 	public static final String REQUEST_STORIES_LIKE= "like/";
 	public static final String REQUEST_STORIES_SHARE= "share/";
