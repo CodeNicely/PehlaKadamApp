@@ -103,9 +103,9 @@ public class CampaignRecyclerAdapter extends RecyclerView.Adapter<CampaignRecycl
             {
                 Log.d("CampaignRecyclerAdapter","NullPointer");
                 e.printStackTrace();
-                holder.bar_viewPager.setVisibility(View.GONE);
-                holder.layout_pager_campaign.setVisibility(View.GONE);
-                holder.pager_campaign.setVisibility(View.GONE);
+//                holder.bar_viewPager.setVisibility(View.GONE);
+//                holder.layout_pager_campaign.setVisibility(View.GONE);
+//                holder.pager_campaign.setVisibility(View.GONE);
             }
 
         }
