@@ -56,6 +56,8 @@ public class ContactUsFragment extends Fragment implements ContactUsView {
     TextView address;
     @BindView(R.id.facebook)
     TextView facebook;
+    @BindView(R.id.facebookLayout)
+    LinearLayout facebookLayout;
     @BindView(R.id.imageProgressBar)
     ProgressBar imageProgressBar;
     @BindView(R.id.imageView)
@@ -176,16 +178,29 @@ public class ContactUsFragment extends Fragment implements ContactUsView {
     public void setData(final ContactUsData contactUsData) {
 
         final String facebookUrl = "https://www.facebook.com/"+ contactUsData.getFacebook();
+        try{
+            if(contactUsData.getFacebook().equals("")||contactUsData.getFacebook().equals(null) ){
+                facebook.setVisibility(View.GONE);
+                facebookLayout.setVisibility(View.GONE);
+
+            }else {
+                facebook.setText(facebookUrl);
+                facebook.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        newFacebookIntent(context.getPackageManager(),facebookUrl);
+                    }
+                });
+
+            }
+        }catch (NullPointerException e){
+            facebook.setVisibility(View.GONE);
+            facebookLayout.setVisibility(View.GONE);
+        }
         email.setText(contactUsData.getEmail());
         mobile.setText(contactUsData.getMobile());
         address.setText(contactUsData.getAddress());
-        facebook.setText(facebookUrl);
-        facebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                newFacebookIntent(context.getPackageManager(),facebookUrl);
-            }
-        });
+
 
     }
 
@@ -240,7 +255,5 @@ public class ContactUsFragment extends Fragment implements ContactUsView {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ((HomeActivity)context).getSupportActionBar().show();
-        ((HomeActivity)context).getSupportActionBar().setTitle("Home");
     }
 }

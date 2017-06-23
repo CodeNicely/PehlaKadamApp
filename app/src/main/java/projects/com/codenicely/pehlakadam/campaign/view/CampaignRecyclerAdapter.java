@@ -92,8 +92,9 @@ public class CampaignRecyclerAdapter extends RecyclerView.Adapter<CampaignRecycl
             holder.bar_viewPager.setVisibility(View.VISIBLE);
             holder.layout_pager_campaign.setVisibility(View.VISIBLE);
             holder.pager_campaign.setVisibility(View.VISIBLE);
-
+            Log.d("CampaignRecycler",campaignListData.getImage_list().size()+"");
             try{
+                Log.d("CampaignRecycler",campaignListData.getImage_list().size()+"");
                 holder.viewPagerAdapter.setPagerData(campaignListData.getImage_list());
                 holder.viewPagerAdapter.notifyDataSetChanged();
                 holder.bar_viewPager.setVisibility(View.GONE);
@@ -102,9 +103,9 @@ public class CampaignRecyclerAdapter extends RecyclerView.Adapter<CampaignRecycl
             {
                 Log.d("CampaignRecyclerAdapter","NullPointer");
                 e.printStackTrace();
-//                holder.bar_viewPager.setVisibility(View.GONE);
-//                holder.layout_pager_campaign.setVisibility(View.GONE);
-//                holder.pager_campaign.setVisibility(View.GONE);
+                holder.bar_viewPager.setVisibility(View.GONE);
+                holder.layout_pager_campaign.setVisibility(View.GONE);
+                holder.pager_campaign.setVisibility(View.GONE);
             }
 
         }

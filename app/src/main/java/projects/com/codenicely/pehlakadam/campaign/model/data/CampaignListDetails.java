@@ -22,7 +22,7 @@ public class CampaignListDetails {
         this.name = name;
         this.date = date;
         this.description = description;
-        this.venue = venue;
+        this.venue =  venue;
         this.image_list = image_list;
     }
 
